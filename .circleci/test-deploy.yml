@@ -14,7 +14,7 @@ workflows:
       - slack-notifier/send-slack-message: 
           header: TESTING SLACK-NOTIFICATION ORB (public)
           message: "*Here* _is_ `a` <https://www.giantbomb.com/a/uploads/scale_medium/15/153607/3294276-link.png|link>."
-          channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK PUBLIC_CHANNEL_WEBHOOK PRIVATE_CHANNEL_WEBHOOK
+          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC WEBHOOK_CHANNEL_SLACK_NOTIFIER_PRIVATE
           filters: *filters
       - orb-tools/pack:
           filters: *filters
