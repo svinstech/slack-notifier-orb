@@ -1,0 +1,23 @@
+description: >
+  This job invokes the send_slack_message command.
+
+parameters:
+  header:
+    type: string
+    description: A header for the message to be sent.
+  message:
+    type: string
+    description: The message to be sent.
+  channelWebhookEnvironmentVariables:
+    type: string
+    description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
+docker:
+  - image: cimg/base:current
+steps:
+  - run:
+      environment:
+        HEADER: <<parameters.header>>
+        MESSAGE: <<parameters.message>>
+        CHANNEL_WEBHOOKS: <<parameters.channelWebhookEnvironmentVariables>>
+      name: Send Slack message
+      command: <<include(scripts/send_slack_message.sh)>>
