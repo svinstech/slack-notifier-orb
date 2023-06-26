@@ -1,13 +1,34 @@
 description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+  Sample Slack notification orb usage.
+# NOTE - The Slack message will be compiled as markdown language.
 usage:
   version: 2.1
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    SlackNotifier: kellen_kincaid/slack-notifier
   workflows:
-    use-my-orb:
+    send-basic-message:
       jobs:
-        - <orb-name>/<job-name>
+        - SlackNotifier/send-slack-message:
+            header: TESTING SLACK-NOTIFICATION ORB - Basic message
+            message: This is a test message
+            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
+    send-message-with-link:
+      jobs:
+        - SlackNotifier/send-slack-message:
+            header: TESTING SLACK-NOTIFICATION ORB - Message with link
+            message: This is a test message with a link to <https://www.google.com|Google>
+            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
+    send-message-with-stylized-text:
+      jobs:
+        - SlackNotifier/send-slack-message:
+            header: TESTING SLACK-NOTIFICATION ORB - Message with stylized text
+            message: A *bold* test. An _italics_ test. A ~strikethrough~ test. A `code` test. A ```code block``` test.
+            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
+    send-message-with-formatted-text:
+      jobs:
+        - SlackNotifier/send-slack-message:
+            header: TESTING SLACK-NOTIFICATION ORB - Message with a list
+            message: 1. Ordered list item 1\n2. Ordered list item 2
+            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
+
+
