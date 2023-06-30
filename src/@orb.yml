@@ -8,6 +8,6 @@ description: >
 # This information will be displayed in the orb registry and is not mandatory.
 display:
 #   home_url: "https://www.example.com/docs"
-  source_url: "https://app.circleci.com/pipelines/github/svinstech/slack-notifier"
+  source_url: "https://app.circleci.com/pipelines/github/svinstech/slack-notifier-orb"
 
 

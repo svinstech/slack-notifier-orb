@@ -4,29 +4,29 @@ description: >
 usage:
   version: 2.1
   orbs:
-    SlackNotifier: svinstech/slack-notifier
+    slack-notifier: svinstech/slack-notifier-orb
   workflows:
     send-basic-message:
       jobs:
-        - SlackNotifier/send-slack-message:
+        - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Basic message
             message: This is a test message
             channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
     send-message-with-link:
       jobs:
-        - SlackNotifier/send-slack-message:
+        - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message with link
             message: This is a test message with a link to <https://www.google.com|Google>
             channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
     send-message-with-stylized-text:
       jobs:
-        - SlackNotifier/send-slack-message:
+        - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message with stylized text
             message: A *bold* test. An _italics_ test. A ~strikethrough~ test. A `code` test. A ```code block``` test.
             channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
     send-message-with-formatted-text:
       jobs:
-        - SlackNotifier/send-slack-message:
+        - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message with a list
             message: 1. Ordered list item 1\n2. Ordered list item 2
             channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK

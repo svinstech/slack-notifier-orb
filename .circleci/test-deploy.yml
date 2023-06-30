@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  notifier: svinstech/slack-notifier@dev:<<pipeline.git.revision>>
+  slack-notifier: svinstech/slack-notifier-orb@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@12.0
 
 filters: &filters
@@ -19,9 +19,9 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: svinstech/slack-notifier
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
+          orb_name: svinstech/slack-notifier-orb
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
           requires:
             - orb-tools/pack
             - slack-notifier/send-slack-message

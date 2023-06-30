@@ -20,16 +20,16 @@ workflows:
       - shellcheck/check:
           filters: *filters
       # UNCOMMENT THIS SECTION WHEN READY TO PUBLISH. (ALSO UNCOMMENT 'requires: [orb-tools/publish]' BELOW)
-      # - orb-tools/publish:
-      #     orb-name: svinstech/slack-notifier
-      #     vcs-type: << pipeline.project.type >>
-      #     requires:
-      #       [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
-      #     context: orb-publishing
-      #     filters: *filters
+      - orb-tools/publish:
+          orb-name: svinstech/slack-notifier-orb
+          vcs-type: << pipeline.project.type >>
+          requires:
+            [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
+          context: orb-publishing
+          filters: *filters
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
           vcs-type: << pipeline.project.type >>
-          # requires: [orb-tools/publish]
+          requires: [orb-tools/publish]
           filters: *filters
