@@ -1,11 +1,28 @@
 ## HOW TO USE THIS ORB
 
+Firstly, create a reference this orb like this:  
+
+    orbs:
+        slack-notifier: svinstech/slack-notifier-orb
+
+Then, you can send a Slack message like this:  
+
+    workflows:
+      send-basic-message:
+        jobs:
+          - slack-notifier/send-slack-message:
+              header: TESTING SLACK-NOTIFICATION ORB - Basic message
+              message: This is a test message
+              channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK1 TEST_SLACK_WEBHOOK2
+
+You can see further examples in src/examples/example.yml  
+
+### WEBHOOKS
+
 This orb requires that Slack webhooks for the message recipients be added as CircleCI environment variables.
-These environment variables must then be used as inputs for the _channelWebhookEnvironmentVariables_ argument of the _send-slack-message_ job.
+These environment variables must then be used as inputs for the _channelWebhookEnvironmentVariables_ argument of the _send-slack-message_ job.  
 
-### OBTAINING WEBHOOKS
-
-First you'll need access to a Slack app.  
+To obtain a Slack webhook, you'll need access to a Slack app.  
 
 Here are 2 easy ways to do this:  
 1. Create your own Slack app [here](https://api.slack.com/apps)  
@@ -21,3 +38,5 @@ From there, you can add new webhooks, or copy existing ones.
 [slack-notifier-orb Registry Page](https://circleci.com/developer/orbs/orb/svinstech/slack-notifier-orb) - The official registry page of this orb for all versions, executors, commands, and jobs described.
 
 [CircleCI Orb Docs](https://circleci.com/docs/orb-intro/#section=configuration) - Docs for using, creating, and publishing CircleCI Orbs.
+
+Feel free to reach out to Kellen Kincaid with any questions.
