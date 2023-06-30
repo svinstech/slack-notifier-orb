@@ -25,7 +25,11 @@ These environment variables must then be used as inputs for the _channelWebhookE
 To obtain a Slack webhook, you'll need access to a Slack app.  
 
 Here are 2 easy ways to do this:  
-1. Create your own Slack app [here](https://api.slack.com/apps)  
+1. Create your own Slack app [here](https://api.slack.com/apps).  
+After clicking the _Create an app_ button, you'll be asked how you'd like to configure your app's settings. Select _From scratch_.  
+Then you'll be asked to pick a workspace to develop your app.  Select _Vouch Insurance_ from the dropdown menu.  
+After creating your app, you may need to request approval from a Slack admin.  
+As of June 20, 2023, some Slack admins include: Yvonne Medellin & Cody Carter.  
 2. Make a Jira card on the [Quality team's Jira board](https://vouchinc.atlassian.net/jira/software/c/projects/QA/boards/74/backlog?issueLimit=100) and request to be made a collaborator on the Notifier slack app. Afterwards, you should see that app listed [here](https://api.slack.com/apps)  
 
 Once you're in a Slack app, navigate to the _Incoming Webhooks_ section.  
