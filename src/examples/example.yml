@@ -4,7 +4,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    slack-notifier: svinstech/slack-notifier-orb
+    slack-notifier: svinstech/slack-notifier-orb@1
   workflows:
     send-basic-message:
       jobs:
