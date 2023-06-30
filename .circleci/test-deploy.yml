@@ -19,9 +19,9 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: svinstech/slack-notifier-orb
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
+          orb_name: svinstech/slack-notifier-orb
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
           requires:
             - orb-tools/pack
             - slack-notifier/send-slack-message
