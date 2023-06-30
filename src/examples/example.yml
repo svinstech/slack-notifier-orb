@@ -11,7 +11,7 @@ usage:
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Basic message
             message: This is a test message
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK
+            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK1 TEST_SLACK_WEBHOOK2
     send-message-with-link:
       jobs:
         - slack-notifier/send-slack-message:
