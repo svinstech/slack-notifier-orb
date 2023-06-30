@@ -3,7 +3,7 @@
 Firstly, create a reference this orb like this:  
 
     orbs:
-        slack-notifier: svinstech/slack-notifier-orb
+        slack-notifier: svinstech/slack-notifier-orb@1
 
 Then, you can send a Slack message like this:  
 
@@ -34,7 +34,7 @@ Then you'll be asked to pick a workspace to develop your app.  Select _Vouch Ins
 After creating your app, you may need to request approval from a Slack admin.  
 As of June 20, 2023, some Slack admins include: Yvonne Medellin & Cody Carter.  
 
-Once you're in a Slack app, navigate to the _Incoming Webhooks_ section.  
+Once you're in a Slack app, navigate to the _Incoming Webhooks_ section. Click the "Activate" button if the section is inactive.  
 From there, you can add new webhooks, or copy existing ones.  
 
 ---
