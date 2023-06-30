@@ -21,7 +21,7 @@ workflows:
           filters: *filters
       # UNCOMMENT THIS SECTION WHEN READY TO PUBLISH. (ALSO UNCOMMENT 'requires: [orb-tools/publish]' BELOW)
       - orb-tools/publish:
-          orb-name: svinstech/slack-notifier
+          orb-name: svinstech/slack-notifier-orb
           vcs-type: << pipeline.project.type >>
           requires:
             [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
