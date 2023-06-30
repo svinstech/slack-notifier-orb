@@ -39,4 +39,4 @@ From there, you can add new webhooks, or copy existing ones.
 
 [CircleCI Orb Docs](https://circleci.com/docs/orb-intro/#section=configuration) - Docs for using, creating, and publishing CircleCI Orbs.
 
-Feel free to reach out to Kellen Kincaid with any questions.
+Feel free to reach out to Kellen Kincaid with any questions!
