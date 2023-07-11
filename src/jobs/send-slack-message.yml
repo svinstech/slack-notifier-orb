@@ -5,9 +5,14 @@ parameters:
   header:
     type: string
     description: A header for the message to be sent.
-  message:
+  message-dynamic:
+    type: string
+    description: The variable that contains the message to be sent.
+    default: ""
+  message-static:
     type: string
     description: The message to be sent.
+    default: ""
   channelWebhookEnvironmentVariables:
     type: string
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
@@ -17,7 +22,8 @@ steps:
   - run:
       environment:
         HEADER: <<parameters.header>>
-        MESSAGE: <<parameters.message>>
+        MESSAGE_DYNAMIC: <<parameters.message-dynamic>>
+        MESSAGE_STATIC: <<parameters.message-static>>
         CHANNEL_WEBHOOKS: <<parameters.channelWebhookEnvironmentVariables>>
       name: Send Slack message
       command: <<include(scripts/send_slack_message.sh)>>
