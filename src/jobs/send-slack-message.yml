@@ -8,6 +8,7 @@ parameters:
   message:
     type: string
     description: The message to be sent.
+    default: ""
   channelWebhookEnvironmentVariables:
     type: string
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
