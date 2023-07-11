@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# PROCESS THE SLACK MESSAGE.
+################################## PROCESS THE SLACK MESSAGE.
 variables=""
-processedMessage=""
-for word in $MESSAGE
+processedMessage=${MESSAGE}
+
+for word in ${testString}
 do
     maxIndex=$((${#word}-1))
     firstTwoCharacters=${word:0:2}
@@ -12,17 +13,17 @@ do
     if [ $firstTwoCharacters = "\${" ] && [ $thirdCharacter != "!" ]
     then
         # Find next instance of a } to indetify the end of the string interpolation.
-        for index in `seq 2 ${maxIndex}`
+        for index in $(seq 2 ${maxIndex})
         do
             character=${word:index:1}
-            if [ ${character} = "}" ]
+            if [ "${character}" = "}" ]
             then
-                maxIndex=$((${index}-1))
+                maxIndex=$((index-1))
                 break
             fi
         done
 
-        variableName=${word:2:$(($maxIndex-1))}
+        variableName=${word:2:$((maxIndex-1))}
         variables="${variables} ${variableName}"
     fi
 done
@@ -34,10 +35,10 @@ do
 done
 
 # echo ${processedMessage}
+##################################
 
 
-
-# SEND THE SLACK MESSAGE
+################################## SEND THE SLACK MESSAGE
 for webhook in ${CHANNEL_WEBHOOKS}; do
   curl -X POST -H 'Content-type: application/json' \
     --data "{ \
@@ -61,3 +62,4 @@ for webhook in ${CHANNEL_WEBHOOKS}; do
                 ] \
             }" "${!webhook}"
 done
+##################################
