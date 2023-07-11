@@ -10,7 +10,7 @@ do
     firstTwoCharacters=${word:0:2}
     thirdCharacter=${word:2:1}
 
-    if [ $firstTwoCharacters = "\${" ] && [ $thirdCharacter != "!" ]
+    if [ "$firstTwoCharacters" = "\${" ] && [ "$thirdCharacter" != "!" ]
     then
         # Find next instance of a } to indetify the end of the string interpolation.
         for index in $(seq 2 ${maxIndex})
