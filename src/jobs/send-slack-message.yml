@@ -18,8 +18,7 @@ steps:
   - run:
       environment:
         HEADER: <<parameters.header>>
-        MESSAGE_DYNAMIC: <<parameters.message-dynamic>>
-        MESSAGE_STATIC: <<parameters.message-static>>
+        MESSAGE: <<parameters.message>>
         CHANNEL_WEBHOOKS: <<parameters.channelWebhookEnvironmentVariables>>
       name: Send Slack message
       command: <<include(scripts/send_slack_message.sh)>>
