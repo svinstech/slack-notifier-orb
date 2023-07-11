@@ -5,11 +5,7 @@ parameters:
   header:
     type: string
     description: A header for the message to be sent.
-  message-dynamic:
-    type: string
-    description: The variable that contains the message to be sent.
-    default: ""
-  message-static:
+  message:
     type: string
     description: The message to be sent.
     default: ""
