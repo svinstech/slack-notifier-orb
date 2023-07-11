@@ -4,7 +4,7 @@
 variables=""
 processedMessage=${MESSAGE}
 
-for word in ${testString}
+for word in ${MESSAGE}
 do
     maxIndex=$((${#word}-1))
     firstTwoCharacters=${word:0:2}
