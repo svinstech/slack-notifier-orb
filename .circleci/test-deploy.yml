@@ -32,7 +32,7 @@ workflows:
           pub_type: production
           requires:
             - orb-tools/pack
-            - slack-notifier/send-slack-message
+            - send-message
           context: orb-publishing
           filters:
             branches:
