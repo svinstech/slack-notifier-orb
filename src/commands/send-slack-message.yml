@@ -1,5 +1,5 @@
 description: >
-  This job invokes the send_slack_message command.
+  This command invokes the send_slack_message shell script.
 
 parameters:
   header:
