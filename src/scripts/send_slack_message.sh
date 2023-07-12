@@ -4,7 +4,7 @@
 variables=""
 processedMessage=${MESSAGE}
 
-if [ -n "$MESSAGE" ]
+if [[ $MESSAGE ]]
 then
   for word in ${MESSAGE}
   do
@@ -31,7 +31,7 @@ then
   done
 fi
 
-if [ -n "$variables" ]
+if [[ $variables ]]
 then
   # Replace all variables in the string with their corresponding values.
   for variable in ${variables}
