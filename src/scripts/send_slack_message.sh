@@ -5,6 +5,7 @@ variables=""
 processedMessage=${MESSAGE}
 
 if [ -n "$MESSAGE" ]
+then
   for word in ${MESSAGE}
   do
       maxIndex=$((${#word}-1))
@@ -31,6 +32,7 @@ if [ -n "$MESSAGE" ]
 fi
 
 if [ -n "$variables" ]
+then
   # Replace all variables in the string with their corresponding values.
   for variable in ${variables}
   do
