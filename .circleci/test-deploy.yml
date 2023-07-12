@@ -7,19 +7,22 @@ filters: &filters
   tags:
     only: /.*/
 
+jobs:
+  send-message:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - slack-notifier/send-slack-message: 
+          header: TESTING SLACK-NOTIFICATION ORB (public)
+          # message: "*Here* _is_ `a` <https://www.giantbomb.com/a/uploads/scale_medium/15/153607/3294276-link.png|link>."
+          message: "Here is a variable: ${WEBHOOK_KELLEN_KINCAID}"
+          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - send-message:
-          docker:
-            - image: cimg/base:current
-          steps:
-            - slack-notifier/send-slack-message: 
-                header: TESTING SLACK-NOTIFICATION ORB (public)
-                # message: "*Here* _is_ `a` <https://www.giantbomb.com/a/uploads/scale_medium/15/153607/3294276-link.png|link>."
-                message: "Here is a variable: ${WEBHOOK_KELLEN_KINCAID}"
-                channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
           filters: *filters
       - orb-tools/pack:
           filters: *filters
