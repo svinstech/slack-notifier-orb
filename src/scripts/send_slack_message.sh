@@ -44,7 +44,7 @@ fi
 ##################################
 
 
-################################## SEND THE SLACK MESSAGE
+################################## SEND THE SLACK MESSAGE (NOTE - the 'text' fields must not be empty. That is why there is a trailing space after ${processedMessage}.)
 for webhook in ${CHANNEL_WEBHOOKS}; do
   curl -X POST -H 'Content-type: application/json' \
     --data "{ \
