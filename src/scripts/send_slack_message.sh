@@ -62,7 +62,7 @@ for webhook in ${CHANNEL_WEBHOOKS}; do
                     \"text\": \
                     { \
                       \"type\": \"mrkdwn\", \
-                      \"text\": \" ${processedMessage}\" \
+                      \"text\": \"${processedMessage} \" \
                     } \
                   } \
                 ] \
