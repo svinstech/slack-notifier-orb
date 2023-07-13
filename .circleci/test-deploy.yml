@@ -12,8 +12,6 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
-      - run: apk update && apk add curl curl-dev bash
-      # - run: sudo apt update; sudo apt install -y curl
       - slack-notifier/send-slack-message: 
           header: TESTING SLACK-NOTIFICATION ORB (public)
           # message: "*Here* _is_ `a` <https://www.giantbomb.com/a/uploads/scale_medium/15/153607/3294276-link.png|link>."
