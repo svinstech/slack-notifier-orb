@@ -1,5 +1,8 @@
 #!/bin/bash
 
+################################## ENSURE THAT CURL IS INSTALLED
+sudo apt update; sudo apt install -y curl; 
+
 ################################## PROCESS THE SLACK MESSAGE.
 variables=""
 processedMessage=${MESSAGE}
