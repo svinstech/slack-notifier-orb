@@ -9,8 +9,8 @@ filters: &filters
 
 jobs:
   send-message:
-    # docker:
-    #   - image: cimg/base:current
+    docker:
+      - image: cimg/base:current
     steps:
       - run: apt update; apt install -y curl jq
       - slack-notifier/send-slack-message: 
