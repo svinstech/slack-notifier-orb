@@ -13,7 +13,7 @@ parameters:
     type: string
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
 steps:
-  - run: 
+  - run:
       name: Install curl
       command: sudo apt update; sudo apt install -y curl
   - run:
