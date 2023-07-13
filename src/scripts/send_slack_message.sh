@@ -42,8 +42,6 @@ then
       processedMessage="${processedMessage/\$\{${variable}\}/${!variable}}"
   done
 fi
-
-# echo ${processedMessage}
 ##################################
 
 

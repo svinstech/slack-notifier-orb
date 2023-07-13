@@ -10,7 +10,8 @@ filters: &filters
 jobs:
   send-message:
     docker:
-      - image: cimg/base:current
+      - image: cypress/browsers:current
+      # - image: cimg/base:current
     steps:
       - slack-notifier/send-slack-message: 
           header: TESTING SLACK-NOTIFICATION ORB (public)
