@@ -14,9 +14,6 @@ parameters:
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
 steps:
   - run:
-      name: Install curl
-      command: sudo apt update; sudo apt install -y curl
-  - run:
       environment:
         HEADER: <<parameters.header>>
         MESSAGE: <<parameters.message>>

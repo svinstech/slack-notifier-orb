@@ -1,5 +1,8 @@
 #!/bin/bash
 
+################################## ENSURE THAT CURL IS INSTALLED
+apt update; apt install -y curl; 
+
 ################################## PROCESS THE SLACK MESSAGE.
 variables=""
 processedMessage=${MESSAGE}
@@ -39,8 +42,6 @@ then
       processedMessage="${processedMessage/\$\{${variable}\}/${!variable}}"
   done
 fi
-
-# echo ${processedMessage}
 ##################################
 
 
