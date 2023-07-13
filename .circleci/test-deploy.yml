@@ -10,7 +10,7 @@ filters: &filters
 jobs:
   send-message:
     docker:
-      - image: cypress/browsers:current
+      - image: 'cypress/browsers:latest'
       # - image: cimg/base:current
     steps:
       - slack-notifier/send-slack-message: 
