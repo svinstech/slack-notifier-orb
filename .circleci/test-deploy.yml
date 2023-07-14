@@ -8,7 +8,7 @@ filters: &filters
     only: /.*/
 
 jobs:
-  send-message:
+  send-message-1:
     docker:
       - image: 'cypress/browsers:latest'
       # - image: cimg/base:current
@@ -17,10 +17,18 @@ jobs:
           header: TESTING SLACK-NOTIFICATION ORB (1)
           message: "\"test 1\""
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  send-message-2:
+    docker:
+      - image: 'cypress/browsers:latest'
+    steps:
       - slack-notifier/send-slack-message: 
           header: TESTING SLACK-NOTIFICATION ORB (2)
           message: "test 2"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  send-message-3:
+    docker:
+      - image: 'cypress/browsers:latest'
+    steps:
        - slack-notifier/send-slack-message: 
           header: TESTING SLACK-NOTIFICATION ORB (3)
           message: 'test 3'
@@ -30,7 +38,11 @@ workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - send-message:
+      - send-message-1:
+          filters: *filters
+      - send-message-2:
+          filters: *filters
+      - send-message-3:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
@@ -40,7 +52,9 @@ workflows:
           pub_type: production
           requires:
             - orb-tools/pack
-            - send-message
+            - send-message-1
+            - send-message-2
+            - send-message-3
           context: orb-publishing
           filters:
             branches:
