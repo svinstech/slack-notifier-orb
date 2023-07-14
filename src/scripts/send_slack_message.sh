@@ -38,12 +38,12 @@ then
     # Replace all variables in the string with their corresponding values.
     for variable in ${variables}
     do
-        processedMessage="${processedMessage/\$\{${variable}\}/${!variable}}"
+        processedMessage="${processedMessage//\$\{${variable}\}/${!variable}}"
     done
   fi
 
   # Replace all double-quotation marks with single-quotation marks. (to prevent payload errors below)
-  processedMessage="${processedMessage/"\""/"'"}"
+  processedMessage="${processedMessage//"\""/"'"}"
   echo "${processedMessage}"
 fi
 ##################################
