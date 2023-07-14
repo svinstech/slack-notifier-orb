@@ -56,8 +56,8 @@ processText () {
   echo "$processedText"
 }
 
-processedMessage="$(processText $MESSAGE)"
-processedHeader="$(processText $HEADER)"
+processedMessage="$(processText "$MESSAGE")"
+processedHeader="$(processText "$HEADER")"
 
 ##################################
 
