@@ -30,8 +30,8 @@ jobs:
       - image: 'cypress/browsers:latest'
     steps:
       - slack-notifier/send-slack-message: 
-          header: TEST - STRING INTERPOLATION (${WEBHOOK_KELLEN_KINCAID})
-          message: "This are some variables: ${WEBHOOK_KELLEN_KINCAID} - ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC}"
+          header: TEST - STRING INTERPOLATION
+          message: "This are some variables: ${WEBHOOK_KELLEN_KINCAID}"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
