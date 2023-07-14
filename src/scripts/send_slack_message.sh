@@ -38,7 +38,7 @@ processText () {
     processedText="${processedText//"\""/"'"}"
   fi
 
-  echo "processedText: $processedText"
+  echo "$processedText"
 }
 
 # processText () {
@@ -90,6 +90,9 @@ processText () {
 
 processedMessage="$(processText "$MESSAGE")"
 processedHeader="$(processText "$HEADER")"
+
+echo "processedMessage: $processedMessage"
+echo "processedHeader: $processedHeader"
 
 ##################################
 
