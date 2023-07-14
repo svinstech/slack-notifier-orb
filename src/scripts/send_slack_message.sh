@@ -19,7 +19,7 @@ processText () {
     do
         echo "word: ${word}"
 
-        if [[ $word =~ \$\{(\w+)\} ]]
+        if [[ $word =~ \${(\w+)} ]]
         then
             echo "variableName: ${BASH_REMATCH[1]}"
 
