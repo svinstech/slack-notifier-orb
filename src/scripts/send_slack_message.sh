@@ -17,10 +17,16 @@ processText () {
   then
     for word in ${processedText}
     do
+        echo "word: $word"
+
         regex="\\$\{(.+)\}"
         if [[ $word =~ $regex ]]
         then
             local variableName=${BASH_REMATCH[1]}
+
+            echo "variableName: $variableName"
+            echo "variable value: ${!variableName}"
+
             variables="${variables} ${variableName}"
         fi
     done
