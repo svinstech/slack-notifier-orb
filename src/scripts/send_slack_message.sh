@@ -38,7 +38,7 @@ processText () {
     processedText="${processedText//"\""/"'"}"
   fi
 
-  echo "$processedText"
+  echo "processedText: $processedText"
 }
 
 # processText () {
@@ -104,7 +104,7 @@ for webhook in ${CHANNEL_WEBHOOKS}; do
                     \"type\": \"header\", \
                     \"text\": { \
                       \"type\": \"plain_text\", \
-                      \"text\": \"${processedHeader}\" \
+                      \"text\": \"${processedHeader} \" \
                     } \
                   }, \
                   { \
