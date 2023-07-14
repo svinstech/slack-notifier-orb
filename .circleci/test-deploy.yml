@@ -15,7 +15,7 @@ jobs:
     steps:
       - slack-notifier/send-slack-message: 
           header: TEST - CONTROL
-          message: "test is a loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong message"
+          message: "test 1"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-message-2:
     docker:
