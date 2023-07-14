@@ -16,7 +16,7 @@ jobs:
       - slack-notifier/send-slack-message: 
           header: TESTING SLACK-NOTIFICATION ORB (public)
           # message: "*Here* _is_ `a` <https://www.giantbomb.com/a/uploads/scale_medium/15/153607/3294276-link.png|link>."
-          message: "Here is a variable: ${WEBHOOK_KELLEN_KINCAID}"
+          message: ${WEBHOOK_KELLEN_KINCAID}
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
