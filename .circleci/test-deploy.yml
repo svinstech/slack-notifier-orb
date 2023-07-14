@@ -8,22 +8,41 @@ filters: &filters
     only: /.*/
 
 jobs:
-  send-message:
+  send-message-1:
     docker:
       - image: 'cypress/browsers:latest'
       # - image: cimg/base:current
     steps:
       - slack-notifier/send-slack-message: 
-          header: TESTING SLACK-NOTIFICATION ORB (public)
-          # message: "*Here* _is_ `a` <https://www.giantbomb.com/a/uploads/scale_medium/15/153607/3294276-link.png|link>."
-          message: "Here is a variable: ${WEBHOOK_KELLEN_KINCAID}"
+          header: TEST - CONTROL
+          message: "test 1"
+          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  send-message-2:
+    docker:
+      - image: 'cypress/browsers:latest'
+    steps:
+      - slack-notifier/send-slack-message: 
+          header: "\"TEST\" - \"ESCAPED\" \"DOUBLE-QUOTES\"\""
+          message: "\"tes\"t\"\"\" 2\""
+          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  send-message-3:
+    docker:
+      - image: 'cypress/browsers:latest'
+    steps:
+      - slack-notifier/send-slack-message: 
+          header: TEST - STRING INTERPOLATION
+          message: "These are some variables: ${WEBHOOK_KELLEN_KINCAID} ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC}"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - send-message:
+      - send-message-1:
+          filters: *filters
+      - send-message-2:
+          filters: *filters
+      - send-message-3:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
@@ -33,7 +52,9 @@ workflows:
           pub_type: production
           requires:
             - orb-tools/pack
-            - send-message
+            - send-message-1
+            - send-message-2
+            - send-message-3
           context: orb-publishing
           filters:
             branches:
