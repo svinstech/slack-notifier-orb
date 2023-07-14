@@ -44,7 +44,7 @@ then
 
   # Replace all double-quotation marks with single-quotation marks. (to prevent payload errors below)
   processedMessage="${processedMessage/"\""/"'"}"
-
+  echo ${processedMessage}
 fi
 ##################################
 
