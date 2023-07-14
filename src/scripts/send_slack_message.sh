@@ -32,15 +32,19 @@ then
           variables="${variables} ${variableName}"
       fi
   done
-fi
 
-if [[ $variables ]]
-then
-  # Replace all variables in the string with their corresponding values.
-  for variable in ${variables}
-  do
-      processedMessage="${processedMessage/\$\{${variable}\}/${!variable}}"
-  done
+  if [[ $variables ]]
+  then
+    # Replace all variables in the string with their corresponding values.
+    for variable in ${variables}
+    do
+        processedMessage="${processedMessage/\$\{${variable}\}/${!variable}}"
+    done
+  fi
+
+  # Replace all double-quotation marks with single-quotation marks. (to prevent payload errors below)
+  processedMessage="${processedMessage/"\""/"'"}"
+
 fi
 ##################################
 
