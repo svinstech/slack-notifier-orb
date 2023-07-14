@@ -18,7 +18,7 @@ processText () {
     for word in ${processedText}
     do
         regex="\${(.+)}" 
-        if [[ $word =~ "\\${regex}" ]]
+        if [[ $word =~ \\${regex} ]]
         then
             echo "variableName: ${BASH_REMATCH[1]}"
 
