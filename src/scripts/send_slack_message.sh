@@ -97,8 +97,8 @@ processText () {
 processedMessage="$(processText "$MESSAGE")"
 processedHeader="$(processText "$HEADER")"
 
-echo "processedMessage: $processedMessage"
-echo "processedHeader: $processedHeader"
+# echo "processedMessage: $processedMessage"
+# echo "processedHeader: $processedHeader"
 
 ##################################
 
