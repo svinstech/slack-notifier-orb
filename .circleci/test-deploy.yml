@@ -31,7 +31,7 @@ jobs:
     steps:
       - slack-notifier/send-slack-message: 
           header: TEST - STRING INTERPOLATION
-          message: "This are some variables: ${WEBHOOK_KELLEN_KINCAID} ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC}"
+          message: "These are some variables: ${WEBHOOK_KELLEN_KINCAID} ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC}"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
