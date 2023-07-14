@@ -22,7 +22,7 @@ jobs:
       - image: 'cypress/browsers:latest'
     steps:
       - slack-notifier/send-slack-message: 
-          header: TEST - ESCAPED DOUBLE-QUOTES
+          header: "\"TEST\" - \"ESCAPED\" \"DOUBLE-QUOTES\"\""
           message: "\"tes\"t\"\"\" 2\""
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-message-3:
@@ -30,7 +30,7 @@ jobs:
       - image: 'cypress/browsers:latest'
     steps:
       - slack-notifier/send-slack-message: 
-          header: TEST - STRING INTERPOLATION
+          header: TEST - STRING INTERPOLATION (${WEBHOOK_KELLEN_KINCAID})
           message: "This is a variable: ${WEBHOOK_KELLEN_KINCAID}"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
