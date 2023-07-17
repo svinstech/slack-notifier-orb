@@ -10,8 +10,7 @@ filters: &filters
 jobs:
   send-message-1:
     docker:
-      - image: 'cypress/browsers:latest'
-      # - image: cimg/base:current
+      - image: cimg/base:current
     steps:
       - slack-notifier/send-slack-message: 
           header: TEST - CONTROL
@@ -19,7 +18,7 @@ jobs:
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-message-2:
     docker:
-      - image: 'cypress/browsers:latest'
+      - image: cimg/base:current
     steps:
       - slack-notifier/send-slack-message: 
           header: "\"TEST\" - \"ESCAPED\" \"DOUBLE-QUOTES\"\""
@@ -27,7 +26,7 @@ jobs:
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-message-3:
     docker:
-      - image: 'cypress/browsers:latest'
+      - image: cimg/base:current
     steps:
       - slack-notifier/send-slack-message: 
           header: TEST - STRING INTERPOLATION
