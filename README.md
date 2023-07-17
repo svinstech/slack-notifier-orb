@@ -37,7 +37,7 @@ Then you'll be asked to pick a workspace to develop your app.  Select _Vouch Ins
 After creating your app, you may need to request approval from a Slack admin.  
 As of June 20, 2023, some Slack admins include: Yvonne Medellin & Cody Carter.  
 
-Once you're in a Slack app, navigate to the _Incoming Webhooks_ section. Click the "Activate" button if the section is inactive.  
+Once you have access to a Slack app, navigate into it and go to the _Incoming Webhooks_ section (under 'Features'). Click the "Activate" button if the section is inactive.  
 From there, you can add new webhooks, or copy existing ones.  
 
 ---
