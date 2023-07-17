@@ -15,7 +15,7 @@ Here is an example:
         steps: 
           - slack-notifier/send-slack-message:
               header: A header for your message.
-              message: The message to send.
+              message: The message to send. ${String} ${interpolation} works too.
               channelWebhookEnvironmentVariables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
 
 You can see further examples in src/examples/example.yml  
