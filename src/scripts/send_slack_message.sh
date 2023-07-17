@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ################################## ENSURE THAT CURL IS INSTALLED
-apt update; apt install -y curl; 
+which curl &> /dev/null || apt update; apt install -y curl; 
 
 ################################## PROCESS THE SLACK MESSAGE & HEADER.
 
