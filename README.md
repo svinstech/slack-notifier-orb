@@ -5,17 +5,18 @@ Firstly, create a reference to this orb like this:
     orbs:
         slack-notifier: svinstech/slack-notifier-orb@1
 
-Then, in a job of your choosing, you can send a Slack message as a step like this:  
+Then, in a job of your choosing, you can send a Slack message as a step.
+Here is an example:  
 
-jobs:
-  job-name
-    docker:
-      - image: cimg/base:current
-    steps: 
-      - slack-notifier/send-slack-message:
-          header: A header for your message.
-          message: The message to send.
-          channelWebhookEnvironmentVariables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
+    jobs:
+      job-name
+        docker:
+          - image: cimg/base:current
+        steps: 
+          - slack-notifier/send-slack-message:
+              header: A header for your message.
+              message: The message to send. ${String} ${interpolation} works too.
+              channelWebhookEnvironmentVariables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
 
 You can see further examples in src/examples/example.yml  
 
