@@ -1,0 +1,39 @@
+description: >
+  This command exists as a convenience. It invokes the send-slack-message command to send the build status. The user need only specify the recipient(s) via their webhooks, although other aspects of the message are still customizable. 
+
+build-status-notification:
+  parameters:
+    channelWebhookEnvironmentVariables:
+      type: string
+      description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
+    header:
+      default: "TEST RESULTS"
+      type: string
+      description: A header for the message to be sent.
+    success-message:
+      default: "SUCCESS :checkmark:"
+      type: string
+      description: This will be displayed as the build status when the build succeeds.
+    failure-message:
+      default: "FAILURE :x:"
+      type: string
+      description: This will be displayed as the build status when the build fails.
+    additional-text:
+      default: ""
+      type: string
+      description: This text will follow the build status on a new line.
+  steps:
+    - run:
+        name: Process successful build
+        command: |
+          echo 'export BUILD_STATUS="<<parameters.success-message>>"' >> $BASH_ENV
+        when: on_success
+    - run:
+        name: Process build failure
+        command: |
+          echo 'export BUILD_STATUS="<<parameters.failure-message>>"' >> $BASH_ENV
+        when: on_fail
+    - slack-notifier/send-slack-message:
+        header: <<parameters.header>>
+        message: "Build status: ${BUILD_STATUS}\n<<parameters.additional-text>>"
+        channelWebhookEnvironmentVariables: <<parameters.channelWebhookEnvironmentVariables>>
