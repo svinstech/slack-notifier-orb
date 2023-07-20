@@ -33,6 +33,17 @@ jobs:
           header: TEST - STRING INTERPOLATION
           message: "These are some variables: ${WEBHOOK_KELLEN_KINCAID} ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC}"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  # send-message-4:
+  #   docker:
+  #     - image: cimg/base:current
+  #   steps:
+  #     - run:
+  #         name: Forced failure
+  #         command: exit 1
+  #     - slack-notifier/send-slack-message: 
+  #         header: TEST - FORCED FAILURE
+  #         message: "This job had a failed step but the notification still sent"
+  #         channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:
@@ -44,6 +55,8 @@ workflows:
           filters: *filters
       - send-message-3:
           filters: *filters
+      # - send-message-4:
+      #     filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -55,6 +68,7 @@ workflows:
             - send-message-1
             - send-message-2
             - send-message-3
+            # - send-message-4
           context: orb-publishing
           filters:
             branches:

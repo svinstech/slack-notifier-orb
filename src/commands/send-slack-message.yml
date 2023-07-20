@@ -14,6 +14,7 @@ parameters:
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
 steps:
   - run:
+      when: always
       environment:
         HEADER: <<parameters.header>>
         MESSAGE: <<parameters.message>>
