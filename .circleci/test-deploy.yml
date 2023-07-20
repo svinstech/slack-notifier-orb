@@ -55,6 +55,8 @@ workflows:
           filters: *filters
       - send-message-3:
           filters: *filters
+      - send-message-4:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -66,6 +68,7 @@ workflows:
             - send-message-1
             - send-message-2
             - send-message-3
+            - send-message-4
           context: orb-publishing
           filters:
             branches:
