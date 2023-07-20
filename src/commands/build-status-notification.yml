@@ -9,11 +9,11 @@ parameters:
     default: "TEST RESULTS"
     type: string
     description: A header for the message to be sent.
-  success-message:
+  pass-text:
     default: "SUCCESS :checkmark:"
     type: string
     description: This will be displayed as the build status when the build succeeds.
-  failure-message:
+  fail-text:
     default: "FAILURE :x:"
     type: string
     description: This will be displayed as the build status when the build fails.
@@ -25,12 +25,12 @@ steps:
   - run:
       name: Process successful build
       command: |
-        echo 'export BUILD_STATUS="<<parameters.success-message>>"' >> $BASH_ENV
+        echo 'export BUILD_STATUS="<<parameters.pass-text>>"'>>$BASH_ENV
       when: on_success
   - run:
       name: Process build failure
       command: |
-        echo 'export BUILD_STATUS="<<parameters.failure-message>>"' >> $BASH_ENV
+        echo 'export BUILD_STATUS="<<parameters.fail-text>>"'>>$BASH_ENV
       when: on_fail
   - send-slack-message:
       header: <<parameters.header>>
