@@ -32,10 +32,29 @@ usage:
             header: TESTING SLACK-NOTIFICATION ORB - Message using string interpolation
             message: "String interpolation works as well. Here is a variable: ${variable_name}"
             channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+    test-build-status-notifications:
+      docker:
+        - image: cimg/base:current
+      steps:
+        - run:
+            name: Passing step
+            command: exit 0
+        - slack-notifier/build-status-notification:
+            header: TESTING SLACK-NOTIFICATION ORB - Passed step!
+            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            additional-text: "This step is supposed to _pass_ for the sake of demonstration."
+        - run:
+            name: Failing step
+            command: exit 1
+        - slack-notifier/build-status-notification:
+            header: TESTING SLACK-NOTIFICATION ORB - Failed step!
+            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            additional-text: "This step is supposed to _fail_ for the sake of demonstration."
 
   workflows:
     run-message-tests:
       jobs:
         - send-several-messages
+        - test-build-status-notifications
 
 

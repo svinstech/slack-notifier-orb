@@ -40,9 +40,9 @@ jobs:
   #     - run:
   #         name: Forced failure
   #         command: exit 1
-  #     - slack-notifier/send-slack-message: 
+  #     - slack-notifier/build-status-notification: 
   #         header: TEST - FORCED FAILURE
-  #         message: "This job had a failed step but the notification still sent"
+  #         additional-text: "This job had a failed step but the notification still sent"
   #         channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
