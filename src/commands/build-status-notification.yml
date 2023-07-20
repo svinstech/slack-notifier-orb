@@ -1,5 +1,5 @@
 description: >
-  This command exists as a convenience. It invokes the send-slack-message command to send the build status. The user need only specify the recipient(s) via their webhooks, although other aspects of the message are still customizable. 
+  This command exists as a convenience. It invokes the send-slack-message command to send the build status. The user need only specify the recipient(s) via their webhooks, although other aspects of the message are still customizable.
 
 parameters:
   channelWebhookEnvironmentVariables:
