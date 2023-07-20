@@ -1,9 +1,6 @@
 description: >
   This command exists as a convenience. It invokes the send-slack-message command to send the build status. The user need only specify the recipient(s) via their webhooks, although other aspects of the message are still customizable. 
 
-orbs:
-  slack-notifier: svinstech/slack-notifier-orb@dev:<<pipeline.git.revision>>
-
 parameters:
   channelWebhookEnvironmentVariables:
     type: string
@@ -35,7 +32,7 @@ steps:
       command: |
         echo 'export BUILD_STATUS="<<parameters.failure-message>>"' >> $BASH_ENV
       when: on_fail
-  - slack-notifier/send-slack-message:
+  - send-slack-message:
       header: <<parameters.header>>
       message: "Build status: ${BUILD_STATUS}\n<<parameters.additional-text>>"
       channelWebhookEnvironmentVariables: <<parameters.channelWebhookEnvironmentVariables>>
