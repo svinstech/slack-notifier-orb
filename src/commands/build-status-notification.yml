@@ -27,8 +27,7 @@ parameters:
     description: This text will follow the build status on a new line.
 steps:
   - when:
-      condition:
-        - equal: [true, <<parameters.notify-on-success>>]
+      condition: <<parameters.notify-on-success>>
       steps:
         - run:
             name: Process successful build
