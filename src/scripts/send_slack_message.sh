@@ -57,7 +57,7 @@ for webhook in ${CHANNEL_WEBHOOKS}; do
                     \"type\": \"header\", \
                     \"text\": { \
                       \"type\": \"plain_text\", \
-                      \"text\": \"${processedHeader}\" \
+                      \"text\": \"${processedHeader} \" \
                     } \
                   }, \
                   { \
