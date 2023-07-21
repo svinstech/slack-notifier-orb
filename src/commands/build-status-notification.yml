@@ -38,6 +38,13 @@ steps:
       condition:
         or: [<<parameters.notify-on-success>>, $FAILURE]
       steps:
+        - run:
+          name: test
+          command: |
+            echo "! PARAMETERS START !"
+            echo $FAILURE
+            echo <<parameters.notify-on-success>>
+            echo "! PARAMETERS END !"
         - send-slack-message:
             header: <<parameters.header>>
             message: "Build status: ${BUILD_STATUS}\n<<parameters.additional-text>>"
