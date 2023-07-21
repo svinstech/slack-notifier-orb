@@ -32,32 +32,23 @@ steps:
         echo 'export BUILD_STATUS="<<parameters.pass-text>>"'>>$BASH_ENV
       when: on_success
   - run:
-      name: Set the failure status to false
-      command: |
-        echo 'export FAILURE=false'>>$BASH_ENV
-      when: on_success
-  - run:
       name: Process build failure
       command: |
         echo 'export BUILD_STATUS="<<parameters.fail-text>>"'>>$BASH_ENV
       when: on_fail
   - run:
-      name: Set the failure status to true
+      name: Set the 'WHEN' variable
+      command: <<include(scripts/notify_on_failure.sh)>>
+      when: always
+  - run:
+      name: test
       command: |
-        echo 'export FAILURE=true'>>$BASH_ENV
-      when: on_fail
-  - when:
-      condition:
-        or: [<<parameters.notify-on-success>>, $FAILURE]
-      steps:
-        - run:
-            name: test
-            command: |
-              echo "! PARAMETERS START !"
-              echo $FAILURE
-              echo <<parameters.notify-on-success>>
-              echo "! PARAMETERS END !"
-        - send-slack-message:
-            header: <<parameters.header>>
-            message: "Build status: ${BUILD_STATUS}\n<<parameters.additional-text>>"
-            channelWebhookEnvironmentVariables: <<parameters.channelWebhookEnvironmentVariables>>
+        echo "! PARAMETERS START !"
+        echo $WHEN
+        echo <<parameters.notify-on-success>>
+        echo "! PARAMETERS END !"
+  - send-slack-message:
+      when: $WHEN
+      header: <<parameters.header>>
+      message: "Build status: ${BUILD_STATUS}\n<<parameters.additional-text>>"
+      channelWebhookEnvironmentVariables: <<parameters.channelWebhookEnvironmentVariables>>
