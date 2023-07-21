@@ -39,7 +39,7 @@ steps:
         echo 'export FAILURE=true'>>$BASH_ENV
       when: on_fail
   - when:
-      condition: 
+      condition:
         or: [<<parameters.notify-on-success>>, $FAILURE]
       steps:
         - send-slack-message:
