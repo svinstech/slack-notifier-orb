@@ -29,14 +29,12 @@ steps:
   - run:
       name: Process successful build
       command: |
-        echo 'export BUILD_STATUS="<<parameters.pass-text>>"'>>$BASH_ENV
-        echo 'export FAILURE=false'>>$BASH_ENV
+        <<include(scripts/build_success.sh)>>
       when: on_success
   - run:
       name: Process build failure
       command: |
-        echo 'export BUILD_STATUS="<<parameters.fail-text>>"'>>$BASH_ENV
-        echo 'export FAILURE=true'>>$BASH_ENV
+        <<include(scripts/build_failure.sh)>>
       when: on_fail
   - when:
       condition:
