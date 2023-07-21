@@ -68,6 +68,7 @@ jobs:
           command: exit 0
       - slack-notifier/build-status-notification: 
           header: "Should not be seeing me"
+          additional-text: ":x: :x: :x:"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-message-success:
     docker:
