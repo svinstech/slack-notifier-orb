@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$<<parameters.notify-on-success>>" ]
+if [ "$1" ]
 then
     "echo 'export WHEN=\"always\"'>>$BASH_ENV"
 else
