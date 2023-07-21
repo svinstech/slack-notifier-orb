@@ -45,8 +45,6 @@ steps:
       command: |
         echo "! PARAMETERS START !"
         echo $WHEN
-        echo <<parameters.notify-on-success>>
-        echo "! PARAMETERS END !"
   - send-slack-message:
       when: $WHEN
       header: <<parameters.header>>
