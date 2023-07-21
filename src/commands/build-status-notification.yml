@@ -28,13 +28,11 @@ parameters:
 steps:
   - run:
       name: Process successful build
-      command: |
-        <<include(scripts/build_success.sh)>>
+      command: <<include(scripts/build_success.sh)>>
       when: on_success
   - run:
       name: Process build failure
-      command: |
-        <<include(scripts/build_failure.sh)>>
+      command: <<include(scripts/build_failure.sh)>>
       when: on_fail
   - when:
       condition:
