@@ -49,17 +49,17 @@ jobs:
           header: "Empty string message"
           additional-text: ""
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
-  send-message-failure:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - run:
-          name: "Fail intentionally"
-          command: exit 1
-      - slack-notifier/build-status-notification: 
-          header: "Intentional failure"
-          when: "on_fail"
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  # send-message-failure:
+  #   docker:
+  #     - image: cimg/base:current
+  #   steps:
+  #     - run:
+  #         name: "Fail intentionally"
+  #         command: exit 1
+  #     - slack-notifier/build-status-notification: 
+  #         header: "Intentional failure"
+  #         when: "on_fail"
+  #         channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-no-message-success:
     docker:
       - image: cimg/base:current
@@ -98,8 +98,8 @@ workflows:
           filters: *filters
       - send-message-5:
           filters: *filters
-      - send-message-failure:
-          filters: *filters
+      # - send-message-failure:
+      #     filters: *filters
       - send-no-message-success:
           filters: *filters
       - send-message-success:
@@ -117,7 +117,7 @@ workflows:
             - send-message-3
             - send-message-4
             - send-message-5
-            - send-message-failure
+            # - send-message-failure
             - send-no-message-success
             - send-message-success
           context: orb-publishing
