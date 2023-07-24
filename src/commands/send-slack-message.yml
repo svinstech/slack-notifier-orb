@@ -9,7 +9,7 @@ parameters:
     type: string
     description: The message to be sent.
     default: ""
-  channelWebhookEnvironmentVariables:
+  channel-webhook-environment-variables:
     type: string
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
   when:
@@ -23,6 +23,6 @@ steps:
       environment:
         HEADER: <<parameters.header>>
         MESSAGE: <<parameters.message>>
-        CHANNEL_WEBHOOKS: <<parameters.channelWebhookEnvironmentVariables>>
+        CHANNEL_WEBHOOKS: <<parameters.channel-webhook-environment-variables>>
       name: Send Slack message
       command: <<include(scripts/send_slack_message.sh)>>
