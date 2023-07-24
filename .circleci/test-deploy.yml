@@ -81,7 +81,7 @@ jobs:
           command: exit 0
       - slack-notifier/build-status-notification: 
           header: "Hey this is a success notification!"
-          when: "on_success"
+          when: "on_succes"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
