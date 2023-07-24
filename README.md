@@ -16,14 +16,14 @@ Here is an example:
           - slack-notifier/send-slack-message:
               header: A header for your message.
               message: The message to send. ${String} ${interpolation} works too.
-              channelWebhookEnvironmentVariables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
+              channel-webhook-environment-variables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
 
 You can see further examples in src/examples/example.yml  
 
 ### WEBHOOKS
 
 This orb requires that Slack webhooks for the message recipients be added as CircleCI environment variables.
-These environment variables must then be used as inputs for the _channelWebhookEnvironmentVariables_ argument of the _send-slack-message_ command.  
+These environment variables must then be used as inputs for the channel-webhook-environment-variables argument of the _send-slack-message_ command.  
 
 To obtain a Slack webhook, you'll need access to a Slack app.  
 

@@ -16,7 +16,7 @@ jobs:
       - slack-notifier/send-slack-message: 
           header: TEST - CONTROL
           message: "test 1"
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-message-2:
     docker:
       - image: cimg/base:current
@@ -24,7 +24,7 @@ jobs:
       - slack-notifier/send-slack-message: 
           header: "\"TEST\" - \"ESCAPED\" \"DOUBLE-QUOTES\"\""
           message: "\"tes\"t\"\"\" 2\""
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-message-3:
     docker:
       - image: cimg/base:current
@@ -32,7 +32,7 @@ jobs:
       - slack-notifier/send-slack-message: 
           header: TEST - STRING INTERPOLATION
           message: "These are some variables: ${WEBHOOK_KELLEN_KINCAID} ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC}"
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-message-4:
     docker:
       - image: cimg/base:current
@@ -40,7 +40,7 @@ jobs:
       - slack-notifier/build-status-notification: 
           header: ""
           additional-text: "Empty string header"
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-message-5:
     docker:
       - image: cimg/base:current
@@ -48,7 +48,7 @@ jobs:
       - slack-notifier/build-status-notification: 
           header: "Empty string message"
           additional-text: ""
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   # send-message-failure:
   #   docker:
   #     - image: cimg/base:current
@@ -59,7 +59,7 @@ jobs:
   #     - slack-notifier/build-status-notification: 
   #         header: "Intentional failure"
   #         when: "on_fail"
-  #         channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  #         channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-no-message-success:
     docker:
       - image: cimg/base:current
@@ -71,7 +71,7 @@ jobs:
           header: "Should not be seeing me"
           additional-text: ":x: :x: :x:"
           when: "on_fail"
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-message-success:
     docker:
       - image: cimg/base:current
@@ -82,7 +82,7 @@ jobs:
       - slack-notifier/build-status-notification: 
           header: "Hey this is a success notification!"
           when: "on_success"
-          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:

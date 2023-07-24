@@ -15,23 +15,23 @@ usage:
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Basic message
             message: This is a test message
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message with link
             message: This is a test message with a link to <https://www.google.com|Google>
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message with stylized text
             message: A *bold* test. An _italics_ test. A ~strikethrough~ test. A `code` test. A ```code block``` test.
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message with list
             message: 1. Ordered list item 1\n2. Ordered list item 2
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message using string interpolation
             message: "String interpolation works as well. Here is a variable: ${variable_name}"
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
     test-build-status-notifications:
       docker:
         - image: cimg/base:current
@@ -41,14 +41,15 @@ usage:
             command: exit 0
         - slack-notifier/build-status-notification:
             header: TESTING SLACK-NOTIFICATION ORB - Passed step!
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            when: on_fail  # As long as this is set to on_fail, this notification will only be sent if there has been a failure in this job. (In this case, there hasn't so this notification won't send)
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
             additional-text: "This step is supposed to _pass_ for the sake of demonstration."
         - run:
             name: Failing step
             command: exit 1
         - slack-notifier/build-status-notification:
             header: TESTING SLACK-NOTIFICATION ORB - Failed step!
-            channelWebhookEnvironmentVariables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
             additional-text: "This step is supposed to _fail_ for the sake of demonstration."
 
   workflows:

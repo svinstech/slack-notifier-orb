@@ -2,7 +2,7 @@ description: >
   This command exists as a convenience. It invokes the send-slack-message command to send the build status. The user need only specify the recipient(s) via their webhooks, although other aspects of the message are still customizable.
 
 parameters:
-  channelWebhookEnvironmentVariables:
+  channel-webhook-environment-variables:
     type: string
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
   header:
@@ -41,4 +41,4 @@ steps:
       when: <<parameters.when>>
       header: <<parameters.header>>
       message: "Build status: ${BUILD_STATUS}\n<<parameters.additional-text>>"
-      channelWebhookEnvironmentVariables: <<parameters.channelWebhookEnvironmentVariables>>
+      channel-webhook-environment-variables: <<parameters.channel-webhook-environment-variables>>
