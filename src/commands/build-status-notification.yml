@@ -9,10 +9,11 @@ parameters:
     default: "TEST RESULTS"
     type: string
     description: A header for the message to be sent.
-  notify-on-success:
-    default: false
-    type: boolean
-    description: Whether to send a notification when the build succeeds.
+  when:
+    default: "always"
+    type: enum
+    enum: ["always", "on_fail", "on_success"]
+    description: When to send the notification.
   pass-text:
     default: "SUCCESS :checkmark:"
     type: string
@@ -36,17 +37,8 @@ steps:
       command: |
         echo 'export BUILD_STATUS="<<parameters.fail-text>>"'>>$BASH_ENV
       when: on_fail
-  - run:
-      name: Set the 'WHEN' variable
-      command: <<include(scripts/notify_on_failure.sh)>>
-      when: always
-  - run:
-      name: test
-      command: |
-        echo "! PARAMETERS START !"
-        echo $WHEN
   - send-slack-message:
-      when: $WHEN
+      when: <<parameters.when>>
       header: <<parameters.header>>
       message: "Build status: ${BUILD_STATUS}\n<<parameters.additional-text>>"
       channelWebhookEnvironmentVariables: <<parameters.channelWebhookEnvironmentVariables>>
