@@ -58,6 +58,7 @@ jobs:
           command: exit 1
       - slack-notifier/build-status-notification: 
           header: "Intentional failure"
+          when: "on_fail"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-no-message-success:
     docker:
@@ -69,6 +70,7 @@ jobs:
       - slack-notifier/build-status-notification: 
           header: "Should not be seeing me"
           additional-text: ":x: :x: :x:"
+          when: "on_fail"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
   send-message-success:
     docker:
@@ -79,7 +81,7 @@ jobs:
           command: exit 0
       - slack-notifier/build-status-notification: 
           header: "Hey this is a success notification!"
-          notify-on-success: true
+          when: "on_success"
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
