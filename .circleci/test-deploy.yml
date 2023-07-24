@@ -49,6 +49,40 @@ jobs:
           header: "Empty string message"
           additional-text: ""
           channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  # send-message-failure:
+  #   docker:
+  #     - image: cimg/base:current
+  #   steps:
+  #     - run:
+  #         name: "Fail intentionally"
+  #         command: exit 1
+  #     - slack-notifier/build-status-notification: 
+  #         header: "Intentional failure"
+  #         when: "on_fail"
+  #         channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  send-no-message-success:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - run:
+          name: "This actually shouldn't result in a message"
+          command: exit 0
+      - slack-notifier/build-status-notification: 
+          header: "Should not be seeing me"
+          additional-text: ":x: :x: :x:"
+          when: "on_fail"
+          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
+  send-message-success:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - run:
+          name: "Success message"
+          command: exit 0
+      - slack-notifier/build-status-notification: 
+          header: "Hey this is a success notification!"
+          when: "on_success"
+          channelWebhookEnvironmentVariables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:
@@ -64,6 +98,12 @@ workflows:
           filters: *filters
       - send-message-5:
           filters: *filters
+      # - send-message-failure:
+      #     filters: *filters
+      - send-no-message-success:
+          filters: *filters
+      - send-message-success:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -77,6 +117,9 @@ workflows:
             - send-message-3
             - send-message-4
             - send-message-5
+            # - send-message-failure
+            - send-no-message-success
+            - send-message-success
           context: orb-publishing
           filters:
             branches:

@@ -12,9 +12,14 @@ parameters:
   channelWebhookEnvironmentVariables:
     type: string
     description: The environment variables that contain the webhooks for the channels to which the message will be sent. (space-delimited)
+  when:
+    default: "always"
+    type: enum
+    enum: ["always", "on_fail", "on_success"]
+    description: When to send the notification.
 steps:
   - run:
-      when: always
+      when: <<parameters.when>>
       environment:
         HEADER: <<parameters.header>>
         MESSAGE: <<parameters.message>>
