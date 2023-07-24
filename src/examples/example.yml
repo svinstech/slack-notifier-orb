@@ -41,6 +41,7 @@ usage:
             command: exit 0
         - slack-notifier/build-status-notification:
             header: TESTING SLACK-NOTIFICATION ORB - Passed step!
+            when: on_fail  # As long as this is set to on_fail, this notification will only be sent if there has been a failure in this job. (In this case, there hasn't so this notification won't send)
             channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
             additional-text: "This step is supposed to _pass_ for the sake of demonstration."
         - run:
