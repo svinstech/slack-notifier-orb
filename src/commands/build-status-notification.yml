@@ -38,7 +38,7 @@ steps:
       when: on_fail
   - run:
       name: Set the 'WHEN' variable
-      command: <<include("scripts/notify_on_failure.sh \<< parameters.notify-on-success \>>")>>
+      command: <<include(scripts/notify_on_failure.sh)>>
       when: always
   - run:
       name: test
