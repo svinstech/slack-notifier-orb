@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ################################## ENSURE THAT CURL IS INSTALLED
-if [ ! -x '$(which curl)' ]
+if [ ! -x "$(which curl)" ]
 then
   echo "script a 1"
   apt update; apt install -y curl; 
