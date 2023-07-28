@@ -83,6 +83,18 @@ jobs:
           header: "Hey this is a success notification!"
           when: "on_success"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
+  generate-slack-id-lookup-table:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - run:
+          name: "Generate Slack ID lookup table"
+          command: |
+            tsc src/scripts/filter_slack_ids.ts && node src/scripts/filter_slack_ids.js NOTIFIER_BOT_TOKEN
+      - run:
+          name: "Check length of lookup tabel"
+          command: |
+            echo ${#cat slackIdLookupTable.json}
 
 workflows:
   test-deploy:
@@ -104,6 +116,8 @@ workflows:
           filters: *filters
       - send-message-success:
           filters: *filters
+      - generate-slack-id-lookup-table:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -120,6 +134,7 @@ workflows:
             # - send-message-failure
             - send-no-message-success
             - send-message-success
+            - generate-slack-id-lookup-table
           context: orb-publishing
           filters:
             branches:

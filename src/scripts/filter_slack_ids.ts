@@ -27,13 +27,15 @@ interface LookupTable {
 
 const lookupTable:LookupTable = {}
 
+const NOTIFIER_BOT_TOKEN:string = process.argv[2] // First argument must be the NOTIFIER_BOT_TOKEN environment variable saved to this CircleCI project.
+
 const slackUserInfoFilePath:string = 'slackUserInfo.json',
       getSlackUserShellScriptFilePath:string = 'src/scripts/get_slack_user_info.sh',
       writeLookupTableShellScriptFilePath:string = 'src/scripts/writeLookupTableToFile.sh',
       lookupTableFilePath:string = 'slackIdLookupTable.json'
 
 // Execure the shell script that fetches the Slack user info.
-execSync(`sh ${getSlackUserShellScriptFilePath}`);
+execSync(`sh ${getSlackUserShellScriptFilePath} ${NOTIFIER_BOT_TOKEN}`);
 
 // Parse the Slack user info to create the lookup table.
 readFile(slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any){

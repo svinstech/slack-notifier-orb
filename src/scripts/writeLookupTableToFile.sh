@@ -8,6 +8,6 @@ then
     lookupTableFilePath="slackIdLookupTable.json"
 fi
 
-touch $lookupTableFilePath
-echo $lookupTable > $lookupTableFilePath
+touch "$lookupTableFilePath"
+echo "$lookupTable" > "$lookupTableFilePath"
 

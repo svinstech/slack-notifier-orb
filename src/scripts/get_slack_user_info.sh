@@ -9,7 +9,8 @@ fi
 ##################################
 
 ################################## GET ALL VOUCH SLACK USER INFO (saves them to a new file)
-destinationFile='slackUserInfo.json'
-curl -o $destinationFile -H 'Content-type: application/json' -H 'Authorization: Bearer xoxb-403261482739-5202832931136-N8vvMYgODAysCQLbl4z1zP4D' 'https://slack.com/api/users.list?pretty=1'
+NOTIFIER_BOT_TOKEN=$1
+DESTINATION_FILE='slackUserInfo.json'
+curl -o "$DESTINATION_FILE" -H 'Content-type: application/json' -H 'Authorization: Bearer '"$NOTIFIER_BOT_TOKEN"
 ##################################
 
