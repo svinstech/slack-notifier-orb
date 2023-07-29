@@ -3,4 +3,4 @@ orb.yml
 .DS_Store
 slackIds.json
 slackUserInfo.json
-**/filter_slack_ids.js
+# **/filter_slack_ids.js
