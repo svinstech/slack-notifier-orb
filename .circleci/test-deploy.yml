@@ -92,7 +92,7 @@ jobs:
           command: |
             tsc src/scripts/filter_slack_ids.ts && node src/scripts/filter_slack_ids.js NOTIFIER_BOT_TOKEN
       - run:
-          name: "Check length of lookup tabel"
+          name: "Check length of lookup table"
           command: |
             echo ${#cat slackIdLookupTable.json}
 
