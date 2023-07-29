@@ -87,6 +87,10 @@ jobs:
     docker:
       - image: cimg/node:current
     steps:
+      checkout
+      - run:
+          name: "Install dependencies"
+          command: yarn
       - run:
           name: "Generate Slack ID lookup table"
           command: |
