@@ -98,7 +98,8 @@ jobs:
       - run:
           name: "Check length of lookup table"
           command: |
-            echo ${#cat slackIdLookupTable.json}
+            fileContents=cat slackIdLookupTable.json
+            echo ${#fileContents}
 
 workflows:
   test-deploy:
