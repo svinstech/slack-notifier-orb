@@ -94,7 +94,7 @@ jobs:
       - run:
           name: "Generate Slack ID lookup table"
           command: |
-            node src/scripts/filter_slack_ids.js NOTIFIER_BOT_TOKEN
+            node src/scripts/filter_slack_ids.js ${NOTIFIER_BOT_TOKEN}
       - run:
           name: "Check length of lookup table"
           command: |
