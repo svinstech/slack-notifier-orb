@@ -70,7 +70,7 @@ readFile(slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any)
 
             const id:string = slackUser.id;
 
-            lookupTable[name] = id
+            lookupTable[name] = `@${id}`
         })
 
         // Execure the shell script that stores the lookup table in a file.

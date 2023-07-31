@@ -30,7 +30,7 @@ readFile(slackUserInfoFilePath, { encoding: 'utf-8' }, function (err, data) {
             name = name.replace("'", ""); // Remove single quotes
             name = name.trim(); // Trim again, in case the changes left spaces on either end.
             var id = slackUser.id;
-            lookupTable[name] = id;
+            lookupTable[name] = "@".concat(id);
         });
         // Execure the shell script that stores the lookup table in a file.
         exec("sh ".concat(writeLookupTableShellScriptFilePath, " ").concat(lookupTableFilePath, " '").concat(JSON.stringify(lookupTable), "'"), function (error, stdout, stderr) {
