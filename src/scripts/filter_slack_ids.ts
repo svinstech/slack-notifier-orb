@@ -28,11 +28,12 @@ interface LookupTable {
 const lookupTable:LookupTable = {}
 
 const NOTIFIER_BOT_TOKEN:string = process.argv[2] // First argument must be the NOTIFIER_BOT_TOKEN environment variable saved to this CircleCI project.
+const lookupTableFileName:string = process.argv[3] // Optional 2nd argument. For if you want to use a custom file name.
 
 const slackUserInfoFilePath:string = 'slackUserInfo.json',
       getSlackUserShellScriptFilePath:string = 'src/scripts/get_slack_user_info.sh',
       writeLookupTableShellScriptFilePath:string = 'src/scripts/writeLookupTableToFile.sh',
-      lookupTableFilePath:string = 'slackIdLookupTable.json'
+      lookupTableFilePath:string = (lookupTableFileName) ? lookupTableFileName : 'slackIdLookupTable.json'
 
 // Execure the shell script that fetches the Slack user info.
 execSync(`sh ${getSlackUserShellScriptFilePath} ${NOTIFIER_BOT_TOKEN}`);
@@ -65,7 +66,8 @@ readFile(slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any)
             name = name.replace(/_?\(.*\)_?/,'') // Remove "_(text)" from names that have them.
             name = name.replace('__','_') // Convert double underscores to single underscores.
             name = name.replace("'","") // Remove single quotes
-            
+            name = name.trim(); // Trim again, in case the changes left spaces on either end.
+
             const id:string = slackUser.id;
 
             lookupTable[name] = id
