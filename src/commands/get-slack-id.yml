@@ -1,0 +1,17 @@
+description: >
+  This command assigns the Slack ID of the designated person to the designated environment variable.
+
+parameters:
+  name:
+    type: string
+    description: The name of the person whose Slack ID is to be retrieved.
+  variable:
+    type: string
+    description: The name to give the environment variable to which the Slack ID will be assigned.
+steps:
+  - run:
+      name: Retrieve Slack ID
+      environment:
+        NAME: <<parameters.name>>
+        VARIABLE: <<parameters.variable>>
+      command: <<include(scripts/get_slack_id.sh)>>
