@@ -3,6 +3,7 @@
 target_name=$NAME
 environment_variable_name=$VARIABLE
 
+# shellcheck source=somefile
 source src/scripts/_get_slack_id.sh "$target_name" "$environment_variable_name"
 
 # At this point, the string contained within environment_variable_name will have been used to create a 
