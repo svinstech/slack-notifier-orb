@@ -95,11 +95,19 @@ jobs:
           name: "Generate Slack ID lookup table"
           command: |
             node src/scripts/filter_slack_ids.js ${NOTIFIER_BOT_TOKEN}
+      # - run:
+      #     name: "Check length of lookup table"
+      #     command: |
+      #       fileContents=$(cat slackIdLookupTable.json)
+      #       echo ${#fileContents}
       - run:
-          name: "Check length of lookup table"
+          name: "Tag Kellen Kincaid in a message to the QA channel"
           command: |
-            fileContents=$(cat slackIdLookupTable.json)
-            echo ${#fileContents}
+            sh src/scripts/get_slack_id.sh kellen_kincaid my_id
+      - slack-notifier/build-status-notification:
+          header: ":vegeta_grin:"
+          additional-text: "Testing out tagging Kellen Kincaid -> ${my_id}"
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:
