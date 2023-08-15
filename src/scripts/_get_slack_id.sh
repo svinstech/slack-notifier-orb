@@ -1,11 +1,14 @@
 #!/bin/bash
 
+temporaryFileForNames="deleteme_names.txt"
+temporaryFileForIds="deleteme_ids.txt"
+
 # Enables global regex matching.
 global_rematch() { 
-    local s=$1 regex=$2 
-    while [[ $s =~ $regex ]]; do 
-        echo "${BASH_REMATCH[1]}"
-        s=${s#*"${BASH_REMATCH[1]}"}
+    local string=$1 regex=$2 outputFile=$3
+    while [[ $string =~ $regex ]]; do 
+        printf %s "${BASH_REMATCH[1]} " >> "$outputFile"
+        string=${string#*"${BASH_REMATCH[1]}"}
     done
 }
 
@@ -27,29 +30,28 @@ then
 fi
 
 # Regex expressions
-name_regex="\"([A-Za-z0-9_ł\-]+)\":\"@[A-Za-z0-9]+\""
-id_regex="\"[A-Za-z0-9_ł\-]+\":\"(@[A-Za-z0-9]+)\""
+character_matcher="[A-Za-z0-9_ł\-]+"
+name_regex="\"($character_matcher)\":\"@$character_matcher\""
+id_regex="\"$character_matcher\":\"(@$character_matcher)\""
 
 # Get lookup table contents
 lookupTableStringified=`cat slackIdLookupTable.json`
 
-#testing
-global_rematch "$lookupTableStringified" "$name_regex"
-global_rematch "$lookupTableStringified" "$id_regex"
-
 # Create arrays of names and ids
-names=( "$(global_rematch "$lookupTableStringified" "$name_regex")" )
+( "$(global_rematch "$lookupTableStringified" "$name_regex" "$temporaryFileForNames")" )
+names=`cat $temporaryFileForNames`
 names=($names)
-ids=( "$(global_rematch "$lookupTableStringified" "$id_regex")" )
-ids=($ids)
 
-name_count=${#names[@]}
+( "$(global_rematch "$lookupTableStringified" "$id_regex" "$temporaryFileForIds")" )
+ids=`cat $temporaryFileForIds`
+ids=($ids)
 
 # Find the ID of input_name
 id=""
-for name_index in "${!names[@]}"
+for name_index in ${!names[@]}
 do
     name="${names[$name_index]}"
+
     if [ "$input_name" = "$name" ]
     then
         id="${ids[$name_index]}"
@@ -62,14 +64,15 @@ if [[ -z "$id" ]]
 then
     echo "Name not found ($input_name). Make sure it's all lowercase and use underscores instead of spaces. Like this: first_last"
     exit 1
-else 
-    echo "The ID of $input_name is $id"
 fi
 
 # Dynamically set the output variable.
 declare $output_variable_name=$id
 
-# echo "(in the main script) output_variable_name: $output_variable_name"
-# echo $id
-# echo "my_id: $my_id"
+# These files are used to store the output of the global_rematch function. 
+# The motivation to store the output in temporary files was to prevent the output from
+#   cluttering the terminal.
+rm "$temporaryFileForNames"
+rm "$temporaryFileForIds"
+
 return 1

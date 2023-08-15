@@ -35,7 +35,7 @@ const slackUserInfoFilePath:string = 'slackUserInfo.json',
       writeLookupTableShellScriptFilePath:string = 'src/scripts/writeLookupTableToFile.sh',
       lookupTableFilePath:string = (lookupTableFileName) ? lookupTableFileName : 'slackIdLookupTable.json'
 
-// Execure the shell script that fetches the Slack user info.
+// Execute the shell script that fetches the Slack user info.
 execSync(`sh ${getSlackUserShellScriptFilePath} ${NOTIFIER_BOT_TOKEN}`);
 
 // Parse the Slack user info to create the lookup table.
@@ -73,7 +73,7 @@ readFile(slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any)
             lookupTable[name] = `@${id}`
         })
 
-        // Execure the shell script that stores the lookup table in a file.
+        // Execute the shell script that stores the lookup table in a file.
         exec(`sh ${writeLookupTableShellScriptFilePath} ${lookupTableFilePath} '${JSON.stringify(lookupTable)}'`, (error:any, stdout:any, stderr:any) => {
             if (error) {
               console.error(`!!! Error writing lookup table to file - ${error}`);
