@@ -104,8 +104,9 @@ jobs:
           name: "Tag Kellen Kincaid in a message to the QA channel"
           command: |
             sh src/scripts/get_slack_id.sh kellen_kincaid my_id
+            echo $my_id
       - slack-notifier/build-status-notification:
-          header: ":vegeta_grin:"
+          header: my_id
           additional-text: "Testing out tagging Kellen Kincaid -> ${my_id}"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
