@@ -10,4 +10,3 @@ fi
 
 touch "$lookupTableFilePath"
 echo "$lookupTable" > "$lookupTableFilePath"
-
