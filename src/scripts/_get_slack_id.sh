@@ -35,16 +35,16 @@ name_regex="\"($character_matcher)\":\"@$character_matcher\""
 id_regex="\"$character_matcher\":\"(@$character_matcher)\""
 
 # Get lookup table contents
-lookupTableStringified=`cat slackIdLookupTable.json`
+lookupTableStringified=$(cat slackIdLookupTable.json)
 
 # Create arrays of names and ids
 ( "$(global_rematch "$lookupTableStringified" "$name_regex" "$temporaryFileForNames")" )
-names=`cat $temporaryFileForNames`
-names=($names)
+names=$(cat $temporaryFileForNames)
+names=("$names")
 
 ( "$(global_rematch "$lookupTableStringified" "$id_regex" "$temporaryFileForIds")" )
-ids=`cat $temporaryFileForIds`
-ids=($ids)
+ids=$(cat $temporaryFileForIds)
+ids=("$ids")
 
 # Find the ID of input_name
 id=""
