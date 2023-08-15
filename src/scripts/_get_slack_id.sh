@@ -48,7 +48,7 @@ ids=($ids)
 
 # Find the ID of input_name
 id=""
-for name_index in ${!names[@]}
+for name_index in "${!names[@]}"
 do
     name="${names[$name_index]}"
 
