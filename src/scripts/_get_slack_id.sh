@@ -67,7 +67,7 @@ then
 fi
 
 # Dynamically set the output variable.
-declare $output_variable_name=$id
+declare "$output_variable_name"="$id"
 
 # These files are used to store the output of the global_rematch function. 
 # The motivation to store the output in temporary files was to prevent the output from
