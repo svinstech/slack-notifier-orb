@@ -10,3 +10,8 @@ fi
 
 touch "$lookupTableFilePath"
 echo "$lookupTable" > "$lookupTableFilePath"
+
+#testing
+read -a arr < "$lookupTableFilePath"
+echo "LOOKY HERE: $arr"
+echo "LOOKY HERE: ${arr[@]}"

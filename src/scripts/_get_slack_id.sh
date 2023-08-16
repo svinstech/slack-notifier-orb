@@ -67,8 +67,6 @@ global_rematch "$lookupTableStringified" "$name_regex" "$temporaryFileForNames"
 echo "testing 7"
 ls
 echo "Bash version: ${BASH_VERSION}"
-temporaryFileForNamesContent=$(cat $temporaryFileForNames)
-echo $temporaryFileForNamesContent
 
 # shellcheck disable=SC2162
 read -a names < "$temporaryFileForNames"
