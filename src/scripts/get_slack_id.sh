@@ -3,14 +3,11 @@
 target_name=$NAME
 environment_variable_name=$VARIABLE
 
-#testing
-echo "testing A"
-
 # shellcheck disable=SC1091
 source src/scripts/_get_slack_id.sh "$target_name" "$environment_variable_name"
 
 #testing
-echo "testing B"
+# echo "$target_name's id is ${!environment_variable_name}"
 
 # At this point, the string contained within environment_variable_name will have been used to create a 
 #   variable with it as the name.
