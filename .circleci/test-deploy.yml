@@ -102,14 +102,11 @@ jobs:
           name: Run _get_slack_id.sh (/src/script)
           command: |
             bash src/scripts/_get_slack_id.sh kellen_kincaid my_id
-      - run: 
-          name: Run _get_slack_id.sh (/script)
-          command: |
-            bash scripts/_get_slack_id.sh kellen_kincaid my_id
-      - slack-notifier/build-status-notification:
-          header: my_id
-          additional-text: "Testing out tagging Kellen Kincaid -> ${my_id}"
-          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
+          post-steps:
+            - slack-notifier/build-status-notification:
+                header: my_id
+                additional-text: "Testing out tagging Kellen Kincaid -> ${my_id}" -> $my_id
+                channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:
