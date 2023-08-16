@@ -20,9 +20,9 @@ echo "testing 2"
 
 # Process inputs
 # shellcheck disable=SC2153
-input_name=$NAME #$1
+input_name=$1 #$NAME #$1
 # shellcheck disable=SC2153
-output_variable_name=$VARIABLE #$2
+output_variable_name=$2 #$VARIABLE #$2
 
 #testing
 echo "testing 3"
@@ -69,8 +69,8 @@ ls
 echo "Bash version: ${BASH_VERSION}"
 
 # shellcheck disable=SC2162
-# read -a names < "$temporaryFileForNames"
-mapfile names < "$temporaryFileForNames"
+read -a names < "$temporaryFileForNames"
+# mapfile names < "$temporaryFileForNames"
 
 #testing
 echo "testing 8"
@@ -81,8 +81,8 @@ global_rematch "$lookupTableStringified" "$id_regex" "$temporaryFileForIds"
 echo "testing 9"
 
 # shellcheck disable=SC2162
-# read -a ids < "$temporaryFileForIds"
-mapfile ids < "$temporaryFileForIds"
+read -a ids < "$temporaryFileForIds"
+# mapfile ids < "$temporaryFileForIds"
 
 #testing
 echo "testing 10"
@@ -129,5 +129,8 @@ rm "$temporaryFileForIds"
 
 #testing
 echo "testing 14"
+
+#testing
+echo "$input_name's id is ${!output_variable_name}"
 
 # return 1

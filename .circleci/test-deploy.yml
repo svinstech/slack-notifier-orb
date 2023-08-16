@@ -95,14 +95,17 @@ jobs:
           name: "Generate Slack ID lookup table"
           command: |
             node src/scripts/filter_slack_ids.js ${NOTIFIER_BOT_TOKEN}
-      # - run:
-      #     name: "Check length of lookup table"
-      #     command: |
-      #       fileContents=$(cat slackIdLookupTable.json)
-      #       echo ${#fileContents}
-      - slack-notifier/get-slack-id:
-          target-name: kellen_kincaid
-          variable: my_id
+      # - slack-notifier/get-slack-id:
+      #     target-name: kellen_kincaid
+      #     variable: my_id
+      - run: 
+          name: Run _get_slack_id.sh (/src/script)
+          command: |
+            bash src/scripts/_get_slack_id.sh kellen_kincaid my_id
+      - run: 
+          name: Run _get_slack_id.sh (/script)
+          command: |
+            bash scripts/_get_slack_id.sh kellen_kincaid my_id
       - slack-notifier/build-status-notification:
           header: my_id
           additional-text: "Testing out tagging Kellen Kincaid -> ${my_id}"
