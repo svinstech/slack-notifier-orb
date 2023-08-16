@@ -13,8 +13,8 @@ global_rematch() {
 }
 
 # Process inputs
-input_name=$1
-output_variable_name=$2
+input_name=$NAME #$1
+output_variable_name=$VARIABLE #$2
 
 # The name whose id to get.
 if [[ -z "$input_name" ]]

@@ -14,4 +14,4 @@ steps:
       environment:
         NAME: <<parameters.target-name>>
         VARIABLE: <<parameters.variable>>
-      command: <<include(scripts/get_slack_id.sh)>>
+      command: <<include(scripts/_get_slack_id.sh)>>
