@@ -1,7 +1,7 @@
 #!/bin/bash
 
-target_name=$1 #$NAME
-environment_variable_name=$2 #$VARIABLE
+target_name=$NAME
+environment_variable_name=$VARIABLE
 
 # shellcheck disable=SC1091
 source src/scripts/_get_slack_id.sh "$target_name" "$environment_variable_name"
