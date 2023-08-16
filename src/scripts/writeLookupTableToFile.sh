@@ -13,6 +13,7 @@ echo "$lookupTable" > "$lookupTableFilePath"
 
 #testing
 # shellcheck disable=SC2162
+read -a words <<< "these are words"
+echo "LOOK HERE 1:" "${words[@]}"
 read -a arr < "$lookupTableFilePath"
-# echo "LOOKY HERE: $arr"
-echo "LOOKY HERE:" "${arr[@]}"
+echo "LOOK HERE 2:" "${arr[@]}"
