@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#testing
+echo "testing 1"
+
 temporaryFileForNames="deleteme_names.txt"
 temporaryFileForIds="deleteme_ids.txt"
 
@@ -12,9 +15,15 @@ global_rematch() {
     done
 }
 
+#testing
+echo "testing 2"
+
 # Process inputs
 input_name=$1
 output_variable_name=$2
+
+#testing
+echo "testing 3"
 
 # The name whose id to get.
 if [[ -z "$input_name" ]]
@@ -23,11 +32,17 @@ then
     exit 1
 fi
 
+#testing
+echo "testing 4"
+
 if [[ -z $output_variable_name ]]
 then
     echo "Second argument must be the name of the variable in which the ID will be stored."
     exit 1
 fi
+
+#testing
+echo "testing 5"
 
 # Regex expressions
 character_matcher="[A-Za-z0-9_ł\-]+"
@@ -37,14 +52,23 @@ id_regex="\"$character_matcher\":\"(@$character_matcher)\""
 # Get lookup table contents
 lookupTableStringified=$(cat slackIdLookupTable.json)
 
+#testing
+echo "testing 6"
+
 # Create arrays of names and ids
 ( "$(global_rematch "$lookupTableStringified" "$name_regex" "$temporaryFileForNames")" )
 names=$(cat $temporaryFileForNames)
 names=("$names")
 
+#testing
+echo "testing 7"
+
 ( "$(global_rematch "$lookupTableStringified" "$id_regex" "$temporaryFileForIds")" )
 ids=$(cat $temporaryFileForIds)
 ids=("$ids")
+
+#testing
+echo "testing 8"
 
 # Find the ID of input_name
 id=""
@@ -59,6 +83,9 @@ do
     fi
 done
 
+#testing
+echo "testing 9"
+
 # Error handling - Name not found
 if [[ -z "$id" ]]
 then
@@ -66,13 +93,22 @@ then
     exit 1
 fi
 
+#testing
+echo "testing 10"
+
 # Dynamically set the output variable.
 declare "$output_variable_name"="$id"
+
+#testing
+echo "testing 11"
 
 # These files are used to store the output of the global_rematch function. 
 # The motivation to store the output in temporary files was to prevent the output from
 #   cluttering the terminal.
 rm "$temporaryFileForNames"
 rm "$temporaryFileForIds"
+
+#testing
+echo "testing 12"
 
 return 1
