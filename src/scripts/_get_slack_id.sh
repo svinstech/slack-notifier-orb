@@ -13,7 +13,9 @@ global_rematch() {
 }
 
 # Process inputs
+# shellcheck disable=SC2153
 input_name=$NAME #$1
+# shellcheck disable=SC2153
 output_variable_name=$VARIABLE #$2
 
 # The name whose id to get.
