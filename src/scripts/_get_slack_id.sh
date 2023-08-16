@@ -55,6 +55,9 @@ id_regex="\"$character_matcher\":\"(@$character_matcher)\""
 lookupTableStringified=$(cat slackIdLookupTable.json)
 
 #testing
+echo "lookupTableStringified: $lookupTableStringified"
+
+#testing
 echo "testing 6"
 
 # Create arrays of names and ids
