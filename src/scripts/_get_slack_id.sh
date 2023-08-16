@@ -79,4 +79,4 @@ declare "$output_variable_name"="$id"
 rm "$temporaryFileForNames"
 rm "$temporaryFileForIds"
 
-return 1
+# return 1
