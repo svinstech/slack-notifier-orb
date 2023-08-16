@@ -39,9 +39,11 @@ lookupTableStringified=$(cat slackIdLookupTable.json)
 
 # Create arrays of names and ids
 global_rematch "$lookupTableStringified" "$name_regex" "$temporaryFileForNames"
+# shellcheck disable=SC2162
 read -a names < "$temporaryFileForNames"
 
 global_rematch "$lookupTableStringified" "$id_regex" "$temporaryFileForIds"
+# shellcheck disable=SC2162
 read -a ids < "$temporaryFileForIds"
 
 # Find the ID of input_name
