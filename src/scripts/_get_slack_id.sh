@@ -69,7 +69,8 @@ ls
 echo "Bash version: ${BASH_VERSION}"
 
 # shellcheck disable=SC2162
-read -a names < "$temporaryFileForNames"
+# read -a names < "$temporaryFileForNames"
+mapfile names < "$temporaryFileForNames"
 
 #testing
 echo "testing 8"
@@ -80,7 +81,8 @@ global_rematch "$lookupTableStringified" "$id_regex" "$temporaryFileForIds"
 echo "testing 9"
 
 # shellcheck disable=SC2162
-read -a ids < "$temporaryFileForIds"
+# read -a ids < "$temporaryFileForIds"
+mapfile ids < "$temporaryFileForIds"
 
 #testing
 echo "testing 10"
