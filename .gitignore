@@ -3,6 +3,7 @@ orb.yml
 .DS_Store
 slackIds.json
 slackUserInfo.json
+slackGroupInfo.json
 deleteme*
 temporary*
 **/dist

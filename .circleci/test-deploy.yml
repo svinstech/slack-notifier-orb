@@ -110,6 +110,10 @@ jobs:
           header: Tag test
           additional-text: "Testing out tagging Kellen Kincaid -> @kellen_kincaid"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
+      - slack-notifier/build-status-notification:
+          header: SDET tag test
+          additional-text: "Testing out tagging the SDET group -> @sdet"
+          channel-webhook-environment-variables: WEBHOOK_TEAM_QUALITY_SDET
 
 workflows:
   test-deploy:
