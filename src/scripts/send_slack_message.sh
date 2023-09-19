@@ -33,6 +33,10 @@ processText () {
         elif [[ $word =~ $regexTaggedName ]]
         then
             local taggedName=${BASH_REMATCH[1]}
+
+            #testing
+            echo "taggedName: $taggedName"
+
             taggedNames="${taggedNames} ${taggedName}"
         fi
     done
