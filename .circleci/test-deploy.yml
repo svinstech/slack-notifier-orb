@@ -102,6 +102,7 @@ jobs:
           name: Run _get_slack_id.sh (/src/script)
           command: |
             bash src/scripts/_get_slack_id.sh kellen_kincaid my_id
+            echo $my_id
       - slack-notifier/build-status-notification:
           header: my_id
           additional-text: "Testing out tagging Kellen Kincaid -> ${my_id} -> $my_id"
