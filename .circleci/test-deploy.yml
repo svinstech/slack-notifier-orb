@@ -98,15 +98,15 @@ jobs:
       # - slack-notifier/get-slack-id:
       #     target-name: kellen_kincaid
       #     variable: my_id
-      - run: 
-          name: Run _get_slack_id.sh (/src/script)
-          command: |
-            bash src/scripts/_get_slack_id.sh kellen_kincaid my_id
-            echo "my_id: $my_id"
-            echo "ID: $ID"
+      # - run: 
+      #     name: Run _get_slack_id.sh (/src/script)
+      #     command: |
+      #       bash src/scripts/_get_slack_id.sh kellen_kincaid my_id
+      #       echo "my_id: $my_id"
+      #       echo "ID: $ID"
       - slack-notifier/build-status-notification:
-          header: my_id
-          additional-text: "Testing out tagging Kellen Kincaid -> ${my_id} -> $my_id"
+          header: Tag test
+          additional-text: "Testing out tagging Kellen Kincaid -> @kellen_kincaid"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 workflows:

@@ -9,22 +9,47 @@ fi
 
 # Takes 1 argument - The text to process.
 # All interpolated variables in the text will be replaced with their corresponding values.
+# All tagged Slack users (like @kellen_kincaid) will be replaced with the corresponding Slack ID.
 # Also, all escaped double-quotation marks will be replaced with single quotation marks.
 processText () {
   local processedText=$1
   local variables=""
+  local taggedNames=""
+  local slackIdLookupTableFilePath="../../slackIdLookupTable.txt"
 
   if [[ $processedText ]]
   then
+    # Identify all interpolated variables and tagged Slack users.
     for word in ${processedText}
     do
-        regex="\\$\{(.+)\}"
-        if [[ $word =~ $regex ]]
+        regexVariable="\\$\{(.+)\}"
+        regexTaggedName="@(.+)"
+
+        if [[ $word =~ $regexVariable ]]
         then
             local variableName=${BASH_REMATCH[1]}
             variables="${variables} ${variableName}"
+        elif [[ $word =~ $regexTaggedName ]]
+        then
+            local taggedName=${BASH_REMATCH[1]}
+            taggedNames="${taggedNames} ${taggedName}"
         fi
     done
+
+    if [[ $taggedNames ]]
+    then
+      # Replace all taggedNames in the string with their Slack IDs.
+      for name in ${taggedNames}
+      do
+          local slackId=$(grep "^$name=" "$slackIdLookupTableFilePath")
+          slackId=${ID#*=}
+
+          # if [[ $slackId ]]
+          # then
+            processedText="${processedText//\$\{${name}\}/${!slackId}}"
+          # fi
+      done
+    fi
 
     if [[ $variables ]]
     then

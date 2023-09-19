@@ -132,9 +132,4 @@ echo "testing 14"
 
 #testing
 echo "$input_name's id is ${!output_variable_name}"
-
-#testing
-# shellcheck disable=SC2034
-ID=$id
-
 # return 1

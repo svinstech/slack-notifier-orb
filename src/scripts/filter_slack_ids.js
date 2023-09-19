@@ -1,52 +1,48 @@
-var _a = require('fs'), readFile = _a.readFile, unlink = _a.unlink, _b = require('child_process'), execSync = _b.execSync, exec = _b.exec;
-var lookupTable = {};
-var NOTIFIER_BOT_TOKEN = process.argv[2]; // First argument must be the NOTIFIER_BOT_TOKEN environment variable saved to this CircleCI project.
-var lookupTableFileName = process.argv[3]; // Optional 2nd argument. For if you want to use a custom file name.
-var slackUserInfoFilePath = 'slackUserInfo.json', getSlackUserShellScriptFilePath = 'src/scripts/get_slack_user_info.sh', writeLookupTableShellScriptFilePath = 'src/scripts/writeLookupTableToFile.sh', lookupTableFilePath = (lookupTableFileName) ? lookupTableFileName : 'slackIdLookupTable.json';
-// Execure the shell script that fetches the Slack user info.
-execSync("sh ".concat(getSlackUserShellScriptFilePath, " ").concat(NOTIFIER_BOT_TOKEN));
-// Parse the Slack user info to create the lookup table.
+"use strict";
+const { readFile, unlink } = require('fs'), { execSync, exec } = require('child_process');
+const lookupTable = [];
+const NOTIFIER_BOT_TOKEN = process.argv[2];
+const lookupTableFileName = process.argv[3];
+const slackUserInfoFilePath = 'slackUserInfo.json', getSlackUserShellScriptFilePath = 'src/scripts/get_slack_user_info.sh', writeLookupTableShellScriptFilePath = 'src/scripts/writeLookupTableToFile.sh', lookupTableFilePath = (lookupTableFileName) ? lookupTableFileName : 'slackIdLookupTable.txt';
+execSync(`sh ${getSlackUserShellScriptFilePath} ${NOTIFIER_BOT_TOKEN}`);
 readFile(slackUserInfoFilePath, { encoding: 'utf-8' }, function (err, data) {
     if (!err) {
-        var slackUsersResponse = JSON.parse(data);
+        const slackUsersResponse = JSON.parse(data);
         if (!slackUsersResponse.ok) {
-            console.log("!!! Error - Response object not ok. Error: ".concat(slackUsersResponse.error));
+            console.log(`!!! Error - Response object not ok. Error: ${slackUsersResponse.error}`);
             return;
         }
-        var slackUsers = slackUsersResponse.members;
-        // Keep only non-deleted users that have first names, last names, & emails.
-        slackUsers = slackUsers.filter(function (slackUser) {
-            var userNotDeleted = !slackUser.deleted;
-            var userHasFirstAndLastName = !!slackUser.profile.first_name && !!slackUser.profile.last_name;
-            var userHasEmail = !!slackUser.profile.email;
-            var userIsReal = userNotDeleted && userHasFirstAndLastName && userHasEmail;
+        let slackUsers = slackUsersResponse.members;
+        slackUsers = slackUsers.filter((slackUser) => {
+            const userNotDeleted = !slackUser.deleted;
+            const userHasFirstAndLastName = !!slackUser.profile.first_name && !!slackUser.profile.last_name;
+            const userHasEmail = !!slackUser.profile.email;
+            const userIsReal = userNotDeleted && userHasFirstAndLastName && userHasEmail;
             return userIsReal;
         });
-        // Populate the lookup table with name::id pairs.
-        slackUsers.forEach(function (slackUser) {
-            var name = "".concat(slackUser.profile.first_name.toLowerCase(), "_").concat(slackUser.profile.last_name.toLowerCase()).trim().replace(' ', '_');
-            name = name.replace(/_?\(.*\)_?/, ''); // Remove "_(text)" from names that have them.
-            name = name.replace('__', '_'); // Convert double underscores to single underscores.
-            name = name.replace("'", ""); // Remove single quotes
-            name = name.trim(); // Trim again, in case the changes left spaces on either end.
-            var id = slackUser.id;
-            lookupTable[name] = "@".concat(id);
+        slackUsers.forEach((slackUser) => {
+            let name = `${slackUser.profile.first_name.toLowerCase()}_${slackUser.profile.last_name.toLowerCase()}`.trim().replace(' ', '_');
+            name = name.replace(/_?\(.*\)_?/, '');
+            name = name.replace('__', '_');
+            name = name.replace("'", "");
+            name = name.trim();
+            const id = slackUser.id;
+            lookupTable.push(`${name}=${id}`);
         });
-        // Execure the shell script that stores the lookup table in a file.
-        exec("sh ".concat(writeLookupTableShellScriptFilePath, " ").concat(lookupTableFilePath, " '").concat(JSON.stringify(lookupTable), "'"), function (error, stdout, stderr) {
+        exec(`sh ${writeLookupTableShellScriptFilePath} ${lookupTableFilePath} '${lookupTable.join("\n")}'`, (error, stdout, stderr) => {
             if (error) {
-                console.error("!!! Error writing lookup table to file - ".concat(error));
+                console.error(`!!! Error writing lookup table to file - ${error}`);
                 return;
             }
             if (stdout) {
-                console.log("stdout: ".concat(stdout));
+                console.log(`stdout: ${stdout}`);
             }
             if (stderr) {
-                console.error("stderr: ".concat(stderr));
+                console.error(`stderr: ${stderr}`);
             }
         });
     }
     else {
-        console.log("!!! Error reading ".concat(slackUserInfoFilePath, " file - ").concat(err));
+        console.log(`!!! Error reading ${slackUserInfoFilePath} file - ${err}`);
     }
 });

@@ -21,11 +21,7 @@ interface SlackUsersResponseObject {
     error?:string
 }
 
-interface LookupTable {
-    [key: string]: string
-}
-
-const lookupTable:LookupTable = {}
+const lookupTable:string[] = [];
 
 const NOTIFIER_BOT_TOKEN:string = process.argv[2] // First argument must be the NOTIFIER_BOT_TOKEN environment variable saved to this CircleCI project.
 const lookupTableFileName:string = process.argv[3] // Optional 2nd argument. For if you want to use a custom file name.
@@ -33,7 +29,7 @@ const lookupTableFileName:string = process.argv[3] // Optional 2nd argument. For
 const slackUserInfoFilePath:string = 'slackUserInfo.json',
       getSlackUserShellScriptFilePath:string = 'src/scripts/get_slack_user_info.sh',
       writeLookupTableShellScriptFilePath:string = 'src/scripts/writeLookupTableToFile.sh',
-      lookupTableFilePath:string = (lookupTableFileName) ? lookupTableFileName : 'slackIdLookupTable.json'
+      lookupTableFilePath:string = (lookupTableFileName) ? lookupTableFileName : 'slackIdLookupTable.txt'
 
 // Execute the shell script that fetches the Slack user info.
 execSync(`sh ${getSlackUserShellScriptFilePath} ${NOTIFIER_BOT_TOKEN}`);
@@ -70,11 +66,11 @@ readFile(slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any)
 
             const id:string = slackUser.id;
 
-            lookupTable[name] = `@${id}`
+            lookupTable.push(`${name}=${id}`)
         })
 
         // Execute the shell script that stores the lookup table in a file.
-        exec(`sh ${writeLookupTableShellScriptFilePath} ${lookupTableFilePath} '${JSON.stringify(lookupTable)}'`, (error:any, stdout:any, stderr:any) => {
+        exec(`sh ${writeLookupTableShellScriptFilePath} ${lookupTableFilePath} '${lookupTable.join("\n")}'`, (error:any, stdout:any, stderr:any) => {
             if (error) {
               console.error(`!!! Error writing lookup table to file - ${error}`);
               return;
