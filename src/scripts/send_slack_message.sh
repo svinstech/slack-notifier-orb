@@ -47,7 +47,7 @@ processText () {
 
           # if [[ $slackId ]]
           # then
-            processedText="${processedText//\$\{${name}\}/${!slackId}}"
+            processedText="${processedText//\$\{${name}\}/${slackId}}"
           # fi
       done
     fi
