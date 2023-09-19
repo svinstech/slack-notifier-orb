@@ -51,10 +51,10 @@ processText () {
           slackId=$(grep "^$name=" "$slackIdLookupTableFilePath")
           slackId=${slackId#*=}
 
-          # if [[ $slackId ]]
-          # then
+          if [[ $slackId ]]
+          then
             processedText="${processedText//@${name}/<@${slackId}>}"
-          # fi
+          fi
       done
     fi
 
@@ -66,10 +66,10 @@ processText () {
           slackId=$(grep "^$groupHandle=" "$slackIdLookupTableFilePath")
           slackId=${slackId#*=}
 
-          # if [[ $slackId ]]
-          # then
+          if [[ $slackId ]]
+          then
             processedText="${processedText//\!${groupHandle}/<\!subteam^${slackId}>}"
-          # fi
+          fi
       done
     fi
 
