@@ -97,22 +97,13 @@ jobs:
             node src/scripts/filter_slack_ids.js ${NOTIFIER_BOT_TOKEN}
             fileContents=$(cat slackIdLookupTable.txt)
             echo ${#fileContents}  
-      # - slack-notifier/get-slack-id:
-      #     target-name: kellen_kincaid
-      #     variable: my_id
-      # - run: 
-      #     name: Run _get_slack_id.sh (/src/script)
-      #     command: |
-      #       bash src/scripts/_get_slack_id.sh kellen_kincaid my_id
-      #       echo "my_id: $my_id"
-      #       echo "ID: $ID"
       - slack-notifier/build-status-notification:
           header: Tag test
           additional-text: "Testing out tagging Kellen Kincaid -> @kellen_kincaid"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
       - slack-notifier/build-status-notification:
           header: SDET tag test
-          additional-text: "Testing out tagging the SDET group -> @sdet"
+          additional-text: "Testing out tagging the SDET group -> !sdet"
           channel-webhook-environment-variables: WEBHOOK_TEAM_QUALITY_SDET
 
 workflows:
