@@ -25,7 +25,7 @@ processText () {
     do
         regexVariable="\\$\{(.+)\}"
         regexTaggedName="@(.+)"
-        
+
         if [[ $word =~ $regexVariable ]]
         then
             local variableName=${BASH_REMATCH[1]}
@@ -43,11 +43,11 @@ processText () {
       for name in ${taggedNames}
       do
           slackId=$(grep "^$name=" "$slackIdLookupTableFilePath")
-          slackId=${ID#*=}
+          slackId=${slackId#*=}
 
           # if [[ $slackId ]]
           # then
-            processedText="${processedText//${name}/${slackId}}"
+            processedText="${processedText//@${name}/${slackId}}"
           # fi
       done
     fi
