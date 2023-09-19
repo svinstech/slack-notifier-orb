@@ -25,12 +25,7 @@ processText () {
     do
         regexVariable="\\$\{(.+)\}"
         regexTaggedName="@(.+)"
-
-        #testing
-        echo "test 1"
-        echo "regexTaggedName: $regexTaggedName"
-        echo "word: $word"
-
+        
         if [[ $word =~ $regexVariable ]]
         then
             local variableName=${BASH_REMATCH[1]}
@@ -38,11 +33,6 @@ processText () {
         elif [[ $word =~ $regexTaggedName ]]
         then
             local taggedName=${BASH_REMATCH[1]}
-
-            #testing
-            echo "test 2"
-            echo "taggedName: $taggedName"
-
             taggedNames="${taggedNames} ${taggedName}"
         fi
     done
@@ -57,7 +47,7 @@ processText () {
 
           # if [[ $slackId ]]
           # then
-            processedText="${processedText//\$\{${name}\}/${slackId}}"
+            processedText="${processedText//${name}/${slackId}}"
           # fi
       done
     fi
