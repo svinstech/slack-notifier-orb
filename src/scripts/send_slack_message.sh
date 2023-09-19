@@ -16,6 +16,7 @@ processText () {
   local variables=""
   local taggedNames=""
   local slackIdLookupTableFilePath="../../slackIdLookupTable.txt"
+  local slackId=""
 
   if [[ $processedText ]]
   then
@@ -41,7 +42,7 @@ processText () {
       # Replace all taggedNames in the string with their Slack IDs.
       for name in ${taggedNames}
       do
-          local slackId=$(grep "^$name=" "$slackIdLookupTableFilePath")
+          slackId=$(grep "^$name=" "$slackIdLookupTableFilePath")
           slackId=${ID#*=}
 
           # if [[ $slackId ]]
