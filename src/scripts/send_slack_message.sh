@@ -26,6 +26,11 @@ processText () {
         regexVariable="\\$\{(.+)\}"
         regexTaggedName="@(.+)"
 
+        #testing
+        echo "test 1"
+        echo "regexTaggedName: $regexTaggedName"
+        echo "word: $word"
+
         if [[ $word =~ $regexVariable ]]
         then
             local variableName=${BASH_REMATCH[1]}
@@ -35,6 +40,7 @@ processText () {
             local taggedName=${BASH_REMATCH[1]}
 
             #testing
+            echo "test 2"
             echo "taggedName: $taggedName"
 
             taggedNames="${taggedNames} ${taggedName}"
