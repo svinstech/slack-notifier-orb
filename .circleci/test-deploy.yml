@@ -105,6 +105,10 @@ jobs:
           header: SDET tag test
           additional-text: "Testing out tagging the SDET group -> !sdet"
           channel-webhook-environment-variables: WEBHOOK_TEAM_QUALITY_SDET
+      - slack-notifier/build-status-notification:
+          header: Non-existent tags
+          additional-text: "Testing out fake tags -> @mashed_potatoes !dragon_ball_z"
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:
