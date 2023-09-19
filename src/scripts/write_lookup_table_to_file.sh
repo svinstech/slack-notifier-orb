@@ -11,7 +11,7 @@ fi
 
 touch "$lookupTableFilePath"
 
-if [[ $overwrite ]]
+if [ "$overwrite" = true ]
 then
     echo "$lookupTable" > "$lookupTableFilePath"
 else
