@@ -15,16 +15,18 @@ processText () {
   local processedText=$1
   local variables=""
   local taggedNames=""
+  local taggedGroups=""
   local slackIdLookupTableFilePath="slackIdLookupTable.txt"
   local slackId=""
 
   if [[ $processedText ]]
   then
-    # Identify all interpolated variables and tagged Slack users.
+    # Identify all interpolated variables, tagged Slack users, & tagged Slack user groups.
     for word in ${processedText}
     do
         regexVariable="\\$\{(.+)\}"
         regexTaggedName="@(.+)"
+        regexTaggedGroup="!(.*)"
 
         if [[ $word =~ $regexVariable ]]
         then
@@ -34,6 +36,10 @@ processText () {
         then
             local taggedName=${BASH_REMATCH[1]}
             taggedNames="${taggedNames} ${taggedName}"
+        elif [[ $word =~ $regexTaggedGroup ]]
+        then
+            local taggedGroup=${BASH_REMATCH[1]}
+            taggedGroups="${taggedGroups} ${taggedGroup}"
         fi
     done
 
@@ -48,6 +54,21 @@ processText () {
           # if [[ $slackId ]]
           # then
             processedText="${processedText//@${name}/<@${slackId}>}"
+          # fi
+      done
+    fi
+
+    if [[ $taggedGroups ]]
+    then
+      # Replace all taggedGroups in the string with their Slack IDs.
+      for groupHandle in ${taggedGroups}
+      do
+          slackId=$(grep "^$groupHandle=" "$slackIdLookupTableFilePath")
+          slackId=${slackId#*=}
+
+          # if [[ $slackId ]]
+          # then
+            processedText="${processedText//\!${groupHandle}/<\!subteam^${slackId}>}"
           # fi
       done
     fi
