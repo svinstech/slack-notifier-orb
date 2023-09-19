@@ -15,7 +15,7 @@ processText () {
   local processedText=$1
   local variables=""
   local taggedNames=""
-  local slackIdLookupTableFilePath="../../slackIdLookupTable.txt"
+  local slackIdLookupTableFilePath="slackIdLookupTable.txt"
   local slackId=""
 
   if [[ $processedText ]]
