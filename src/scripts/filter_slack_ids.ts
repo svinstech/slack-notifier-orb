@@ -1,5 +1,5 @@
 
-const { readFile, unlink } = require('fs'),
+const { readFile } = require('fs'),
       { execSync, exec } = require('child_process'); 
 
 interface Profile {

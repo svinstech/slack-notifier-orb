@@ -95,6 +95,8 @@ jobs:
           name: "Generate Slack ID lookup table"
           command: |
             node src/scripts/filter_slack_ids.js ${NOTIFIER_BOT_TOKEN}
+            fileContents=$(cat slackIdLookupTable.txt)
+            echo ${#fileContents}  
       # - slack-notifier/get-slack-id:
       #     target-name: kellen_kincaid
       #     variable: my_id
