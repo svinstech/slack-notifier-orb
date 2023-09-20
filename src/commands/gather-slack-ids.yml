@@ -1,0 +1,15 @@
+description: >
+  This command uses Slack API calls to gather a list of all Vouch user IDs and user-group IDs.
+  It requires authentication via a Slack bot's "Bot User OAuth Token".
+  You can get this token by being made a collaborator of the "Notifier" Slack app and going to this URL: https://api.slack.com/apps/A0558T317A7/oauth?
+
+parameters:
+  slack-bot-token:
+    type: string
+    description: The "Bot User OAuth Token" needed to authenticate Slack API calls.
+steps:
+  - run:
+      name: Gather Slack users and user groups
+      environment:
+        SLACK_BOT_TOKEN: <<parameters.slack-bot-token>>
+      command: <<include(scripts/gather_slack_ids.sh)>>
