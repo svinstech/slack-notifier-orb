@@ -1,6 +1,6 @@
 #!/bin/bash
 
-node src/scripts/filter_slack_ids.js "${!SLACK_BOT_TOKEN}"
+npx ts-node src/scripts/filter_slack_ids.ts "${!SLACK_BOT_TOKEN}"
 
 #testing
 # fileContents=$(cat slackIdLookupTable.txt)
