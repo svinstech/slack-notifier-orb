@@ -118,10 +118,13 @@ async function main() {
             
             // Populate the lookup table with name::id pairs.
             slackGroups.forEach((slackGroup:SlackGroup) => {
-                const handle:string = slackGroup.handle
-                const id:string = slackGroup.id;
+                // Only keep non-deleted groups.
+                if (slackGroup.deleted_by == null) {
+                    const handle:string = slackGroup.handle
+                    const id:string = slackGroup.id;
 
-                lookupTable.push(`${handle}=${id}`)
+                    lookupTable.push(`${handle}=${id}`)
+                }
             })
 
             // Execute the shell script that stores the lookup table in a file.
