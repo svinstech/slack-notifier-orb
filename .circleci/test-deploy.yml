@@ -91,20 +91,12 @@ jobs:
       - run:
           name: "Install dependencies"
           command: yarn
-      # - run:
-      #     name: "Generate Slack ID lookup table"
-      #     command: |
-      #       node src/scripts/filter_slack_ids.js ${NOTIFIER_BOT_TOKEN}  
       - slack-notifier/gather-slack-ids:
           slack-bot-token: NOTIFIER_BOT_TOKEN
       - slack-notifier/build-status-notification:
           header: Tag test
           additional-text: "Testing out tagging Kellen Kincaid & SDET group -> @kellen_kincaid !sdet"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
-      # - slack-notifier/build-status-notification:
-      #     header: SDET tag test
-      #     additional-text: "Testing out tagging the SDET group -> !sdet"
-      #     channel-webhook-environment-variables: WEBHOOK_TEAM_QUALITY_SDET
       - slack-notifier/build-status-notification:
           header: Non-existent tag test
           additional-text: "Testing out fake tags -> @mashed_potatoes !dragon_ball_z"

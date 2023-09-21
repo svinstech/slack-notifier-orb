@@ -51,11 +51,26 @@ usage:
             header: TESTING SLACK-NOTIFICATION ORB - Failed step!
             channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1 TEST_SLACK_WEBHOOK_2
             additional-text: "This step is supposed to _fail_ for the sake of demonstration."
+    test-tagging-users-and-groups:
+      docker:
+        - image: cimg/base:current
+      steps:
+        - slack-notifier/gather-slack-ids:
+            slack-bot-token: NOTIFIER_BOT_TOKEN
+        - slack-notifier/send-slack-message:
+            header: TESTING SLACK-NOTIFICATION ORB - Message that tags a user
+            message: "Tagging @kellen_kincaid"
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1
+        - slack-notifier/send-slack-message:
+            header: TESTING SLACK-NOTIFICATION ORB - Message that tags a user group
+            message: "Tagging !sdet"
+            channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1
 
   workflows:
     run-message-tests:
       jobs:
         - send-several-messages
         - test-build-status-notifications
+        - test-tagging-users-and-groups
 
 
