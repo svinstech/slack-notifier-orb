@@ -12,4 +12,4 @@ steps:
       name: Gather Slack users and user groups
       environment:
         SLACK_BOT_TOKEN: <<parameters.slack-bot-token>>
-      command: <<include(scripts/generate_slack_id_lookup_table.sh)>>
+      command: <<include(scripts/slack_id_lookup_table_scripts/generate_slack_id_lookup_table.sh)>>
