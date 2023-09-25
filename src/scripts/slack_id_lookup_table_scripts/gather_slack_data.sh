@@ -8,7 +8,7 @@ then
 fi
 ##################################
 
-################################## GET ALL VOUCH SLACK USER INFO (saves them to a new file)
+################################## GET ALL VOUCH SLACK USER & USER GROUP INFO (saves them to a new file)
 NOTIFIER_BOT_TOKEN=$1
 DESTINATION_FILE_USERS=$2
 DESTINATION_FILE_GROUPS=$3
