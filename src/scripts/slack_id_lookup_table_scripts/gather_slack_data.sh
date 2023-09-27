@@ -9,7 +9,7 @@ fi
 ##################################
 
 #deleteme
-echo "token length: ${#SLACK_BOT_TOKEN}"
+# echo "token length: ${#SLACK_BOT_TOKEN}"
 #deleteme
 
 ################################## GET ALL VOUCH SLACK USER & USER GROUP INFO (saves them to a new file)
