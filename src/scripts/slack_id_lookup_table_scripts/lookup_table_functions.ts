@@ -76,7 +76,7 @@ async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTable
                 }
             });
         } else {
-            console.log(`!!! Error reading ${_slackUserInfoFilePath} file - ${err}`);
+            throw(`!!! Error reading ${_slackUserInfoFilePath} file - ${err}`);
         }
     });
 }
@@ -121,7 +121,7 @@ async function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookup
                 }
             });
         } else {
-            console.log(`!!! Error reading ${_slackGroupInfoFilePath} file - ${err}`);
+            throw(`!!! Error reading ${_slackGroupInfoFilePath} file - ${err}`);
         }
     });
 }
