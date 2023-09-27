@@ -2,15 +2,15 @@ import { readFile } from 'fs'
 import { execSync, exec } from 'child_process'
 import { SlackUser, SlackGroup, SlackUsersResponseObject, SlackGroupsResponseObject } from './interfaces'
 
-export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string, _notifierBotToken:string) {
-    GetSlackData(_getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath, _notifierBotToken);
-    AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath, _notifierBotToken);
-    AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath, _notifierBotToken);
+export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
+    GetSlackData(_getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
+    AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
+    AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
 }
 
-function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string, _notifierBotToken:string) {
+function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
     // Get the Slack user info.
-    execSync(`sh ${_getSlackUserShellScriptFilePath} ${_notifierBotToken} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`);
+    execSync(`sh ${_getSlackUserShellScriptFilePath} ${process.env.SLACK_BOT_TOKEN} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`);
 }
 
 async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string, _notifierBotToken:string) {
