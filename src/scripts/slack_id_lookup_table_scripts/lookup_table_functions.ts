@@ -17,9 +17,9 @@ async function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserI
     
     // Get the Slack user info.
     await exec(`sh ${_getSlackUserShellScriptFilePath} ${process.env.SLACK_BOT_TOKEN} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`, (error:any, stdout:any, stderr:any) => {
-        if (stdout) {
+        // if (stdout) {
             console.log(`stdout: ${stdout}`);
-        }
+        // }
 
         if (stderr) {
             console.error(`stderr: ${stderr}`);
