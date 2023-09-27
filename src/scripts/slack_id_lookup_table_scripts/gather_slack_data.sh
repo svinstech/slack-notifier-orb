@@ -10,7 +10,6 @@ fi
 
 # # # # # DELETE THIS
 echo "DELETE_ME: $DELETE_ME"
-echo "{!DELETE_ME}: ${!DELETE_ME}"
 # # # # # DELETE THIS
 
 ################################## GET ALL VOUCH SLACK USER & USER GROUP INFO (saves them to a new file)
