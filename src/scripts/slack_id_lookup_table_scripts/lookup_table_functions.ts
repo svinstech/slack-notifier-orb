@@ -6,7 +6,7 @@ export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTab
     //deleteme
     console.log(`(2) token length: ${process.env.SLACK_BOT_TOKEN?.length}`)
     
-    await GetSlackData(_getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
+    // await GetSlackData(_getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
     await AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackUserInfoFilePath);
     await AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackGroupInfoFilePath);
 }
