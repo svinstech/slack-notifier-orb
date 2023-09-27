@@ -11,9 +11,9 @@ fi
 NOTIFIER_BOT_TOKEN=$1
 
 # # # # # DELETE ME
-echo "DELETE_ME: $SLACK_BOT_TOKEN"
-echo "DELETE_ME: ${SLACK_BOT_TOKEN}"
-echo "${!SLACK_BOT_TOKEN}"
+echo "DELETE_ME: $NOTIFIER_BOT_TOKEN"
+echo "DELETE_ME: ${NOTIFIER_BOT_TOKEN}"
+echo "${!NOTIFIER_BOT_TOKEN}"
 # # # # # DELETE ME
 
 ################################## GET ALL VOUCH SLACK USER & USER GROUP INFO (saves them to a new file)
