@@ -1,4 +1,3 @@
-
 import { PopulateLookupTable } from './lookup_table_functions'
 
 const lookupTable:string[] = [];
@@ -12,6 +11,5 @@ async function main() {
 
     await PopulateLookupTable(lookupTable, writeLookupTableShellScriptFilePath, lookupTableFilePath, getSlackUserShellScriptFilePath, slackUserInfoFilePath, slackGroupInfoFilePath)
 }
-
 
 main();

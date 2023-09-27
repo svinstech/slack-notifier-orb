@@ -8,8 +8,6 @@ then
 fi
 ##################################
 
-
-
 ################################## GET ALL VOUCH SLACK USER & USER GROUP INFO (saves them to a new file)
 SLACK_BOT_TOKEN=$1
 DESTINATION_FILE_USERS=$2
