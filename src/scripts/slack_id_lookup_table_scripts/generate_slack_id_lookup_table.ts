@@ -5,7 +5,7 @@ const lookupTable:string[] = [];
 
 async function main() {
     // DELETE_ME
-    console.log(`DELETE_ME: ${process.env.DELETE_ME}`)
+    console.log(`DELETE_ME: ${process.env.DELETE_ME1}`)
 
 
     const slackUserInfoFilePath:string = 'slackUserInfo.json',
