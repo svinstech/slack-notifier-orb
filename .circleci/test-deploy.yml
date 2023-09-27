@@ -92,7 +92,7 @@ jobs:
           name: "Install dependencies"
           command: yarn install --frozen-lockfile
       - slack-notifier/gather-slack-ids:
-          slack-bot-token: DELETE_ME #NOTIFIER_BOT_TOKEN
+          slack-bot-token: NOTIFIER_BOT_TOKEN
       - slack-notifier/build-status-notification:
           header: Tag test
           additional-text: "Testing out tagging Kellen Kincaid & SDET group -> @kellen_kincaid !sdet"

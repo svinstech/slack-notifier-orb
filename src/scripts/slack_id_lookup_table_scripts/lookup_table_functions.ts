@@ -3,17 +3,23 @@ import { execSync, exec } from 'child_process'
 import { SlackUser, SlackGroup, SlackUsersResponseObject, SlackGroupsResponseObject } from './interfaces'
 
 export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
+    //deleteme
+    console.log(`(2) Token length: ${process.env.SLACK_BOT_TOKEN?.length}`)
+    
     GetSlackData(_getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
-    AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
-    AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
+    AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackUserInfoFilePath);
+    AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackGroupInfoFilePath);
 }
 
 function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
+    //deleteme
+    console.log(`(3) Token length: ${process.env.SLACK_BOT_TOKEN?.length}`)
+    
     // Get the Slack user info.
     execSync(`sh ${_getSlackUserShellScriptFilePath} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`);
 }
 
-async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
+async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackUserInfoFilePath:string) {
     // Parse the Slack user info and add it to the lookup table.
     await readFile(_slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any){
         if (!err) {
@@ -52,8 +58,8 @@ async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTable
             // Execute the shell script that stores the lookup table in a file.
             exec(`sh ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' true`, (error:any, stdout:any, stderr:any) => {
                 if (error) {
-                console.error(`!!! Error writing lookup table to file - ${error}`);
-                return;
+                    console.error(`!!! Error writing lookup table to file - ${error}`);
+                    return;
                 }
                 
                 if (stdout) {
@@ -70,7 +76,7 @@ async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTable
     });
 }
 
-async function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
+async function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackGroupInfoFilePath:string) {
     // Parse the Slack group info and add to the lookup table.
     await readFile(_slackGroupInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any){
         if (!err) {

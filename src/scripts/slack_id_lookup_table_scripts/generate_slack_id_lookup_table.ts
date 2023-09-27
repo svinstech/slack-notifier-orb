@@ -4,9 +4,8 @@ import { PopulateLookupTable } from './lookup_table_functions'
 const lookupTable:string[] = [];
 
 async function main() {
-    // DELETE_ME
-    console.log(`DELETE_ME: ${process.env.DELETE_ME1}`)
-
+    //deleteme
+    console.log(`Token length: ${process.env.SLACK_BOT_TOKEN?.length}`)
 
     const slackUserInfoFilePath:string = 'slackUserInfo.json',
         slackGroupInfoFilePath:string = 'slackGroupInfo.json',
