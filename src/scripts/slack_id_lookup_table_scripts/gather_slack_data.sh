@@ -11,7 +11,6 @@ fi
 # # # # # DELETE ME
 echo "DELETE_ME: $SLACK_BOT_TOKEN"
 echo "DELETE_ME: ${SLACK_BOT_TOKEN}"
-echo "DELETE_ME: ${!SLACK_BOT_TOKEN}"
 # # # # # DELETE ME
 
 ################################## GET ALL VOUCH SLACK USER & USER GROUP INFO (saves them to a new file)

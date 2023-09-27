@@ -19,7 +19,6 @@ async function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserI
     exec(`sh ${_getSlackUserShellScriptFilePath} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`, (error:any, stdout:any, stderr:any) => {
         if (error) {
             console.error(`!!! Error acquiring Slack data - ${error}`);
-            return;
         }
         
         if (stdout) {
