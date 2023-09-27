@@ -90,7 +90,7 @@ jobs:
       - checkout
       - run:
           name: "Install dependencies"
-          command: yarn
+          command: yarn install --frozen-lockfile
       - slack-notifier/gather-slack-ids:
           slack-bot-token: NOTIFIER_BOT_TOKEN
       - slack-notifier/build-status-notification:
