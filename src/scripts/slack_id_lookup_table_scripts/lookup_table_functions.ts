@@ -3,12 +3,18 @@ import { exec } from 'child_process'
 import { SlackUser, SlackGroup, SlackUsersResponseObject, SlackGroupsResponseObject } from './interfaces'
 
 export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
+    //deleteme
+    console.log(`(2) token length: ${process.env.SLACK_BOT_TOKEN?.length}`)
+    
     await GetSlackData(_getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
     await AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackUserInfoFilePath);
     await AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackGroupInfoFilePath);
 }
 
 async function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
+    //deleteme
+    console.log(`(3) token length: ${process.env.SLACK_BOT_TOKEN?.length}`)
+    
     // Get the Slack user info.
     await exec(`sh ${_getSlackUserShellScriptFilePath} ${process.env.SLACK_BOT_TOKEN} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`, (error:any, stdout:any, stderr:any) => {
         if (stdout) {
