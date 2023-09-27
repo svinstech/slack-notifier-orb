@@ -11,7 +11,7 @@ Here is an example:
     jobs:
       job-name
         docker:
-          - image: cimg/base:current
+          - image: cimg/node:current
         steps: 
           - slack-notifier/gather-slack-ids:
               slack-bot-token: NOTIFIER_BOT_TOKEN
