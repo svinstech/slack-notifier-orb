@@ -10,7 +10,7 @@ export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTab
 
 async function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
     // Get the Slack user info.
-    exec(`sh ${_getSlackUserShellScriptFilePath} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`, (error:any, stdout:any, stderr:any) => {
+    await exec(`sh ${_getSlackUserShellScriptFilePath} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`, (error:any, stdout:any, stderr:any) => {
         if (stdout) {
             console.log(`stdout: ${stdout}`);
         }
