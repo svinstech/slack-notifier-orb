@@ -17,16 +17,16 @@ async function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserI
     
     // Get the Slack user info.
     exec(`sh ${_getSlackUserShellScriptFilePath} ${_slackUserInfoFilePath} ${_slackGroupInfoFilePath}`, (error:any, stdout:any, stderr:any) => {
-        if (error) {
-            console.error(`!!! Error acquiring Slack data - ${error}`);
-        }
-        
         if (stdout) {
             console.log(`stdout: ${stdout}`);
         }
 
         if (stderr) {
             console.error(`stderr: ${stderr}`);
+        }
+
+        if (error) {
+            throw(`!!! Error acquiring Slack data - ${error}`)
         }
     });
 }
@@ -69,17 +69,16 @@ async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTable
 
             // Execute the shell script that stores the lookup table in a file.
             exec(`sh ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' true`, (error:any, stdout:any, stderr:any) => {
-                if (error) {
-                    console.error(`!!! Error writing lookup table to file - ${error}`);
-                    return;
-                }
-                
                 if (stdout) {
                     console.log(`stdout: ${stdout}`);
                 }
 
                 if (stderr) {
                     console.error(`stderr: ${stderr}`);
+                }
+
+                if (error) {
+                    throw(`!!! Error writing lookup table to file - ${error}`);
                 }
             });
         } else {
@@ -115,17 +114,16 @@ async function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookup
 
             // Execute the shell script that stores the lookup table in a file.
             exec(`sh ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' false`, (error:any, stdout:any, stderr:any) => {
-                if (error) {
-                console.error(`!!! Error appending to lookup table file - ${error}`);
-                return;
-                }
-                
                 if (stdout) {
                     console.log(`stdout: ${stdout}`);
                 }
 
                 if (stderr) {
                     console.error(`stderr: ${stderr}`);
+                }
+
+                if (error) {
+                    throw(`!!! Error appending to lookup table file - ${error}`)
                 }
             });
         } else {
