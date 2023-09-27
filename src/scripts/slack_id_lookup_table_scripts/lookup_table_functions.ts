@@ -4,8 +4,8 @@ import { SlackUser, SlackGroup, SlackUsersResponseObject, SlackGroupsResponseObj
 
 export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
     await GetSlackData(_getSlackUserShellScriptFilePath, _slackUserInfoFilePath, _slackGroupInfoFilePath);
-    // await AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackUserInfoFilePath);
-    // await AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackGroupInfoFilePath);
+    await AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackUserInfoFilePath);
+    await AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackGroupInfoFilePath);
 }
 
 async function GetSlackData(_getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string) {
