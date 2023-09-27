@@ -45,6 +45,11 @@ processText () {
 
     if [[ $taggedNames ]]
     then
+      if [ ! -f "$slackIdLookupTableFilePath" ]; then
+          echo "$slackIdLookupTableFilePath doesn't exist."
+          exit 1
+      fi
+
       # Replace all taggedNames in the string with their Slack IDs.
       for name in ${taggedNames}
       do
