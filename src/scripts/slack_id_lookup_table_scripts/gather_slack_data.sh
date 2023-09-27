@@ -8,6 +8,12 @@ then
 fi
 ##################################
 
+# # # # # DELETE ME
+echo "DELETE_ME: $SLACK_BOT_TOKEN"
+echo "DELETE_ME: ${SLACK_BOT_TOKEN}"
+echo "DELETE_ME: ${!SLACK_BOT_TOKEN}"
+# # # # # DELETE ME
+
 ################################## GET ALL VOUCH SLACK USER & USER GROUP INFO (saves them to a new file)
 DESTINATION_FILE_USERS=$1
 DESTINATION_FILE_GROUPS=$2
