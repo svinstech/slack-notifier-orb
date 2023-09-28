@@ -3,11 +3,12 @@ import { execSync } from 'child_process'
 import { SlackUser, SlackGroup, SlackUsersResponseObject, SlackGroupsResponseObject } from './interfaces'
 
 export function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string):void {
-    AddUserDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackUserInfoFilePath);
-    AddUserGroupDataToLookupTable(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath, _slackGroupInfoFilePath);
+    AddUserDataToLookupTable(_lookupTable, _slackUserInfoFilePath);
+    AddUserGroupDataToLookupTable(_lookupTable, _slackGroupInfoFilePath);
+    WriteLookupTableToFile(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath);
 }
 
-function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackUserInfoFilePath:string):void {
+function AddUserDataToLookupTable(_lookupTable:string[], _slackUserInfoFilePath:string):void {
     // Parse the Slack user info and add it to the lookup table.
     const slackUserData:string = readFileSync(_slackUserInfoFilePath, {encoding: 'utf-8'})
     const slackUsersResponse:SlackUsersResponseObject = JSON.parse(slackUserData);
@@ -40,13 +41,9 @@ function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTableShellS
 
         _lookupTable.push(`${name}=${id}`)
     })
-    
-    // Execute the shell script that stores the lookup table in a file.
-    const overwriteFile:boolean = true
-    execSync(`bash ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwriteFile}`)
 }
 
-function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackGroupInfoFilePath:string):void {
+function AddUserGroupDataToLookupTable(_lookupTable:string[], _slackGroupInfoFilePath:string):void {
     // Parse the Slack group info and add to the lookup table.
     const slackUserGroupData:string = readFileSync(_slackGroupInfoFilePath, {encoding: 'utf-8'})
     
@@ -67,8 +64,10 @@ function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookupTableS
             _lookupTable.push(`${handle}=${id}`)
         }
     })
+}
 
+function WriteLookupTableToFile(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string):void {
     // Execute the shell script that stores the lookup table in a file.
-    const overwrite:boolean = false
-    execSync(`bash ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwrite}`);
+    const overwriteFile:boolean = true
+    execSync(`bash ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwriteFile}`)
 }
