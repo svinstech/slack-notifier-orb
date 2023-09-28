@@ -16,8 +16,10 @@ processText () {
   local variables=""
   local taggedNames=""
   local taggedGroups=""
-  local slackIdLookupTableFilePath=$(find . -type f -iname "slackIdLookupTable.txt")
+  local slackIdLookupTableFilePath=""
   local slackId=""
+
+  slackIdLookupTableFilePath=$(find . -type f -iname "slackIdLookupTable.txt")
 
   if [[ $processedText ]]
   then
