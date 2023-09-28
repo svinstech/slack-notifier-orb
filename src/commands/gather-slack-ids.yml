@@ -12,4 +12,9 @@ steps:
       name: Gather Slack users and user groups
       environment:
         SLACK_BOT_TOKEN: <<parameters.slack-bot-token>>
+        GET_SLACK_USER_SHELL_SCRIPT_FILE_PATH: 'src/scripts/slack_id_lookup_table_scripts/gather_slack_data.sh'
+        SLACK_DATA_DIRECTORY_PATH: 'slackData'
+        SLACK_USER_INFO_FILE_NAME: 'slackUserInfo.json'
+        SLACK_GROUP_INFO_FILE_NAME: 'slackGroupInfo.json'
+        SLACK_ID_LOOKUP_GENERATOR_FILE_PATH: 'src/scripts/slack_id_lookup_table_scripts/generate_slack_id_lookup_table.ts'
       command: <<include(scripts/slack_id_lookup_table_scripts/generate_slack_id_lookup_table.sh)>>
