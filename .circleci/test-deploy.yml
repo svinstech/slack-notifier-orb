@@ -101,8 +101,6 @@ jobs:
           header: Non-existent tag test
           additional-text: "Testing out fake tags -> @mashed_potatoes !dragon_ball_z"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
-      - store_artifacts:
-          path: /slackData
 
 workflows:
   test-deploy:
