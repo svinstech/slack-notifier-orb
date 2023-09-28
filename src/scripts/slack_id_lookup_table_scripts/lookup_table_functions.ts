@@ -43,7 +43,7 @@ function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTableShellS
     
     // Execute the shell script that stores the lookup table in a file.
     const overwriteFile:boolean = true
-    execSync(`sh ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwriteFile}`)
+    execSync(`bash ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwriteFile}`)
 }
 
 function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackGroupInfoFilePath:string):void {
@@ -70,5 +70,5 @@ function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookupTableS
 
     // Execute the shell script that stores the lookup table in a file.
     const overwrite:boolean = false
-    execSync(`sh ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwrite}`);
+    execSync(`bash ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwrite}`);
 }
