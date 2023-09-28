@@ -83,6 +83,24 @@ jobs:
           header: "Hey this is a success notification!"
           when: "on_success"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
+  generate-slack-id-lookup-table:
+    docker:
+      - image: cimg/node:current # Notice, this says 'node' instead of 'base'.
+    steps:
+      - checkout
+      - run:
+          name: "Install dependencies"
+          command: yarn install --frozen-lockfile
+      - slack-notifier/gather-slack-ids:
+          slack-bot-token: NOTIFIER_BOT_TOKEN
+      - slack-notifier/build-status-notification:
+          header: Tag test
+          additional-text: "Testing out tagging Kellen Kincaid & SDET group -> @kellen_kincaid !sdet"
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
+      - slack-notifier/build-status-notification:
+          header: Non-existent tag test
+          additional-text: "Testing out fake tags -> @mashed_potatoes !dragon_ball_z"
+          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 workflows:
   test-deploy:
@@ -104,6 +122,8 @@ workflows:
           filters: *filters
       - send-message-success:
           filters: *filters
+      - generate-slack-id-lookup-table:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -120,6 +140,7 @@ workflows:
             # - send-message-failure
             - send-no-message-success
             - send-message-success
+            - generate-slack-id-lookup-table
           context: orb-publishing
           filters:
             branches:
