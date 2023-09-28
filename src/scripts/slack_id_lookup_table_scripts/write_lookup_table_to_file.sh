@@ -13,7 +13,9 @@ touch "$lookupTableFilePath"
 
 if [ "$overwrite" = true ]
 then
+    echo "----OVERWRITING LOOKUP TABLE" >> "$lookupTableFilePath"
     echo "$lookupTable" > "$lookupTableFilePath"
 else
+    echo "APPENDING TO LOOKUP TABLE----" >> "$lookupTableFilePath"
     echo "$lookupTable" >> "$lookupTableFilePath"
 fi
