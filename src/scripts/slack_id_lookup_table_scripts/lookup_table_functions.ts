@@ -9,7 +9,7 @@ export async function PopulateLookupTable(_lookupTable:string[], _writeLookupTab
 
 async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackUserInfoFilePath:string) {
     // Parse the Slack user info and add it to the lookup table.
-    await readFile(_slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any){
+    readFile(_slackUserInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any){
         if (!err) {
             const slackUsersResponse:SlackUsersResponseObject = JSON.parse(data);
             if (!slackUsersResponse.ok) {
@@ -65,7 +65,7 @@ async function AddUserDataToLookupTable(_lookupTable:string[], _writeLookupTable
 
 async function AddUserGroupDataToLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackGroupInfoFilePath:string) {
     // Parse the Slack group info and add to the lookup table.
-    await readFile(_slackGroupInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any){
+    readFile(_slackGroupInfoFilePath, {encoding: 'utf-8'}, function(err:any, data:any){
         if (!err) {
             const slackGroupsResponse:SlackGroupsResponseObject = JSON.parse(data);
             if (!slackGroupsResponse.ok) {
