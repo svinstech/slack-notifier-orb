@@ -23,4 +23,4 @@ steps:
         SLACK_ID_LOOKUP_GENERATOR_FILE_PATH: 'src/scripts/slack_id_lookup_table_scripts/generate_slack_id_lookup_table.ts'
       command: <<include(scripts/slack_id_lookup_table_scripts/generate_slack_id_lookup_table.sh)>>
   - store_artifacts:
-          path: ./ #<<parameters.slack-data-directory>>
+          path: /home/circleci/project/slack-data-directory #<<parameters.slack-data-directory>>
