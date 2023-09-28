@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import { execSync } from 'child_process'
 import { SlackUser, SlackGroup, SlackUsersResponseObject, SlackGroupsResponseObject } from './interfaces'
 
-export function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string):void {
+export function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string):void {
     AddUserDataToLookupTable(_lookupTable, _slackUserInfoFilePath);
     AddUserGroupDataToLookupTable(_lookupTable, _slackGroupInfoFilePath);
     WriteLookupTableToFile(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath);
@@ -10,7 +10,13 @@ export function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShel
 
 function AddUserDataToLookupTable(_lookupTable:string[], _slackUserInfoFilePath:string):void {
     // Parse the Slack user info and add it to the lookup table.
-    const slackUserData:string = readFileSync(_slackUserInfoFilePath, {encoding: 'utf-8'})
+    let slackUserData:string;
+    try {
+        slackUserData = readFileSync(_slackUserInfoFilePath, {encoding: 'utf-8'})
+    } catch (error:unknown) {
+        throw(`!!! Error - Failed to read Slack user info file: ${_slackUserInfoFilePath}. The error: ${error}`)
+    }
+
     const slackUsersResponse:SlackUsersResponseObject = JSON.parse(slackUserData);
     if (!slackUsersResponse.ok) {
         throw(`!!! Error - Response object not ok (users). Error: ${slackUsersResponse.error}`)
@@ -45,8 +51,13 @@ function AddUserDataToLookupTable(_lookupTable:string[], _slackUserInfoFilePath:
 
 function AddUserGroupDataToLookupTable(_lookupTable:string[], _slackGroupInfoFilePath:string):void {
     // Parse the Slack group info and add to the lookup table.
-    const slackUserGroupData:string = readFileSync(_slackGroupInfoFilePath, {encoding: 'utf-8'})
-    
+    let slackUserGroupData:string;
+    try {
+        slackUserGroupData = readFileSync(_slackGroupInfoFilePath, {encoding: 'utf-8'})
+    }  catch (error:unknown) {
+        throw(`!!! Error - Failed to read Slack user group info file: ${_slackGroupInfoFilePath}. The error: ${error}`)
+    }
+
     const slackGroupsResponse:SlackGroupsResponseObject = JSON.parse(slackUserGroupData);
     if (!slackGroupsResponse.ok) {
         throw(`!!! Error - Response object not ok (groups). Error: ${slackGroupsResponse.error}`)
@@ -69,5 +80,9 @@ function AddUserGroupDataToLookupTable(_lookupTable:string[], _slackGroupInfoFil
 function WriteLookupTableToFile(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string):void {
     // Execute the shell script that stores the lookup table in a file.
     const overwriteFile:boolean = true
-    execSync(`bash ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwriteFile}`)
+    try {
+        execSync(`bash ${_writeLookupTableShellScriptFilePath} ${_lookupTableFilePath} '${_lookupTable.join("\n")}' ${overwriteFile}`)
+    } catch (error:unknown) {
+        throw(`!!! Error - Failed to write the lookup table to this file: ${_lookupTableFilePath}. The error: ${error}`)
+    }
 }
