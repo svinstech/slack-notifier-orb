@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import { execSync } from 'child_process'
 import { SlackUser, SlackGroup, SlackUsersResponseObject, SlackGroupsResponseObject } from './interfaces'
 
-export function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _getSlackUserShellScriptFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string):void {
+export function PopulateLookupTable(_lookupTable:string[], _writeLookupTableShellScriptFilePath:string, _lookupTableFilePath:string, _slackUserInfoFilePath:string, _slackGroupInfoFilePath:string):void {
     AddUserDataToLookupTable(_lookupTable, _slackUserInfoFilePath);
     AddUserGroupDataToLookupTable(_lookupTable, _slackGroupInfoFilePath);
     WriteLookupTableToFile(_lookupTable, _writeLookupTableShellScriptFilePath, _lookupTableFilePath);
