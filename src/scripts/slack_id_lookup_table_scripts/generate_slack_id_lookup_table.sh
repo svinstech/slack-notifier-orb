@@ -28,19 +28,19 @@ echo "1"
 userDataIsOk=$(jq ".ok" $userJsonFile | tr -d '"')
 userGroupDataIsOk=$(jq ".ok" $groupJsonFile | tr -d '"')
 
-if [ $userDataIsOk != "true" ]
+if [ "$userDataIsOk" != "true" ]
 then
     fail "Failed to gather user data"
 fi
 
-if [ $userGroupDataIsOk != "true" ]
+if [ "$userGroupDataIsOk" != "true" ]
 then
     fail "Failed to gather group data"
 fi
 
 #debugging
 echo "userDataIsOk: $userDataIsOk"
-echo "groupDataIsOk: $groupDataIsOk"
+echo "groupDataIsOk: $userGroupDataIsOk"
 
 ##### USERS #####
 index=0
