@@ -12,7 +12,7 @@ parameters:
     description: The directory where the slack IDs will be stored.
     default: slackData
 steps:
-  - run: 
+  - run:
       name: Create a directory for the Slack data
       environment:
         SLACK_DATA_DIRECTORY_PATH: <<parameters.slack-data-directory>>
