@@ -12,15 +12,26 @@ parameters:
     description: The directory where the slack IDs will be stored.
     default: slackData
 steps:
+  - run: 
+      name: Create a directory for the Slack data
+      environment:
+        SLACK_DATA_DIRECTORY_PATH: <<parameters.slack-data-directory>>
+      command: <<include(scripts/slack_id_lookup_table_scripts/create_slack_data_directory.sh)>>
   - run:
-      name: Gather Slack users and user groups
+      name: Gather the Slack data
       environment:
         SLACK_BOT_TOKEN: <<parameters.slack-bot-token>>
-        GET_SLACK_USER_SHELL_SCRIPT_FILE_PATH: 'src/scripts/slack_id_lookup_table_scripts/gather_slack_data.sh'
         SLACK_DATA_DIRECTORY_PATH: <<parameters.slack-data-directory>>
         SLACK_USER_INFO_FILE_NAME: 'slackUserInfo.json'
         SLACK_GROUP_INFO_FILE_NAME: 'slackGroupInfo.json'
-        SLACK_ID_LOOKUP_GENERATOR_FILE_PATH: 'src/scripts/slack_id_lookup_table_scripts/generate_slack_id_lookup_table.ts'
+      command: <<include(scripts/slack_id_lookup_table_scripts/gather_slack_data.sh)>>
+  - run:
+      name: Gather Slack users and user groups
+      environment: # TODO: Figure out how to do all of this in bash. (Without Typescript)
+        SLACK_DATA_DIRECTORY_PATH: <<parameters.slack-data-directory>>
+        SLACK_USER_INFO_FILE_NAME: 'slackUserInfo.json'
+        SLACK_GROUP_INFO_FILE_NAME: 'slackGroupInfo.json'
+        SLACK_ID_LOOKUP_TABLE_FILE_NAME: 'slackIdLookupTable.txt'
       command: <<include(scripts/slack_id_lookup_table_scripts/generate_slack_id_lookup_table.sh)>>
   - store_artifacts:
           path: ~/project/<<parameters.slack-data-directory>>
