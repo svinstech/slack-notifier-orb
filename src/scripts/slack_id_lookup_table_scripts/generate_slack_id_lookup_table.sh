@@ -22,8 +22,8 @@ lookupTableFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_ID_LOOKUP_TABLE_FILE_NAME}
 touch "$lookupTableFile" # Create the lookup table.
 
 # Get status of data.
-userDataIsOk=$(jq ".ok" "$userJsonFile" | tr -d '"')
-userGroupDataIsOk=$(jq ".ok" "$groupJsonFile" | tr -d '"')
+userDataIsOk=$(jq ".ok" "$userJsonFile" | tr -d '"') || fail "Failed to find field: 'ok' in user data."
+userGroupDataIsOk=$(jq ".ok" "$groupJsonFile" | tr -d '"') || fail "Failed to find field: 'ok' in group data."
 
 if [ "$userDataIsOk" != "true" ]
 then
@@ -46,18 +46,18 @@ do
     member="{key:${member}}"
 
     # Ensure that the member is not deleted.
-    memberDeletionStatus="$(jq -n "$member" | jq .key.deleted)" # | tr -d '"')"
+    memberDeletionStatus="$(jq -n "$member" | jq .key.deleted)" || fail "Failed to find field: 'deleted' in user data."
 
     # Ensure that the member is has a first name.
-    memberFirstName="$(jq -n "$member" | jq .key.profile.first_name | tr -d '"')"
+    memberFirstName="$(jq -n "$member" | jq .key.profile.first_name | tr -d '"')" || fail "Failed to find field: 'profile.first_name' in user data."
     memberFirstName="$(echo "$memberFirstName" | xargs -0)" # Trim trailing and leading whitespace.
 
     # Ensure that the member is has a last name.
-    memberLastName="$(jq -n "$member" | jq .key.profile.last_name | tr -d '"')"
+    memberLastName="$(jq -n "$member" | jq .key.profile.last_name | tr -d '"')" || fail "Failed to find field: 'profile.last_name' in user data."
     memberLastName="$(echo "$memberLastName" | xargs -0)" # Trim trailing and leading whitespace.
 
     # Ensure that the member is has a email.
-    memberEmail="$(jq -n "$member" | jq .key.profile.email | tr -d '"')"
+    memberEmail="$(jq -n "$member" | jq .key.profile.email | tr -d '"')" || fail "Failed to find field: 'profile.email' in user data."
 
     # Using the above info, ensure that the member is real and active.
     memberIsRealAndActive=""
@@ -98,15 +98,15 @@ do
         done
 
         # Get ID
-        memberId="$(jq -n "$member" | jq .key.id | tr -d '"')"
+        memberId="$(jq -n "$member" | jq .key.id | tr -d '"')" || fail "Failed to find field: 'id' in user data."
 
         lookupTableEntry="${memberFullName}=${memberId}"
 
         echo "${lookupTableEntry}" >> "${lookupTableFile}"
     fi
 
-    index=$((index+1)) || fail "Incrementing failure"
-    member="$(jq ".members[$index]" "$userJsonFile")" || "Failed getting next Slack user"
+    index=$((index+1))
+    member="$(jq ".members[$index]" "$userJsonFile")" || "Failed getting Slack user with index: $index."
 done
 #################
 
@@ -123,14 +123,14 @@ do
     userGroup="{key:${userGroup}}"
 
     # Ensure that the userGroup is not deleted.
-    userGroupDeletionStatus="$(jq -n "$userGroup" | jq .key.deleted_by)" # | tr -d '"')"
+    userGroupDeletionStatus="$(jq -n "$userGroup" | jq .key.deleted_by)" || fail "Failed to find field: 'deleted_by' in group data."
 
     # Ensure that the userGroup is has an ID.
-    userGroupId="$(jq -n "$userGroup" | jq .key.id | tr -d '"')"
+    userGroupId="$(jq -n "$userGroup" | jq .key.id | tr -d '"')" || fail "Failed to find field: 'id' in group data."
     userGroupId="$(echo "$userGroupId" | xargs -0)" # Trim trailing and leading whitespace.
 
     # Ensure that the userGroup is has a handle.
-    userGroupHandle="$(jq -n "$userGroup" | jq .key.handle | tr -d '"')"
+    userGroupHandle="$(jq -n "$userGroup" | jq .key.handle | tr -d '"')" || fail "Failed to find field: 'handle' in group data."
     userGroupHandle="$(echo "$userGroupHandle" | xargs -0)" # Trim trailing and leading whitespace.
 
     # Using the above info, ensure that the userGroup is real and active.
@@ -157,6 +157,6 @@ do
     fi
 
     index=$((index+1))
-    userGroup="$(jq -n "$userGroups" | jq .key["$index"])"
+    userGroup="$(jq -n "$userGroups" | jq .key["$index"])" || "Failed getting Slack group with index: $index."
 done
 ##################
