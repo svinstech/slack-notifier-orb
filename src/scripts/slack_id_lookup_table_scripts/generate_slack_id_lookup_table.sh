@@ -4,6 +4,16 @@
 # bash "${GET_SLACK_USER_SHELL_SCRIPT_FILE_PATH}" "${!SLACK_BOT_TOKEN}" "${SLACK_DATA_DIRECTORY_PATH}/${SLACK_USER_INFO_FILE_NAME}" "${SLACK_DATA_DIRECTORY_PATH}/${SLACK_GROUP_INFO_FILE_NAME}"
 # npx ts-node "${SLACK_ID_LOOKUP_GENERATOR_FILE_PATH}"
 
+# function fail {
+#     printf '%s\n' "$1" >&2 ## Send message to stderr.
+#     exit "${2-1}" ## Return a code specified by $2, or 1 by default.
+# }
+
+# Install jq if necessary.
+if [ ! -x "$(which jq)" ]
+then
+  apt update; apt install -y jq; 
+fi
 
 userJsonFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_USER_INFO_FILE_NAME}"
 groupJsonFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_GROUP_INFO_FILE_NAME}"
@@ -14,12 +24,19 @@ touch "$lookupTableFile" # Create the lookup table.
 #debugging
 echo "1"
 
+# Get status of data.
+userDataIsOk=$(jq ".ok" $userJsonFile | tr -d '"')
+userGroupDataIsOk=$(jq ".ok" $groupJsonFile | tr -d '"')
+echo "userDataIsOk: $userDataIsOk"
+echo "groupDataIsOk: $groupDataIsOk"
+
 ##### USERS #####
 index=0
 member="$(jq ".members[$index]" "$userJsonFile")"
 
 #debugging
 echo "2"
+echo "$member"
 
 # shellcheck disable=SC2236
 while [ ! -z "$member" ] && [ "$member" != "null" ]
