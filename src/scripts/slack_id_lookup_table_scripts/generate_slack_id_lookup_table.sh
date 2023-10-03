@@ -138,7 +138,7 @@ do
 
     #debugging
     echo "user while 11"
-    ((index++)) || fail "Incrementing failure"
+    index=$((index+1)) || fail "Incrementing failure"
     member="$(jq ".members[$index]" "$userJsonFile")" || "Failed getting next Slack user"
 done
 #################
@@ -195,7 +195,7 @@ do
         echo "${lookupTableEntry}" >> "${lookupTableFile}"
     fi
 
-    ((index++))
+    index=$((index+1))
     userGroup="$(jq -n "$userGroups" | jq .key["$index"])"
 done
 ##################
