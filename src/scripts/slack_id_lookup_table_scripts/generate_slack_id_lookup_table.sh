@@ -85,7 +85,7 @@ do
     # Using the above info, ensure that the member is real and active.
     memberIsRealAndActive=""
     # shellcheck disable=SC2236
-    if [ "$memberDeletionStatus" != "true" ] && [ ! -z "$memberFirstName" ] && [ "$memberFirstName" != "null" ] && [ ! -z "$memberLastName" ] && [ "$memberLastName" != "null" ] && [ ! -z "$memberEmail" ] && [ "$memberEmail" != "null" ]
+    if [ "$memberDeletionStatus" != "true" ] && [ ! -n "$memberFirstName" ] && [ "$memberFirstName" != "null" ] && [ ! -n "$memberLastName" ] && [ "$memberLastName" != "null" ] && [ ! -n "$memberEmail" ] && [ "$memberEmail" != "null" ]
     then
         memberIsRealAndActive="true"
     else
