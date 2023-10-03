@@ -9,11 +9,11 @@ userJsonFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_USER_INFO_FILE_NAME}"
 groupJsonFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_GROUP_INFO_FILE_NAME}"
 lookupTableFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_ID_LOOKUP_TABLE_FILE_NAME}"
 
-touch $lookupTableFile # Create the lookup table.
+touch "$lookupTableFile" # Create the lookup table.
 
 ##### USERS #####
 index=0
-member="$(jq ".members["$index"]" "$userJsonFile")"
+member="$(jq ".members[$index]" "$userJsonFile")"
 # shellcheck disable=SC2236
 while [ ! -z "$member" ] && [ "$member" != "null" ]
 do
@@ -81,7 +81,7 @@ do
     fi
 
     ((index++))
-    member="$(jq ".members["$index"]" "$userJsonFile")"
+    member="$(jq ".members[$index]" "$userJsonFile")"
 done
 #################
 
