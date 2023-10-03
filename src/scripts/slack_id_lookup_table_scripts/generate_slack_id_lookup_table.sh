@@ -53,22 +53,22 @@ do
         memberFullName="${memberFirstName}_${memberLastName}"
         memberFullName="$(echo "$memberFullName" | tr "[:upper:]" "[:lower:]")" # Convert to lowercase.
 
-        while [[ "$memberFullName" =~ "$regexParentheses" ]]; do
+        while [[ "$memberFullName" =~ $regexParentheses ]]; do
             memberFullName=${BASH_REMATCH[1]}${BASH_REMATCH[2]} # Remove parentheses and what they contain.
         done
 
-        while [[ "$memberFullName" =~ "$regexApostrophe" ]]; do
+        while [[ "$memberFullName" =~ $regexApostrophe ]]; do
             memberFullName=${BASH_REMATCH[1]}${BASH_REMATCH[2]} # Remove apostrophes.
         done
 
         # Trim trailing and leading whitespace again.
         memberFullName="$(echo "$memberFullName" | xargs)"
 
-        while [[ "$memberFullName" =~ "$regexDoubleUnderscore" ]]; do
+        while [[ "$memberFullName" =~ $regexDoubleUnderscore ]]; do
             memberFullName=${BASH_REMATCH[1]}_${BASH_REMATCH[2]} # Convert double underscores to single underscores.
         done
 
-        while [[ "$memberFullName" =~ "$regexSpaceBetweenWords" ]]; do
+        while [[ "$memberFullName" =~ $regexSpaceBetweenWords ]]; do
             memberFullName=${BASH_REMATCH[1]}_${BASH_REMATCH[2]} # Convert spaces between words to single underscores.
         done
 
