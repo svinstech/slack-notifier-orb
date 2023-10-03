@@ -67,13 +67,13 @@ do
     # echo "user while 3"
     # Ensure that the member is has a first name.
     memberFirstName="$(jq -n "$member" | jq .key.profile.first_name | tr -d '"')"
-    memberFirstName="$(echo "$memberFirstName" | xargs)" # Trim trailing and leading whitespace.
+    memberFirstName="$(echo "$memberFirstName" | xargs -0)" # Trim trailing and leading whitespace.
 
     #debugging
     # echo "user while 4"
     # Ensure that the member is has a last name.
     memberLastName="$(jq -n "$member" | jq .key.profile.last_name | tr -d '"')"
-    memberLastName="$(echo "$memberLastName" | xargs)" # Trim trailing and leading whitespace.
+    memberLastName="$(echo "$memberLastName" | xargs -0)" # Trim trailing and leading whitespace.
 
     #debugging
     # echo "user while 5"
@@ -116,7 +116,7 @@ do
         #debugging
         # echo "user while 9"
         # Trim trailing and leading whitespace again.
-        memberFullName="$(echo "$memberFullName" | xargs)"
+        memberFullName="$(echo "$memberFullName" | xargs -0)"
 
         while [[ "$memberFullName" =~ $regexDoubleUnderscore ]]; do
             memberFullName=${BASH_REMATCH[1]}_${BASH_REMATCH[2]} # Convert double underscores to single underscores.
@@ -166,11 +166,11 @@ do
 
     # Ensure that the userGroup is has an ID.
     userGroupId="$(jq -n "$userGroup" | jq .key.id | tr -d '"')"
-    userGroupId="$(echo "$userGroupId" | xargs)" # Trim trailing and leading whitespace.
+    userGroupId="$(echo "$userGroupId" | xargs -0)" # Trim trailing and leading whitespace.
 
     # Ensure that the userGroup is has a handle.
     userGroupHandle="$(jq -n "$userGroup" | jq .key.handle | tr -d '"')"
-    userGroupHandle="$(echo "$userGroupHandle" | xargs)" # Trim trailing and leading whitespace.
+    userGroupHandle="$(echo "$userGroupHandle" | xargs -0)" # Trim trailing and leading whitespace.
 
     # Using the above info, ensure that the userGroup is real and active.
     userGroupIsRealAndActive=""
@@ -188,7 +188,7 @@ do
         userGroupHandle="$(echo "$userGroupHandle" | tr "[:upper:]" "[:lower:]")"
 
         # Trim trailing and leading whitespace.
-        userGroupHandle="$(echo "$userGroupHandle" | xargs)"
+        userGroupHandle="$(echo "$userGroupHandle" | xargs -0)"
 
         lookupTableEntry=${userGroupHandle}=${userGroupId}
 
