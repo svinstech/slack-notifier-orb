@@ -25,10 +25,10 @@ touch "$lookupTableFile" # Create the lookup table.
 echo "1"
 
 # Get status of data.
-userDataIsOk=$(jq ".ok" $userJsonFile | tr -d '"')
-userGroupDataIsOk=$(jq ".ok" $groupJsonFile | tr -d '"')
-echo "userDataIsOk: $userDataIsOk"
-echo "groupDataIsOk: $groupDataIsOk"
+# userDataIsOk=$(jq ".ok" $userJsonFile | tr -d '"')
+# userGroupDataIsOk=$(jq ".ok" $groupJsonFile | tr -d '"')
+# echo "userDataIsOk: $userDataIsOk"
+# echo "groupDataIsOk: $groupDataIsOk"
 
 ##### USERS #####
 index=0
