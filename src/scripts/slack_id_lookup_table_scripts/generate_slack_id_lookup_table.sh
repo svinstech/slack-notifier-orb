@@ -13,7 +13,8 @@ touch $lookupTableFile # Create the lookup table.
 
 ##### USERS #####
 index=0
-member="$(jq ".members[$index]" "$userJsonFile")"
+member="$(jq ".members["$index"]" "$userJsonFile")"
+# shellcheck disable=SC2236
 while [ ! -z "$member" ] && [ "$member" != "null" ]
 do
     # This allows the member's json to be saved to a variable and referenced directly.
@@ -35,6 +36,7 @@ do
 
     # Using the above info, ensure that the member is real and active.
     memberIsRealAndActive=""
+    # shellcheck disable=SC2236
     if [ "$memberDeletionStatus" != "true" ] && [ ! -z "$memberFirstName" ] && [ "$memberFirstName" != "null" ] && [ ! -z "$memberLastName" ] && [ "$memberLastName" != "null" ] && [ ! -z "$memberEmail" ] && [ "$memberEmail" != "null" ]
     then
         memberIsRealAndActive="true"
@@ -51,22 +53,22 @@ do
         memberFullName="${memberFirstName}_${memberLastName}"
         memberFullName="$(echo "$memberFullName" | tr "[:upper:]" "[:lower:]")" # Convert to lowercase.
 
-        while [[ $memberFullName =~ $regexParentheses ]]; do
+        while [[ "$memberFullName" =~ "$regexParentheses" ]]; do
             memberFullName=${BASH_REMATCH[1]}${BASH_REMATCH[2]} # Remove parentheses and what they contain.
         done
 
-        while [[ $memberFullName =~ $regexApostrophe ]]; do
+        while [[ "$memberFullName" =~ "$regexApostrophe" ]]; do
             memberFullName=${BASH_REMATCH[1]}${BASH_REMATCH[2]} # Remove apostrophes.
         done
 
         # Trim trailing and leading whitespace again.
         memberFullName="$(echo "$memberFullName" | xargs)"
 
-        while [[ $memberFullName =~ $regexDoubleUnderscore ]]; do
+        while [[ "$memberFullName" =~ "$regexDoubleUnderscore" ]]; do
             memberFullName=${BASH_REMATCH[1]}_${BASH_REMATCH[2]} # Convert double underscores to single underscores.
         done
 
-        while [[ $memberFullName =~ $regexSpaceBetweenWords ]]; do
+        while [[ "$memberFullName" =~ "$regexSpaceBetweenWords" ]]; do
             memberFullName=${BASH_REMATCH[1]}_${BASH_REMATCH[2]} # Convert spaces between words to single underscores.
         done
 
@@ -79,7 +81,7 @@ do
     fi
 
     ((index++))
-    member="$(jq ".members[$index]" "$userJsonFile")"
+    member="$(jq ".members["$index"]" "$userJsonFile")"
 done
 #################
 
@@ -87,9 +89,9 @@ done
 index=0
 userGroups="$(jq ".usergroups" "$groupJsonFile")" # Extract usergroups json from file
 userGroups="{key:${userGroups}}" # Assign usergroups json to variable so we can reference it instead of the file.
-userGroup="$(jq -n "$userGroups" | jq .key[$index])"
+userGroup="$(jq -n "$userGroups" | jq .key["$index"])"
 
-
+# shellcheck disable=SC2236
 while [ ! -z "$userGroup" ] && [ "$userGroup" != "null" ]
 do
     # This allows the userGroup's json to be saved to a variable and referenced directly.
@@ -108,6 +110,7 @@ do
 
     # Using the above info, ensure that the userGroup is real and active.
     userGroupIsRealAndActive=""
+    # shellcheck disable=SC2236
     if [ "$userGroupDeletionStatus" = "null" ] && [ ! -z "$userGroupId" ] && [ "$userGroupId" != "null" ] && [ ! -z "$userGroupHandle" ] && [ "$userGroupHandle" != "null" ]
     then
         userGroupIsRealAndActive="true"
@@ -129,7 +132,7 @@ do
     fi
 
     ((index++))
-    userGroup="$(jq -n "$userGroups" | jq .key[$index])"
+    userGroup="$(jq -n "$userGroups" | jq .key["$index"])"
 done
 ##################
 
