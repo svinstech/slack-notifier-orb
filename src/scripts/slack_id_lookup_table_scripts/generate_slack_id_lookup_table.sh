@@ -4,10 +4,10 @@
 # bash "${GET_SLACK_USER_SHELL_SCRIPT_FILE_PATH}" "${!SLACK_BOT_TOKEN}" "${SLACK_DATA_DIRECTORY_PATH}/${SLACK_USER_INFO_FILE_NAME}" "${SLACK_DATA_DIRECTORY_PATH}/${SLACK_GROUP_INFO_FILE_NAME}"
 # npx ts-node "${SLACK_ID_LOOKUP_GENERATOR_FILE_PATH}"
 
-# function fail {
-#     printf '%s\n' "$1" >&2 ## Send message to stderr.
-#     exit "${2-1}" ## Return a code specified by $2, or 1 by default.
-# }
+function fail {
+    printf '%s\n' "$1" >&2 ## Send message to stderr.
+    exit "${2-1}" ## Return a code specified by $2, or 1 by default.
+}
 
 # Install jq if necessary.
 if [ ! -x "$(which jq)" ]
@@ -25,10 +25,22 @@ touch "$lookupTableFile" # Create the lookup table.
 echo "1"
 
 # Get status of data.
-# userDataIsOk=$(jq ".ok" $userJsonFile | tr -d '"')
-# userGroupDataIsOk=$(jq ".ok" $groupJsonFile | tr -d '"')
-# echo "userDataIsOk: $userDataIsOk"
-# echo "groupDataIsOk: $groupDataIsOk"
+userDataIsOk=$(jq ".ok" $userJsonFile | tr -d '"')
+userGroupDataIsOk=$(jq ".ok" $groupJsonFile | tr -d '"')
+
+if [ $userDataIsOk != "true" ]
+then
+    fail "Failed to gather user data"
+fi
+
+if [ $userGroupDataIsOk != "true" ]
+then
+    fail "Failed to gather group data"
+fi
+
+#debugging
+echo "userDataIsOk: $userDataIsOk"
+echo "groupDataIsOk: $groupDataIsOk"
 
 ##### USERS #####
 index=0
@@ -36,7 +48,7 @@ member="$(jq ".members[$index]" "$userJsonFile")"
 
 #debugging
 echo "2"
-echo "$member"
+echo "member 0: $member"
 
 # shellcheck disable=SC2236
 while [ ! -z "$member" ] && [ "$member" != "null" ]
@@ -101,7 +113,7 @@ do
 
         lookupTableEntry="${memberFullName}=${memberId}"
 
-        echo "${lookupTableEntry}" >> "${SLACK_ID_LOOKUP_GENERATOR_FILE_PATH}"
+        echo "${lookupTableEntry}" >> "${lookupTableFile}"
     fi
 
     ((index++))
@@ -117,6 +129,9 @@ index=0
 userGroups="$(jq ".usergroups" "$groupJsonFile")" # Extract usergroups json from file
 userGroups="{key:${userGroups}}" # Assign usergroups json to variable so we can reference it instead of the file.
 userGroup="$(jq -n "$userGroups" | jq .key["$index"])"
+
+#debugging
+echo "4"
 
 # shellcheck disable=SC2236
 while [ ! -z "$userGroup" ] && [ "$userGroup" != "null" ]
@@ -155,7 +170,7 @@ do
 
         lookupTableEntry=${userGroupHandle}=${userGroupId}
 
-        echo "${lookupTableEntry}" >> "${SLACK_ID_LOOKUP_GENERATOR_FILE_PATH}"
+        echo "${lookupTableEntry}" >> "${lookupTableFile}"
     fi
 
     ((index++))
@@ -163,3 +178,5 @@ do
 done
 ##################
 
+#debugging
+echo "5"
