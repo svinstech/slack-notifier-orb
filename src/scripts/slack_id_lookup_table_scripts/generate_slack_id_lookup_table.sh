@@ -93,10 +93,6 @@ do
     fi
 
     #debugging
-    echo "memberDeletionStatus: $memberDeletionStatus"
-    echo "memberFirstName: $memberFirstName"
-    echo "memberLastName: $memberLastName"
-    echo "memberEmail: $memberEmail"
     echo "user while 7"
     if [ "$memberIsRealAndActive" = "true" ] 
     then
@@ -142,8 +138,8 @@ do
 
     #debugging
     echo "user while 11"
-    ((index++))
-    member="$(jq ".members[$index]" "$userJsonFile")"
+    ((index++)) || fail "Incrementing failure"
+    member="$(jq ".members[$index]" "$userJsonFile")" || "Failed getting next Slack user"
 done
 #################
 
