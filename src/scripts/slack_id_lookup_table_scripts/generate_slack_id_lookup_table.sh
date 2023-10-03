@@ -53,23 +53,35 @@ echo "member 0: $member"
 # shellcheck disable=SC2236
 while [ ! -z "$member" ] && [ "$member" != "null" ]
 do
+    #debugging
+    echo "user while 1"
     # This allows the member's json to be saved to a variable and referenced directly.
     member="{key:${member}}"
 
+    #debugging
+    echo "user while 2"
     # Ensure that the member is not deleted.
     memberDeletionStatus="$(jq -n "$member" | jq .key.deleted)" # | tr -d '"')"
 
+    #debugging
+    echo "user while 3"
     # Ensure that the member is has a first name.
     memberFirstName="$(jq -n "$member" | jq .key.profile.first_name | tr -d '"')"
     memberFirstName="$(echo "$memberFirstName" | xargs)" # Trim trailing and leading whitespace.
 
+    #debugging
+    echo "user while 4"
     # Ensure that the member is has a last name.
     memberLastName="$(jq -n "$member" | jq .key.profile.last_name | tr -d '"')"
     memberLastName="$(echo "$memberLastName" | xargs)" # Trim trailing and leading whitespace.
 
+    #debugging
+    echo "user while 5"
     # Ensure that the member is has a email.
     memberEmail="$(jq -n "$member" | jq .key.profile.email | tr -d '"')"
 
+    #debugging
+    echo "user while 6"
     # Using the above info, ensure that the member is real and active.
     memberIsRealAndActive=""
     # shellcheck disable=SC2236
@@ -80,6 +92,8 @@ do
         memberIsRealAndActive="false"
     fi
 
+    #debugging
+    echo "user while 7"
     if [ "$memberIsRealAndActive" = "true" ] 
     then
         regexParentheses="(.*)\(.*\)(.*)"
@@ -89,6 +103,8 @@ do
         memberFullName="${memberFirstName}_${memberLastName}"
         memberFullName="$(echo "$memberFullName" | tr "[:upper:]" "[:lower:]")" # Convert to lowercase.
 
+        #debugging
+        echo "user while 8"
         while [[ "$memberFullName" =~ $regexParentheses ]]; do
             memberFullName=${BASH_REMATCH[1]}${BASH_REMATCH[2]} # Remove parentheses and what they contain.
         done
@@ -97,6 +113,8 @@ do
             memberFullName=${BASH_REMATCH[1]}${BASH_REMATCH[2]} # Remove apostrophes.
         done
 
+        #debugging
+        echo "user while 9"
         # Trim trailing and leading whitespace again.
         memberFullName="$(echo "$memberFullName" | xargs)"
 
@@ -104,6 +122,8 @@ do
             memberFullName=${BASH_REMATCH[1]}_${BASH_REMATCH[2]} # Convert double underscores to single underscores.
         done
 
+        #debugging
+        echo "user while 10" 
         while [[ "$memberFullName" =~ $regexSpaceBetweenWords ]]; do
             memberFullName=${BASH_REMATCH[1]}_${BASH_REMATCH[2]} # Convert spaces between words to single underscores.
         done
@@ -116,6 +136,8 @@ do
         echo "${lookupTableEntry}" >> "${lookupTableFile}"
     fi
 
+    #debugging
+    echo "user while 11"
     ((index++))
     member="$(jq ".members[$index]" "$userJsonFile")"
 done
