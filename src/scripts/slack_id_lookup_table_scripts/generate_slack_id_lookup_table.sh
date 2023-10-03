@@ -11,9 +11,16 @@ lookupTableFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_ID_LOOKUP_TABLE_FILE_NAME}
 
 touch "$lookupTableFile" # Create the lookup table.
 
+#debugging
+echo "1"
+
 ##### USERS #####
 index=0
 member="$(jq ".members[$index]" "$userJsonFile")"
+
+#debugging
+echo "2"
+
 # shellcheck disable=SC2236
 while [ ! -z "$member" ] && [ "$member" != "null" ]
 do
@@ -84,6 +91,9 @@ do
     member="$(jq ".members[$index]" "$userJsonFile")"
 done
 #################
+
+#debugging
+echo "3"
 
 ##### GROUPS #####
 index=0
