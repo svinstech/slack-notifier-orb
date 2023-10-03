@@ -106,7 +106,7 @@ do
     fi
 
     index=$((index+1))
-    member="$(jq ".members[$index]" "$userJsonFile")" || "Failed getting Slack user with index: $index."
+    member="$(jq ".members[$index]" "$userJsonFile")" || fail "Failed getting Slack user with index: $index."
 done
 #################
 
@@ -157,6 +157,6 @@ do
     fi
 
     index=$((index+1))
-    userGroup="$(jq -n "$userGroups" | jq .key["$index"])" || "Failed getting Slack group with index: $index."
+    userGroup="$(jq -n "$userGroups" | jq .key["$index"])" || fail "Failed getting Slack group with index: $index."
 done
 ##################
