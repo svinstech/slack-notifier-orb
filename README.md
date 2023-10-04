@@ -17,7 +17,7 @@ Here is an example:
               slack-bot-token: NOTIFIER_BOT_TOKEN
           - slack-notifier/send-slack-message:
               header: A header for your message.
-              message: The message to send. ${String} ${interpolation} works too. You can tag users like this: @user_name. You can tag user groups like this: !user_groups_handle
+              message: The message to send. ${String} ${interpolation} works too. You can tag users like this: @user_name. You can tag user groups like this: !user_group_handle
               channel-webhook-environment-variables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
 
 You can see further examples in src/examples/example.yml
