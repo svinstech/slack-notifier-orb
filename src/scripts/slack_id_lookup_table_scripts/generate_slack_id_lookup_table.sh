@@ -54,8 +54,8 @@ usersFormatted=$( jq . "$userJsonFile" \
 userGroupsFormatted=$( jq . "$groupJsonFile" \
         | jq -r '.usergroups[] 
         | select(. | has("deleted_by")) 
-        | select(. | "id") 
-        | select(. | "handle") 
+        | select(. | has("id")) 
+        | select(. | has("handle")) 
         | select(.deleted_by == null) 
         | "\(.handle | ascii_downcase 
         | gsub("^\\s+|\\s+$";"") 
