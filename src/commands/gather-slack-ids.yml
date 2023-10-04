@@ -27,7 +27,7 @@ steps:
       command: <<include(scripts/slack_id_lookup_table_scripts/gather_slack_data.sh)>>
   - run:
       name: Gather Slack users and user groups
-      environment: # TODO: Figure out how to do all of this in bash. (Without Typescript)
+      environment:
         SLACK_DATA_DIRECTORY_PATH: <<parameters.slack-data-directory>>
         SLACK_USER_INFO_FILE_NAME: 'slackUserInfo.json'
         SLACK_GROUP_INFO_FILE_NAME: 'slackGroupInfo.json'
