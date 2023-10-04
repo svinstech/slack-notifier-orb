@@ -88,9 +88,6 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
-      - run:
-          name: "Install dependencies"
-          command: yarn install --frozen-lockfile
       - slack-notifier/gather-slack-ids:
           slack-bot-token: NOTIFIER_BOT_TOKEN
       - slack-notifier/build-status-notification:
