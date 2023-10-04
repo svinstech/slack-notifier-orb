@@ -85,7 +85,7 @@ jobs:
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   generate-slack-id-lookup-table:
     docker:
-      - image: cimg/node:current # Notice, this says 'node' instead of 'base'.
+      - image: cimg/base:current
     steps:
       - checkout
       - run:
