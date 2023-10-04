@@ -31,18 +31,17 @@ Here are some examples:
               additional-text: Any other text you want to include.
               channel-webhook-environment-variables: SLACK_WEBHOOK
 
-You can see further examples in src/examples/example.yml
+NOTE:
+If you're going to tag a user or user group, you must first call the command `gather-slack-ids`, as seen above in `job-name-2`.
+
 
 ### WEBHOOKS & TOKENS
 
 This orb requires that the following be added as CircleCI environment variables:
 * Slack webhooks for the message recipients.
-    - The Slack webhook environment variable(s) must be used as the input for the  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_channel-webhook-environment-variables_ argument of either the _send-slack-message_   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command or the _build-status-notification_ command.
-* The "Bot User OAuth Token" (only if you intend to tag a user or a user group).
-    - The Bot User OAuth Token environment variable must be used as the input for the   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_slack-bot-token_ argument of the _gather-slack-ids_ command.
+    - The Slack webhook environment variable(s) must be used as the input for the `channel-webhook-environment-variables` argument of either the `send-slack-message` command or the `build-status-notification` command.
+* The "Bot User OAuth Token" **(only if you intend to tag a user or a user group)**.
+    - The Bot User OAuth Token environment variable must be used as the input for the `slack-bot-token` argument of the `gather-slack-ids` command.
 
 To obtain a Slack webhook or a Bot User OAuth Token, you'll need access to a Slack app.  
 
