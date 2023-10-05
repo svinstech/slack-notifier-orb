@@ -45,6 +45,15 @@ processText () {
         fi
     done
 
+    if [[ $variables ]]
+    then
+      # Replace all variables in the string with their corresponding values.
+      for variable in ${variables}
+      do
+          processedText="${processedText//\$\{${variable}\}/${!variable}}"
+      done
+    fi
+
     if [[ $taggedNames ]]
     then
       if [ ! -f "$slackIdLookupTableFilePath" ]; then
@@ -77,15 +86,6 @@ processText () {
           then
             processedText="${processedText//\!${groupHandle}/<\!subteam^${slackId}>}"
           fi
-      done
-    fi
-
-    if [[ $variables ]]
-    then
-      # Replace all variables in the string with their corresponding values.
-      for variable in ${variables}
-      do
-          processedText="${processedText//\$\{${variable}\}/${!variable}}"
       done
     fi
 
