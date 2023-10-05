@@ -101,6 +101,8 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
+      - slack-notifier/gather-slack-ids:
+          slack-bot-token: NOTIFIER_BOT_TOKEN
       - slack-notifier/ping-the-build-triggerer-on-failure
       - slack-notifier/build-status-notification:
           header: Auto-ping test result (so far, just acquiring data. This is not the auto-ping.)
