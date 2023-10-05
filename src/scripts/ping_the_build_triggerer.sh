@@ -16,7 +16,7 @@ DESTINATION_FILE1="$directoryName/testFile1.json"
 DESTINATION_FILE2="$directoryName/testFile2.json"
 
 ############### Get workflow info
-curl -o "$DESTINATION_FILE2" --request GET "https://circleci.com/api/v2/workflow/${!WORKFLOW_ID}" \
+curl -o "$DESTINATION_FILE1" --request GET "https://circleci.com/api/v2/workflow/${!WORKFLOW_ID}" \
   --header "circle-token: ${!TOKEN}" \
   --header "content-type: application/json"
 
