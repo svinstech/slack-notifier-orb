@@ -20,10 +20,10 @@ mkdir "$directoryName"
 
 DESTINATION_FILE1="$directoryName/testFile1.json"
 DESTINATION_FILE2="$directoryName/testFile2.json"
-# DESTINATION_FILE3="testFile3.json"
-# DESTINATION_FILE4="testFile4.json"
+DESTINATION_FILE3="$directoryName/testFile3.json"
+# DESTINATION_FILE4="$directoryName/testFile4.json"
 
-############### Get workflow info
+############### Get job info
 curl -o "$DESTINATION_FILE1" --request GET "https://circleci.com/api/v2/workflow/${!WORKFLOW_ID}/job" \
 --header "circle-token: ${!TOKEN}" \
 --header "content-type: application/json"# | jq '.items | .[] | select(.type == "approval") | {approved_by}'
@@ -33,10 +33,14 @@ curl -o "$DESTINATION_FILE2" --request GET "https://circleci.com/api/v2/workflow
   --header "circle-token: ${!TOKEN}" \
   --header "content-type: application/json"
 
+#TODO - Get the USER_ID from the worklfow info from the 'started_by' key.
+
+
+USER_ID="2e653c6e-a61c-423c-b838-0c2e80178320"
 ############### Get user info
-# curl --request GET \
-#   --url "https://circleci.com/api/v2/user/<USER_ID>" \
-#   --header "authorization: Basic ${!TOKEN}"
+curl -o "$DESTINATION_FILE3" --request GET "https://circleci.com/api/v2/user/${USER_ID}" \
+  --header "circle-token: ${!TOKEN}" \
+  --header "content-type: application/json"
 
 ############### Get 
 
