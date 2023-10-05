@@ -87,7 +87,6 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
-      - checkout
       - slack-notifier/gather-slack-ids:
           slack-bot-token: NOTIFIER_BOT_TOKEN
       - slack-notifier/build-status-notification:
@@ -98,6 +97,16 @@ jobs:
           header: Non-existent tag test
           additional-text: "Testing out fake tags -> @mashed_potatoes !dragon_ball_z"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
+  test-auto-ping:
+    docker:
+      - image: cimg/base:current
+    steps:
+      # - slack-notifier/gather-slack-ids:
+      #     slack-bot-token: NOTIFIER_BOT_TOKEN
+      - slack-notifier/ping-the-build-triggerer-on-failure:
+          
+
+
 
 workflows:
   test-deploy:
