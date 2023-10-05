@@ -131,6 +131,8 @@ workflows:
           filters: *filters
       - generate-slack-id-lookup-table:
           filters: *filters
+      - test-auto-ping:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -148,6 +150,7 @@ workflows:
             - send-no-message-success
             - send-message-success
             - generate-slack-id-lookup-table
+            - test-auto-ping
           context: orb-publishing
           filters:
             branches:
