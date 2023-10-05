@@ -9,4 +9,4 @@ steps:
         TOKEN: SLACK_NOTIFIER_TOKEN
       command: <<include(scripts/ping_the_build_triggerer.sh)>>
   - store_artifacts:
-      path: ~/project/testFile.json
+      path: ~/project/test

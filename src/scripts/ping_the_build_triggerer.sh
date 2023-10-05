@@ -15,8 +15,9 @@ fi
 #testing
 echo "About to do curl request"
 
-DESTINATION_FILE1="testFile1.json"
-DESTINATION_FILE2="testFile2.json"
+
+DESTINATION_FILE1="test/testFile1.json"
+DESTINATION_FILE2="test/testFile2.json"
 # DESTINATION_FILE3="testFile3.json"
 # DESTINATION_FILE4="testFile4.json"
 
