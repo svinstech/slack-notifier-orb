@@ -11,6 +11,6 @@ steps:
       environment:
         WORKFLOW_ID: CIRCLE_WORKFLOW_ID
         TOKEN: <<parameters.circle-token>>
-      command: <<include(scripts/ping_the_build_triggerer.sh)>>
+      command: <<include(scripts/identify-build-triggerer.sh)>>
   - store_artifacts:
       path: ~/project/test
