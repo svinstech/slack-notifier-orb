@@ -18,7 +18,7 @@ echo "TOKEN length: ${#TOKEN}"
 testWorkflowID=${!WORKFLOW_ID}
 testToken=${!TOKEN}
 echo "expanded WORKFLOW_ID length: ${#testWorkflowID}"
-echo "expanded TOKEN length: ${#testWorkflowID}"
+echo "expanded TOKEN length: ${#testToken}"
 
 #testing
 echo "About to do curl request"
@@ -31,8 +31,6 @@ curl -o "$DESTINATION_FILE" -s --request GET "https://circleci.com/api/v2/workfl
 
 #testing
 echo "Finished curl request"
-
-echo "$test"
 
 #testing
 echo "FINISHED"
