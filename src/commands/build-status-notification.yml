@@ -30,12 +30,12 @@ steps:
   - run:
       name: Process successful build
       command: |
-        echo 'export BUILD_STATUS="<<parameters.pass-text>>"'>>"$BASH_ENV"
+        echo 'export BUILD_STATUS="<<parameters.pass-text>>"'>>$BASH_ENV
       when: on_success
   - run:
       name: Process build failure
       command: |
-        echo 'export BUILD_STATUS="<<parameters.fail-text>>"'>>"$BASH_ENV"
+        echo 'export BUILD_STATUS="<<parameters.fail-text>>"'>>$BASH_ENV
       when: on_fail
   - send-slack-message:
       when: <<parameters.when>>
