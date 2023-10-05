@@ -24,6 +24,5 @@ echo "Finished curl request"
 
 echo "$test"
 
-
 #testing
 echo "FINISHED"
