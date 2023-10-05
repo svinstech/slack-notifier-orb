@@ -107,7 +107,7 @@ jobs:
           circle-token: CIRCLECI_PERSONAL_ACCESS_TOKEN
       - slack-notifier/build-status-notification:
           header: Auto-ping test result
-          additional-text: BUILD_TRIGGERER
+          additional-text: ${BUILD_TRIGGERER}
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 

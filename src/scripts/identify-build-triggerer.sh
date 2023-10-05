@@ -43,4 +43,4 @@ USER_NAME=$(jq . "$DESTINATION_FILE2" \
 echo "USER_NAME: $USER_NAME"
 
 # Assign the name to a new environment variable. Notice that it's prepended with an @. This is to tag that person.
-echo "export BUILD_TRIGGERER=@$USER_NAME">>"$BASH_ENV"
+echo "export BUILD_TRIGGERER='@$USER_NAME'">>"$BASH_ENV"
