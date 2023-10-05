@@ -23,18 +23,34 @@ processText () {
 
   if [[ $processedText ]]
   then
-    # Identify all interpolated variables, tagged Slack users, & tagged Slack user groups.
+    # Identify all interpolated variables.
     for word in ${processedText}
     do
         regexVariable="\\$\{(.+)\}"
-        regexTaggedName="@(.+)"
-        regexTaggedGroup="!(.*)"
 
         if [[ $word =~ $regexVariable ]]
         then
             local variableName=${BASH_REMATCH[1]}
             variables="${variables} ${variableName}"
-        elif [[ $word =~ $regexTaggedName ]]
+        fi
+    done
+
+    # Replace all variables in the string with their corresponding values.
+    if [[ $variables ]]
+    then
+      for variable in ${variables}
+      do
+          processedText="${processedText//\$\{${variable}\}/${!variable}}"
+      done
+    fi
+
+    # Identify all tagged Slack users & tagged Slack user groups.
+    for word in ${processedText}
+    do
+        regexTaggedName="@(.+)"
+        regexTaggedGroup="!(.*)"
+        
+        if [[ $word =~ $regexTaggedName ]]
         then
             local taggedName=${BASH_REMATCH[1]}
             taggedNames="${taggedNames} ${taggedName}"
@@ -45,15 +61,7 @@ processText () {
         fi
     done
 
-    if [[ $variables ]]
-    then
-      # Replace all variables in the string with their corresponding values.
-      for variable in ${variables}
-      do
-          processedText="${processedText//\$\{${variable}\}/${!variable}}"
-      done
-    fi
-
+    # Replace all taggedNames in the string with their Slack IDs.
     if [[ $taggedNames ]]
     then
       if [ ! -f "$slackIdLookupTableFilePath" ]; then
@@ -61,7 +69,6 @@ processText () {
           exit 1
       fi
 
-      # Replace all taggedNames in the string with their Slack IDs.
       for name in ${taggedNames}
       do
           slackId=$(grep "^$name=" "$slackIdLookupTableFilePath")
@@ -74,9 +81,9 @@ processText () {
       done
     fi
 
+    # Replace all taggedGroups in the string with their Slack IDs.
     if [[ $taggedGroups ]]
     then
-      # Replace all taggedGroups in the string with their Slack IDs.
       for groupHandle in ${taggedGroups}
       do
           slackId=$(grep "^$groupHandle=" "$slackIdLookupTableFilePath")
