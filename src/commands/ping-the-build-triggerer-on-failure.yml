@@ -8,5 +8,5 @@ steps:
         WORKFLOW_ID: CIRCLE_WORKFLOW_ID
         TOKEN: SLACK_NOTIFIER_TOKEN
       command: <<include(scripts/ping_the_build_triggerer.sh)>>
-- store_artifacts:
-          path: ~/project/testFile.json
+  - store_artifacts:
+      path: ~/project/testFile.json
