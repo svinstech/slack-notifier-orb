@@ -13,21 +13,36 @@ then
 fi
 
 #testing
-echo "WORKFLOW_ID length: ${#WORKFLOW_ID}"
-echo "TOKEN length: ${#TOKEN}"
-testWorkflowID=${!WORKFLOW_ID}
-testToken=${!TOKEN}
-echo "expanded WORKFLOW_ID length: ${#testWorkflowID}"
-echo "expanded TOKEN length: ${#testToken}"
-
-#testing
 echo "About to do curl request"
 
-DESTINATION_FILE="testFile.json"
+DESTINATION_FILE1="testFile1.json"
+DESTINATION_FILE2="testFile2.json"
+# DESTINATION_FILE3="testFile3.json"
+# DESTINATION_FILE4="testFile4.json"
 
-curl -o "$DESTINATION_FILE" -s --request GET "https://circleci.com/api/v2/workflow/${!WORKFLOW_ID}/job" \
+############### Get workflow info
+curl -o "$DESTINATION_FILE1" --request GET "https://circleci.com/api/v2/workflow/${!WORKFLOW_ID}/job" \
 --header "circle-token: ${!TOKEN}" \
 --header "content-type: application/json"# | jq '.items | .[] | select(.type == "approval") | {approved_by}'
+
+############### Get workflow info
+curl -o "$DESTINATION_FILE2" --request GET "https://circleci.com/api/v2/workflow/${!WORKFLOW_ID}" \
+  --header "authorization: Basic ${!TOKEN}" \
+  --header "content-type: application/json"
+
+############### Get user info
+# curl --request GET \
+#   --url "https://circleci.com/api/v2/user/<USER_ID>" \
+#   --header "authorization: Basic ${!TOKEN}"
+
+############### Get 
+
+
+
+
+
+
+
 
 #testing
 echo "Finished curl request"
