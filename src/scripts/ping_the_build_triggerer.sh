@@ -45,8 +45,15 @@ curl -o "$DESTINATION_FILE3" --request GET "https://circleci.com/api/v2/user/${U
   --header "circle-token: ${!TOKEN}" \
   --header "content-type: application/json"
 
-#TODO - Extract the USER_NAME from the user info from the 'login' key.
-USER_NAME=$(jq -r '.login' "$DESTINATION_FILE3")
+# Extract 'login' value and convert it from PascalCase to snake_case.
+USER_NAME=$(jq . "$DESTINATION_FILE3" \
+        | jq -r '.login 
+        | "\(.)" 
+        | gsub("(?<a>[A-Z])"; "_\(.a)") 
+        | gsub("(?<a>[A-Z])"; "\(.a 
+        | ascii_downcase)") 
+        | gsub("^_"; "")')
+
 
 #testing
 echo "USER_NAME: $USER_NAME"
