@@ -44,10 +44,8 @@ usersFormatted=$( jq . "$userJsonFile" \
         | select(.profile | has("first_name")) 
         | select(.profile | has("last_name")) 
         | select(.profile | has("email")) 
-        | "\(.profile.first_name 
-        | ascii_downcase 
-        | gsub("[ _]|\\(.*\\)|'\''";""))_\(.profile.last_name 
-        | ascii_downcase 
+        | "\(.profile.first_name
+        | gsub("[ _]|\\(.*\\)|'\''";""))\(.profile.last_name
         | gsub("[ _]|\\(.*\\)|'\''";""))=\(.id)"')
 
 ##### GROUPS #####
