@@ -6,49 +6,62 @@ Firstly, create a reference to this orb like this:
         slack-notifier: svinstech/slack-notifier-orb@1
 
 Then, in a job of your choosing, you can send a Slack message as a step.
-Here is an example:  
+Here are some examples:  
 
     jobs:
       job-name
         docker:
-          - image: cimg/node:current
+          - image: cimg/base:current
+        steps: 
+          - slack-notifier/send-slack-message:
+              header: A header for your message.
+              message: The message to send. You may also use ${String} ${interpolation} with environment variables.
+              channel-webhook-environment-variables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
+      job-name-2
+        docker:
+          - image: cimg/base:current
         steps: 
           - slack-notifier/gather-slack-ids:
               slack-bot-token: NOTIFIER_BOT_TOKEN
-          - slack-notifier/send-slack-message:
+          - slack-notifier/build-status-notification:
               header: A header for your message.
-              message: The message to send. ${String} ${interpolation} works too. You can tag users like this: @user_name. You can tag user groups like this: !user_groups_handle
-              channel-webhook-environment-variables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
+              pass-text: Tests passed! :checkmark:
+              fail-text: Failures detected! !slack-group-handle @slack-user-handle
+              when: always
+              additional-text: Any other text you want to include.
+              channel-webhook-environment-variables: SLACK_WEBHOOK
 
-You can see further examples in src/examples/example.yml
+#### TAGGING:
+If you're going to tag a user or user group, you must first call the command `gather-slack-ids`, as seen above in `job-name-2`.    
+Explained below is how to obtain the value for its `slack-bot-token` parameter.
+
 
 ### WEBHOOKS & TOKENS
 
 This orb requires that the following be added as CircleCI environment variables:
-1. Slack webhooks for the message recipients.
-1a. The Slack webhook environment variable(s) must be used as the input for the  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_channel-webhook-environment-variables_ argument of either the _send-slack-message_   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command or the _build-status-notification_ command.
-2. The "Bot User OAuth Token" (only if you intend to tag a user or a user group).
-2a The Bot User OAuth Token environment variable must be used as the input for the   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_slack-bot-token_ argument of the _gather-slack-ids_ command.
+* Slack webhooks for the message recipients.
+    - The Slack webhook environment variable(s) must be used as the input for the `channel-webhook-environment-variables` argument of either the `send-slack-message` command or the `build-status-notification` command.
+* The "Bot User OAuth Token" **(only if you intend to tag a user or a user group)**.
+    - The Bot User OAuth Token environment variable must be used as the input for the `slack-bot-token` argument of the `gather-slack-ids` command.
 
-To obtain a Slack webhook or a Bot User OAuth Token, you'll need access to a Slack app.  
-
+#### Obtaining a Slack webhook or a Bot User OAuth Token
+You'll need access to a Slack app.  
 Here are 2 ways to do this:  
 
-1. (THE EASY WAY) Make a Jira card on the [Quality team's Jira board](https://vouchinc.atlassian.net/jira/software/c/projects/QA/boards/74/backlog?issueLimit=100). In that card, request to be made a collaborator on the Slack app called Notifier. Assign the card to Kellen Kincaid or any other SDET on the Quality team. Once you've been made a collaborator, you should see that app listed [here](https://api.slack.com/apps)  
+1. (THE EASY WAY) Make a Jira card on the [Quality team's Jira board](https://vouchinc.atlassian.net/jira/software/c/projects/QA/boards/74/backlog?issueLimit=100). In that card, request to be made a collaborator on the Slack app called **Notifier**. Assign the card to Kellen Kincaid or any other SDET on the Quality team. Once you've been made a collaborator, you should see the **Notifier** app listed [here](https://api.slack.com/apps)  
 
 2. (THE LESS EASY WAY) If you'd rather create your own Slack app, you can do that [here](https://api.slack.com/apps).  
-After clicking the _Create an app_ button, you'll be asked how you'd like to configure your app's settings. Select _From scratch_.  
-Then you'll be asked to pick a workspace to develop your app.  Select _Vouch Insurance_ from the dropdown menu.  
-After creating your app, you may need to request approval from a Slack admin.  
-As of June 20, 2023, some Slack admins include: Yvonne Medellin & Cody Carter.  
+After clicking the **Create an app** button, you'll be asked how you'd like to configure your app's settings. Select **From scratch**.  
+Then you'll be asked to pick a workspace to develop your app.  Select **Vouch Insurance** from the dropdown menu.  
+After creating your app, you may need to **request approval from a Slack admin**.  
+As of June, 2023, some Slack admins include: Yvonne Medellin & Cody Carter.  
 
-To get a Slack webhook, navigate into the Slack app and go to the _Incoming Webhooks_ section (under 'Features'). Click the "Activate" button if the section is inactive.  
+##### Webhooks
+To get a Slack webhook, navigate into the Slack app and go to the **Incoming Webhooks** section (under **Features**). Click the **Activate** button if the section is inactive.  
 From there, you can add new webhooks, or copy existing ones.  
   
-To get the Bot User OAuth Token, navigate into the Slack app and go to the _OAuth & Permissions_ section (under 'Features'). From there, the Bot User OAuth Token will be under the 'OAuth Tokens for Your Workspace' header. If you made your own Slack app, then you'll have to generate a new Bot User OAuth Token.
+##### Bot User OAuth Token
+To get the **Bot User OAuth Token**, navigate into the Slack app and go to the **OAuth & Permissions** section (under **Features**). From there, the **Bot User OAuth Token** will be under the **OAuth Tokens for Your Workspace** header. If you made your own Slack app, then you'll have to generate a new **Bot User OAuth Token**.
 
 ---
 
