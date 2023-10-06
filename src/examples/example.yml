@@ -59,7 +59,7 @@ usage:
             slack-bot-token: NOTIFIER_BOT_TOKEN
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message that tags a user
-            message: "Tagging @kellen_kincaid"
+            message: "Tagging @KellenKincaid"
             channel-webhook-environment-variables: TEST_SLACK_WEBHOOK_1
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message that tags a user group

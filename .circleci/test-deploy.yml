@@ -91,11 +91,11 @@ jobs:
           slack-bot-token: NOTIFIER_BOT_TOKEN
       - slack-notifier/build-status-notification:
           header: Tag test
-          additional-text: "Testing out tagging Kellen Kincaid & SDET group -> @kellen_kincaid !sdet"
+          additional-text: "Testing out tagging Kellen Kincaid & SDET group -> @KellenKincaid !sdet"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
       - slack-notifier/build-status-notification:
           header: Non-existent tag test
-          additional-text: "Testing out fake tags -> @mashed_potatoes !dragon_ball_z"
+          additional-text: "Testing out fake tags -> @MashedPotatoes !dragon_ball_z"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   test-auto-ping:
     docker:

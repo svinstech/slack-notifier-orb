@@ -9,7 +9,7 @@ fi
 
 # Takes 1 argument - The text to process.
 # All interpolated variables in the text will be replaced with their corresponding values.
-# All tagged Slack users (like @kellen_kincaid) will be replaced with the corresponding Slack ID.
+# All tagged Slack users (like @KellenKincaid) will be replaced with the corresponding Slack ID.
 # Also, all escaped double-quotation marks will be replaced with single quotation marks.
 processText () {
   local processedText=$1
