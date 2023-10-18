@@ -5,6 +5,10 @@ if [ ! -x "$(which curl)" ]
 then
   apt update; apt install -y curl; 
 fi
+
+################################## GENERATE THE SLACK ID LOOKUP TABLE.
+bash create_slack_id_lookup_table.sh
+
 ################################## PROCESS THE SLACK MESSAGE & HEADER.
 
 # Takes 1 argument - The text to process.

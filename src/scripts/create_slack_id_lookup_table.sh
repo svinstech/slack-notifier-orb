@@ -1,5 +1,6 @@
+#!/bin/bash
 
-sam_hodges=UBWCQ2R9V
+lookupTableData="sam_hodges=UBWCQ2R9V
 travis_hedge=UBZ88S286
 evan_roman=UDPSAK2BF
 kelly_wulff=UEJ5Z72N6
@@ -286,4 +287,19 @@ monlith-reps=S0575H5MBJ7
 sdet=S05TE8XBD5F
 horizon-aes=S0603E1TFU3
 horizon-sellers=S06060WCG12
+"
 
+# Path variables.
+SLACK_DATA_DIRECTORY_PATH="slackData"
+SLACK_ID_LOOKUP_TABLE_FILE_NAME="slackIdLookupTable.txt"
+
+# Create the slack data direcoty.
+mkdir -p "${SLACK_DATA_DIRECTORY_PATH}"
+
+# Create file for lookup table.
+lookupTableFile="${SLACK_DATA_DIRECTORY_PATH}/${SLACK_ID_LOOKUP_TABLE_FILE_NAME}"
+touch "$lookupTableFile" # Create the lookup table.
+echo "" > "$lookupTableFile" # Clear the lookup table if it already existed.
+
+# Put the Slack data in the file.
+echo "$lookupTableData" >> "${lookupTableFile}"
