@@ -110,7 +110,7 @@ processedHeader="$(processText "$HEADER")"
 
 ################################## SEND THE SLACK MESSAGE (NOTE - the 'text' fields must not be empty. That is why there is a trailing space after ${processedMessage}.)
 for webhook in ${CHANNEL_WEBHOOKS}; do
-  if [ -z "${!webhook}"]
+  if [ -z "${!webhook}" ]
   then
       echo "Webhook is empty."
       continue
