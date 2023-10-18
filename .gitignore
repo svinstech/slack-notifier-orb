@@ -9,3 +9,4 @@ temporary*
 **/dist
 **/node_modules
 .env
+**/oldCommands
