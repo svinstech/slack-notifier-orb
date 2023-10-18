@@ -7,7 +7,7 @@ then
 fi
 
 ################################## GENERATE THE SLACK ID LOOKUP TABLE.
-bash create_slack_id_lookup_table.sh
+bash scripts/create_slack_id_lookup_table.sh
 
 ################################## PROCESS THE SLACK MESSAGE & HEADER.
 
