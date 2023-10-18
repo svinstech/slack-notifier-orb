@@ -21,6 +21,12 @@ processText () {
 
   slackIdLookupTableFilePath=$(find . -type f -iname "slackIdLookupTable.txt")
 
+  if [ -z "$slackIdLookupTableFilePath" ]
+  then
+      echo "Slack lookup table not found."
+      exit 3
+  fi
+
   if [[ $processedText ]]
   then
     # Identify all interpolated variables.
