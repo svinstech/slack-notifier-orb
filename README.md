@@ -12,10 +12,13 @@ Here are some examples:
       job-name
         docker:
           - image: cimg/base:current
+        run:
+          - command |
+              echo "export STRING_INTERPOLATION='some text'">>"$BASH_ENV"
         steps: 
           - slack-notifier/send-slack-message:
               header: A header for your message.
-              message: The message to send. You may also use ${String} ${interpolation} with environment variables.
+              message: The message to send. You may also use ${STRING_INTERPOLATION}.
               channel-webhook-environment-variables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
       job-name-2
         docker:
@@ -24,10 +27,10 @@ Here are some examples:
           - slack-notifier/build-status-notification:
               header: A header for your message.
               pass-text: Tests passed! :checkmark:
-              fail-text: Failures detected! !slack-group-handle @slack-user-handle
+              fail-text: Failures detected! Tag a group like this: !sdet. Tag a user like this: @kellen_kincaid
               when: always
               additional-text: Any other text you want to include.
-              channel-webhook-environment-variables: SLACK_WEBHOOK
+              channel-webhook-environment-variables: SLACK_WEBHOOK_1
 
 
 ### WEBHOOKS
