@@ -10,3 +10,4 @@ temporary*
 **/node_modules
 .env
 **/oldCommands
+**/generate_slack_id_lookup_table.sh
