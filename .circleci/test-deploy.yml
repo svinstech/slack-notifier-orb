@@ -97,18 +97,6 @@ jobs:
           header: Non-existent tag test
           additional-text: "Testing out fake tags -> @mashed_potatoes !dragon_ball_z"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
-  test-auto-ping:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - slack-notifier/gather-slack-ids:
-          slack-bot-token: NOTIFIER_BOT_TOKEN
-      - slack-notifier/identify-build-triggerer:
-          circle-token: CIRCLECI_PERSONAL_ACCESS_TOKEN
-      - slack-notifier/build-status-notification:
-          header: Auto-ping test result
-          additional-text: ${BUILD_TRIGGERER}
-          channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
 
 
 
@@ -135,8 +123,6 @@ workflows:
           filters: *filters
       - generate-slack-id-lookup-table:
           filters: *filters
-      - test-auto-ping:
-          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -154,7 +140,6 @@ workflows:
             - send-no-message-success
             - send-message-success
             - generate-slack-id-lookup-table
-            - test-auto-ping
           context: orb-publishing
           filters:
             branches:
