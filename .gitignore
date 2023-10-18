@@ -4,7 +4,6 @@ orb.yml
 slackIds.json
 slackUserInfo.json
 slackGroupInfo.json
-**/slackData
 deleteme*
 temporary*
 **/dist
