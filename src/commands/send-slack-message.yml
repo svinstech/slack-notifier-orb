@@ -19,6 +19,7 @@ parameters:
     description: When to send the notification.
 steps:
   - run:
+      when: <<parameters.when>>
       name: Generate Slack ID lookup table
       command: <<include(scripts/create_slack_id_lookup_table.sh)>>
   - run:
