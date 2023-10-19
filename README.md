@@ -12,39 +12,34 @@ Here are some examples:
       job-name
         docker:
           - image: cimg/base:current
+        run:
+          - command |
+              echo "export STRING_INTERPOLATION='some text'">>"$BASH_ENV"
         steps: 
           - slack-notifier/send-slack-message:
               header: A header for your message.
-              message: The message to send. You may also use ${String} ${interpolation} with environment variables.
+              message: The message to send. You may also use ${STRING_INTERPOLATION}.
               channel-webhook-environment-variables: SLACK_WEBHOOK_1 SLACK_WEBHOOK_2
       job-name-2
         docker:
           - image: cimg/base:current
         steps: 
-          - slack-notifier/gather-slack-ids:
-              slack-bot-token: NOTIFIER_BOT_TOKEN
           - slack-notifier/build-status-notification:
               header: A header for your message.
               pass-text: Tests passed! :checkmark:
-              fail-text: Failures detected! !slack-group-handle @slack-user-handle
+              fail-text: Failures detected! Tag a group like this: !sdet. Tag a user like this: @kellen_kincaid
               when: always
               additional-text: Any other text you want to include.
-              channel-webhook-environment-variables: SLACK_WEBHOOK
-
-#### TAGGING:
-If you're going to tag a user or user group, you must first call the command `gather-slack-ids`, as seen above in `job-name-2`.    
-Explained below is how to obtain the value for its `slack-bot-token` parameter.
+              channel-webhook-environment-variables: SLACK_WEBHOOK_1
 
 
-### WEBHOOKS & TOKENS
+### WEBHOOKS
 
 This orb requires that the following be added as CircleCI environment variables:
 * Slack webhooks for the message recipients.
     - The Slack webhook environment variable(s) must be used as the input for the `channel-webhook-environment-variables` argument of either the `send-slack-message` command or the `build-status-notification` command.
-* The "Bot User OAuth Token" **(only if you intend to tag a user or a user group)**.
-    - The Bot User OAuth Token environment variable must be used as the input for the `slack-bot-token` argument of the `gather-slack-ids` command.
 
-#### Obtaining a Slack webhook or a Bot User OAuth Token
+#### Obtaining a Slack webhook
 You'll need access to a Slack app.  
 Here are 2 ways to do this:  
 
@@ -59,9 +54,6 @@ As of June, 2023, some Slack admins include: Yvonne Medellin & Cody Carter.
 ##### Webhooks
 To get a Slack webhook, navigate into the Slack app and go to the **Incoming Webhooks** section (under **Features**). Click the **Activate** button if the section is inactive.  
 From there, you can add new webhooks, or copy existing ones.  
-  
-##### Bot User OAuth Token
-To get the **Bot User OAuth Token**, navigate into the Slack app and go to the **OAuth & Permissions** section (under **Features**). From there, the **Bot User OAuth Token** will be under the **OAuth Tokens for Your Workspace** header. If you made your own Slack app, then you'll have to generate a new **Bot User OAuth Token**.
 
 ---
 

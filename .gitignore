@@ -4,9 +4,11 @@ orb.yml
 slackIds.json
 slackUserInfo.json
 slackGroupInfo.json
-**/slackData
 deleteme*
 temporary*
 **/dist
 **/node_modules
 .env
+**/oldCommands
+**/generate_slack_id_lookup_table.sh
+**/slackData

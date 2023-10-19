@@ -5,6 +5,7 @@ if [ ! -x "$(which curl)" ]
 then
   apt update; apt install -y curl; 
 fi
+
 ################################## PROCESS THE SLACK MESSAGE & HEADER.
 
 # Takes 1 argument - The text to process.
@@ -20,6 +21,12 @@ processText () {
   local slackId=""
 
   slackIdLookupTableFilePath=$(find . -type f -iname "slackIdLookupTable.txt")
+
+  if [ -z "$slackIdLookupTableFilePath" ]
+  then
+      echo "Slack lookup table not found."
+      exit 3
+  fi
 
   if [[ $processedText ]]
   then
@@ -110,6 +117,12 @@ processedHeader="$(processText "$HEADER")"
 
 ################################## SEND THE SLACK MESSAGE (NOTE - the 'text' fields must not be empty. That is why there is a trailing space after ${processedMessage}.)
 for webhook in ${CHANNEL_WEBHOOKS}; do
+  if [ -z "${!webhook}" ]
+  then
+      echo "Webhook is empty."
+      continue
+  fi
+
   curl -X POST -H 'Content-type: application/json' \
     --data "{ \
               \"blocks\": \

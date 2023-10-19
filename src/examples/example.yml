@@ -55,8 +55,6 @@ usage:
       docker:
         - image: cimg/base:current
       steps:
-        - slack-notifier/gather-slack-ids:
-            slack-bot-token: NOTIFIER_BOT_TOKEN
         - slack-notifier/send-slack-message:
             header: TESTING SLACK-NOTIFICATION ORB - Message that tags a user
             message: "Tagging @kellen_kincaid"
