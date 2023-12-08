@@ -29,9 +29,12 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
+      - run:
+          command: |
+            echo "export NEW_VARIABLE='cheese puffs'">>"$BASH_ENV"
       - slack-notifier/send-slack-message: 
           header: TEST - STRING INTERPOLATION
-          message: "These are some variables: ${WEBHOOK_KELLEN_KINCAID} ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC}"
+          message: "These are some variables: ${WEBHOOK_KELLEN_KINCAID} ${WEBHOOK_CHANNEL_SLACK_NOTIFIER_PUBLIC} ${NEW_VARIABLE}"
           channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-message-4:
     docker:
