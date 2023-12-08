@@ -59,6 +59,7 @@ jobs:
   #     - slack-notifier/build-status-notification: 
   #         header: "Intentional failure"
   #         when: "on_fail"
+  #         fail-text: "Tagging on failure: @kellen_kincaid !sdet"
   #         channel-webhook-environment-variables: WEBHOOK_KELLEN_KINCAID
   send-no-message-success:
     docker:
